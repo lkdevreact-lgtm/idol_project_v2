@@ -105,7 +105,7 @@ export const GreenScreenVideo = ({ videoSrc }) => {
     <mesh
       ref={meshRef}
       position={[-0.1, -2, -5]}
-      scale={[5, 12, 1]}
+      scale={[5, 10, 1]}
     >
       <planeGeometry args={[1, 1]} />
       <shaderMaterial

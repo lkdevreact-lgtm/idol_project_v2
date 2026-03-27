@@ -30,7 +30,7 @@ const arrModels = [
     id: 5,
     name: "Model 5",
     image: "/images/moews.jpeg",
-    video: "/video/dance-4.mp4",
+    video: "/video/video-3.mp4",
   },
 ];
 
