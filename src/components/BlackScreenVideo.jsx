@@ -11,8 +11,10 @@ const vertexShader = /* glsl */ `
 
 const fragmentShader = /* glsl */ `
   uniform sampler2D uTexture;
-  uniform float uThreshold;
-  uniform float uSmoothing;
+  uniform float uThresholdBlack;
+  uniform float uSmoothingBlack;
+  uniform float uThresholdGreen;
+  uniform float uSmoothingGreen;
   varying vec2 vUv;
 
   float getBrightness(vec3 color) {
@@ -28,21 +30,35 @@ const fragmentShader = /* glsl */ `
   void main() {
     vec4 color = texture2D(uTexture, vUv);
 
+    // --- Xử lý nền đen ---
     float brightness = getBrightness(color.rgb);
     float saturation = getSaturation(color.rgb);
-
-    // nền đen = tối + ít màu
     float mask = brightness * 0.7 + saturation * 0.3;
-
-    float alpha = smoothstep(
-      uThreshold - uSmoothing,
-      uThreshold + uSmoothing,
+    float alphaBlack = smoothstep(
+      uThresholdBlack - uSmoothingBlack,
+      uThresholdBlack + uSmoothingBlack,
       mask
     );
 
+    // --- Xử lý nền xanh ---
+    float greenness = color.g - max(color.r, color.b);
+    float alphaGreen = 1.0 - smoothstep(
+      uThresholdGreen - uSmoothingGreen,
+      uThresholdGreen + uSmoothingGreen,
+      greenness
+    );
+    alphaGreen = pow(alphaGreen, 1.5); // làm gọn viền
+
+    // Alpha tổng (nếu nền đen HẶC nền xanh thì đều trong suốt)
+    float alpha = min(alphaBlack, alphaGreen);
+
     if (alpha < 0.02) discard;
 
-    gl_FragColor = vec4(color.rgb, alpha);
+    // Khử viền xanh (chỉ áp dụng nhẹ vùng viền)
+    vec3 finalColor = color.rgb;
+    finalColor.g = min(finalColor.g, max(finalColor.r, finalColor.b));
+
+    gl_FragColor = vec4(finalColor, alpha);
   }
 `;
 
@@ -54,8 +70,10 @@ export const BlackScreenVideo = ({ videoSrc }) => {
   const uniforms = useMemo(
     () => ({
       uTexture: { value: null },
-      uThreshold: { value: 0.09 },
-      uSmoothing: { value: 0.08 },
+      uThresholdBlack: { value: 0.09 },
+      uSmoothingBlack: { value: 0.08 },
+      uThresholdGreen: { value: 0.4 },
+      uSmoothingGreen: { value: 0.06 },
     }),
     [],
   );

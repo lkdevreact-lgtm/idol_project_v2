@@ -12,13 +12,13 @@ const arrModels = [
     id: 2,
     name: "Model 2",
     image: "/images/moews.jpeg",
-    video: "/video/dance-2.mp4",
+    video: "/video/bideo-1.mov",
   },
   {
     id: 3,
     name: "Model 3",
     image: "/images/moews.jpeg",
-    video: "/video/tieu_my.mp4",
+    video: "/video/video-2.mp4",
   },
   {
     id: 4,

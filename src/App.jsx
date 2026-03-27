@@ -30,7 +30,7 @@ const StageLights = () => {
 
   useFrame((state) => {
     const t = state.clock.elapsedTime
-    
+
     // Flashing effect and moving slightly
     if (spotLightRef1.current) {
       spotLightRef1.current.intensity = 4 + Math.sin(t * 6) * 4
@@ -53,14 +53,14 @@ const StageLights = () => {
       <primitive object={targetMain} />
 
       <ambientLight intensity={8} color="#fff8e7" />
-      
+
       {/* Main Center Light - Silver/White */}
       <SpotLight
         ref={mainSpotLightRef}
         penumbra={0.8}
         distance={25}
         angle={0.85}
-        attenuation={4}
+        attenuation={10}
         anglePower={5}
         intensity={6}
         color="#f8f9fa"
@@ -72,9 +72,9 @@ const StageLights = () => {
       <SpotLight
         ref={spotLightRef1}
         penumbra={0.7}
-        distance={25}
+        distance={20}
         angle={0.7}
-        attenuation={5}
+        attenuation={10}
         anglePower={4}
         intensity={4}
         color="#ffd700"
@@ -88,7 +88,7 @@ const StageLights = () => {
         penumbra={0.7}
         distance={25}
         angle={0.7}
-        attenuation={5}
+        attenuation={10}
         anglePower={4}
         intensity={4}
         color="#fff1ba"
@@ -105,12 +105,12 @@ const App = () => {
   return (
     <div className="w-screen h-screen relative overflow-hidden bg-black">
       {/* Background Image */}
-      <img 
-        src="/images/background.png" 
-        alt="background" 
+      <img
+        src="/images/background.png"
+        alt="background"
         className="absolute inset-0 w-full h-full object-cover"
       />
-      
+
       {/* 3D Canvas Layer */}
       <div className="absolute inset-0 z-0">
         <Canvas>
