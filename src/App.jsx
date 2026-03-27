@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { SpotLight } from '@react-three/drei'
 import { useVideoStore } from './hooks/useVideoStore'
@@ -12,81 +12,88 @@ const StageLights = () => {
   const spotLightRef2 = useRef()
   const mainSpotLightRef = useRef()
 
-  const target1 = useRef(new THREE.Object3D())
-  const target2 = useRef(new THREE.Object3D())
-  const targetMain = useRef(new THREE.Object3D())
-
-  // target positions
-  target1.current.position.set(0, -1, -5)
-  target2.current.position.set(0, -1, -5)
-  targetMain.current.position.set(0, -1, -5)
+  const [target1] = useState(() => {
+    const obj = new THREE.Object3D()
+    obj.position.set(-1, -2, -5)
+    return obj
+  })
+  const [target2] = useState(() => {
+    const obj = new THREE.Object3D()
+    obj.position.set(1, -2, -5)
+    return obj
+  })
+  const [targetMain] = useState(() => {
+    const obj = new THREE.Object3D()
+    obj.position.set(0, -2, -5)
+    return obj
+  })
 
   useFrame((state) => {
     const t = state.clock.elapsedTime
     
     // Flashing effect and moving slightly
     if (spotLightRef1.current) {
-      spotLightRef1.current.intensity = 3 + Math.sin(t * 6) * 3
-      spotLightRef1.current.position.x = -3 + Math.sin(t * 2) * 1.5
+      spotLightRef1.current.intensity = 4 + Math.sin(t * 6) * 4
+      spotLightRef1.current.position.x = -4 + Math.sin(t * 2) * 2
     }
     if (spotLightRef2.current) {
-      spotLightRef2.current.intensity = 3 + Math.cos(t * 7) * 3
-      spotLightRef2.current.position.x = 3 + Math.cos(t * 1.5) * 1.5
+      spotLightRef2.current.intensity = 4 + Math.cos(t * 7) * 4
+      spotLightRef2.current.position.x = 4 + Math.cos(t * 1.5) * 2
     }
     // Main spotlight flickering slightly
     if (mainSpotLightRef.current) {
-      mainSpotLightRef.current.intensity = 5 + Math.sin(t * 10) * 1
+      mainSpotLightRef.current.intensity = 6 + Math.sin(t * 10) * 1.5
     }
   })
 
   return (
     <>
-      <primitive object={target1.current} />
-      <primitive object={target2.current} />
-      <primitive object={targetMain.current} />
+      <primitive object={target1} />
+      <primitive object={target2} />
+      <primitive object={targetMain} />
 
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={8} color="#fff8e7" />
       
-      {/* Main Center Light */}
+      {/* Main Center Light - Silver/White */}
       <SpotLight
         ref={mainSpotLightRef}
         penumbra={0.8}
-        distance={20}
-        angle={0.6}
+        distance={25}
+        angle={0.85}
         attenuation={4}
         anglePower={5}
-        intensity={5}
-        color="#ffffff"
+        intensity={6}
+        color="#f8f9fa"
         position={[0, 6, 2]}
-        target={targetMain.current}
+        target={targetMain}
       />
 
-      {/* Flashing Light 1 */}
+      {/* Flashing Light 1 - Golden Yellow */}
       <SpotLight
         ref={spotLightRef1}
-        penumbra={0.6}
-        distance={20}
-        angle={0.4}
+        penumbra={0.7}
+        distance={25}
+        angle={0.7}
         attenuation={5}
         anglePower={4}
-        intensity={3}
-        color="#ff00ff"
-        position={[-3, 5, 2]}
-        target={target1.current}
+        intensity={4}
+        color="#ffd700"
+        position={[-4, 5, 2]}
+        target={target1}
       />
 
-      {/* Flashing Light 2 */}
+      {/* Flashing Light 2 - Warm Silver/Yellow */}
       <SpotLight
         ref={spotLightRef2}
-        penumbra={0.6}
-        distance={20}
-        angle={0.4}
+        penumbra={0.7}
+        distance={25}
+        angle={0.7}
         attenuation={5}
         anglePower={4}
-        intensity={3}
-        color="#00ffff"
-        position={[3, 5, 2]}
-        target={target2.current}
+        intensity={4}
+        color="#fff1ba"
+        position={[4, 5, 2]}
+        target={target2}
       />
     </>
   )
