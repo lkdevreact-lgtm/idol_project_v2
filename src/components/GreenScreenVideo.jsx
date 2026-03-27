@@ -79,7 +79,7 @@ export const GreenScreenVideo = ({ videoSrc }) => {
 
     // khi video có frame đầu
     const handleLoaded = () => {
-      video.play().catch(() => {});
+      video.play().catch(() => { });
 
       uniforms.uTexture.value = texture;
 
@@ -104,8 +104,8 @@ export const GreenScreenVideo = ({ videoSrc }) => {
   return (
     <mesh
       ref={meshRef}
-      position={[-0.1, -0.2, -5]}
-      scale={[1, 2, 1]}
+      position={[-0.1, -2, -5]}
+      scale={[5, 12, 1]}
     >
       <planeGeometry args={[1, 1]} />
       <shaderMaterial

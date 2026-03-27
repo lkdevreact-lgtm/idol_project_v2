@@ -1,11 +1,12 @@
 import React from "react";
+import { useVideoStore } from "../hooks/useVideoStore";
 
 const arrModels = [
   {
     id: 1,
     name: "Model 1",
     image: "/images/moews.jpeg",
-    video: "/video/black_1.mp4",
+    video: "/video/anhsang.mp4",
   },
   {
     id: 2,
@@ -34,6 +35,8 @@ const arrModels = [
 ];
 
 const SelectThumbnail = () => {
+  const setSelectedVideo = useVideoStore((state) => state.setSelectedVideo);
+
   return (
     <section className="fixed inset-0 z-10 flex items-center justify-center pointer-events-none">
       <div className="absolute bg-red-500 right-4 w-[300px] h-[400px] flex flex-col overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xs">
@@ -48,7 +51,8 @@ const SelectThumbnail = () => {
             return (
               <div
                 key={model.id}
-                className="w-full flex items-center justify-between px-3 cursor-pointer pointer-events-auto rounded-xl py-1 transition-all"
+                onClick={() => setSelectedVideo(model.video)}
+                className="w-full flex items-center justify-between px-3 cursor-pointer pointer-events-auto rounded-xl py-1 transition-all hover:bg-white/20"
               >
                 <div className="rounded-md overflow-hidden border-2">
                   <img
