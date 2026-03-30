@@ -16,6 +16,10 @@ const fragmentShader = /* glsl */ `
   uniform float uThresholdGreen;
   uniform float uSmoothingGreen;
   
+  // Uniform cho Reflection
+  uniform float uClipY;
+  uniform float uReflectSpace;
+  
   // Các uniform cho hiệu ứng Aura
   uniform vec3 uAuraColor;
   uniform float uAuraSize;
@@ -64,9 +68,14 @@ const fragmentShader = /* glsl */ `
   }
 
   void main() {
-    vec4 color = texture2D(uTexture, vUv);
+    // 1. Remap UV để tạo không gian bên dưới cho reflection
+    // uReflectSpace (ví dụ 0.25) dành 25% chiều cao mesh bên dưới cho bóng, 75% bên trên cho video gốc
+    vec2 mappedUv = vUv;
+    mappedUv.y = (vUv.y - uReflectSpace) / (1.0 - uReflectSpace);
+
+    vec4 color = texture2D(uTexture, mappedUv);
     
-    float alpha = getAlpha(vUv);
+    float alpha = getAlpha(mappedUv);
 
     // Xử lý viền (Aura)
     float auraAlpha = 0.0;
@@ -74,23 +83,21 @@ const fragmentShader = /* glsl */ `
     float radius = uAuraSize; // Bán kính viền
     float twopi = 6.28318530718;
     
-    for (int i = 0; i < samples; i++) {
-        float angle = float(i) * twopi / float(samples);
-        vec2 offset = vec2(cos(angle), sin(angle)) * radius;
-        auraAlpha += getAlpha(vUv + offset);
+    if (uAuraSize > 0.0) {
+        for (int i = 0; i < samples; i++) {
+            float angle = float(i) * twopi / float(samples);
+            vec2 offset = vec2(cos(angle), sin(angle)) * radius;
+            // Áp dụng scale tỷ lệ ngược lại cho Y để viền aura không bị móp/méo
+            offset.y *= (1.0 - uReflectSpace);
+            auraAlpha += getAlpha(mappedUv + offset);
+        }
+        auraAlpha /= float(samples);
+        auraAlpha = clamp(auraAlpha * uAuraIntensity, 0.0, 1.0);
+        auraAlpha = smoothstep(0.0, 0.8, auraAlpha);
     }
-    
-    auraAlpha /= float(samples);
-    auraAlpha = clamp(auraAlpha * uAuraIntensity, 0.0, 1.0);
-    
-    // Smooth rìa aura để blend mượt hơn
-    auraAlpha = smoothstep(0.0, 0.8, auraAlpha);
     
     // Aura chỉ xuất hiện ở vùng ngoài nhân vật
     float finalAuraAlpha = auraAlpha * (1.0 - alpha);
-    
-    // Nếu cả char và aura đều mờ, loại bỏ pixel
-    if (alpha < 0.02 && finalAuraAlpha < 0.02) discard;
 
     // Khử viền xanh (chỉ áp dụng nhẹ vùng viền)
     vec3 finalColor = color.rgb;
@@ -99,6 +106,34 @@ const fragmentShader = /* glsl */ `
     // Phối màu: alpha của nhân vật quyết định màu finalColor, ngược lại là aura
     vec3 outColor = mix(uAuraColor, finalColor, alpha);
     float outAlpha = max(alpha, finalAuraAlpha);
+
+    // --- HIỆU ỨNG REFLECTION ---
+    if (mappedUv.y < uClipY) {
+        vec2 refUv = vec2(mappedUv.x, 2.0 * uClipY - mappedUv.y);
+        
+        // Thêm distortion nhẹ (ví dụ như mặt sàn bóng/nước)
+        refUv.x += sin(mappedUv.y * 100.0) * ((uClipY - mappedUv.y) * 0.02);
+
+        float refAlphaSrc = getAlpha(refUv);
+        
+        if (refAlphaSrc > 0.0) {
+            vec4 rColor = texture2D(uTexture, refUv);
+            rColor.g = min(rColor.g, max(rColor.r, rColor.b));
+            
+            float dist = uClipY - mappedUv.y;
+            float fade = smoothstep(1.3, 0.0, dist); // mờ dần trong khoảng 1.3 UV
+            
+            float finalRefAlpha = refAlphaSrc * fade * 0.4; // Opacity thấp hơn
+            
+            // Blend: Nhân vật chính (outColor, outAlpha) đè lên Reflection
+            vec3 blendedColor = mix(rColor.rgb, outColor, outAlpha);
+            outAlpha = outAlpha + finalRefAlpha * (1.0 - outAlpha);
+            outColor = blendedColor;
+        }
+    }
+
+    // Nếu rỗng hoàn toàn thì discard
+    if (outAlpha < 0.02) discard;
 
     gl_FragColor = vec4(outColor, outAlpha);
   }
@@ -116,6 +151,8 @@ export const BlackScreenVideo = ({ videoSrc }) => {
       uSmoothingBlack: { value: 0.08 },
       uThresholdGreen: { value: 0.4 },
       uSmoothingGreen: { value: 0.06 },
+      uClipY: { value: 0.1 }, // Vị trí giới hạn dọc cho reflection
+      uReflectSpace: { value: 0.25 }, // % không gian dự phòng bên dưới cho bóng kéo dài (25%)
       // uAuraColor: { value: new Color(0x33ffff) }, // Màu glow (Sáng xanh lục/lam)
       // uAuraSize: { value: 0.000 }, // Kích cỡ glow
       uAuraIntensity: { value: 3.5 }, // Độ sáng rõ của glow
@@ -172,8 +209,8 @@ export const BlackScreenVideo = ({ videoSrc }) => {
   return (
     <mesh
       ref={meshRef}
-      position={[-0.1, -0.2, -5]}
-      scale={[5, 12, 1]}
+      position={[-0.1, -2.2, -5]}
+      scale={[5, 16, 1]}
     >
       <planeGeometry args={[1, 1]} />
       <shaderMaterial
