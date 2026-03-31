@@ -85,10 +85,11 @@ const TikTokListener = () => {
     <div
       style={{
         position: "absolute",
-        top: "16px",
-        right: "16px",
-        width: "280px",
-        height: "420px",
+        top: "1px",
+        right: "1px",
+        bottom: "1px",
+        width: "380px",
+        height: "100dvh",
         zIndex: 20,
         display: "flex",
         flexDirection: "column",
