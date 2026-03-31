@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SOCKET_URL } from "../utils/constant";
 
-const ConnectForm = () => {
+const ConnectForm = ({ onConnectSuccess }) => {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -24,10 +24,13 @@ const ConnectForm = () => {
       const data = await res.json();
 
       if (data.success) {
-        setMessage(`✅ Connected to @${username.trim()}`);
+        setMessage(`Connected to @${username.trim()}`);
         setError(false);
+        if (onConnectSuccess) {
+          setTimeout(() => onConnectSuccess(), 800);
+        }
       } else {
-        setMessage(`❌ Failed: ${data.message}`);
+        setMessage(`Failed: ${data.message}`);
         setError(true);
       }
     } catch (error) {
@@ -41,8 +44,8 @@ const ConnectForm = () => {
   };
 
   return (
-    <div className="absolute top-4 right-[320px] mx-4 z-20 w-[300px] bg-black/60 backdrop-blur-md border sm:block hidden border-white/10 rounded-xl p-4 text-white font-sans pointer-events-auto">
-      <h3 className="font-bold text-lg text-pink-500 mb-2 ">
+    <div className="relative z-20 w-[360px] bg-black/80 backdrop-blur-xl border border-pink-500/30 shadow-[0_0_40px_rgba(236,72,153,0.3)] rounded-2xl p-6 text-white font-sans pointer-events-auto">
+      <h3 className="font-bold text-2xl text-pink-500 mb-6 text-center">
         Kết nối TikTok LIVE
       </h3>
       <form onSubmit={handleConnect} className="flex flex-col gap-3">

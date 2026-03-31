@@ -103,6 +103,21 @@ const StageLights = () => {
 
 const App = () => {
   const selectedVideo = useVideoStore((state) => state.selectedVideo)
+  const [isConnected, setIsConnected] = useState(false)
+
+  if (!isConnected) {
+    return (
+      <div className="w-screen h-screen relative flex items-center justify-center bg-black overflow-hidden">
+        {/* Background Image */}
+        <img
+          src="/images/background.png"
+          alt="background"
+          className="absolute inset-0 w-full h-full object-cover blur-sm opacity-40 z-0"
+        />
+        <ConnectForm onConnectSuccess={() => setIsConnected(true)} />
+      </div>
+    )
+  }
 
   return (
     <div className="w-screen h-screen relative overflow-hidden bg-black">
@@ -135,7 +150,6 @@ const App = () => {
       </div>
 
       {/* UI Layer */}
-      <ConnectForm />
       <TikTokListener />
       <SelectThumbnail />
     </div>
