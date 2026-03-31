@@ -10,3 +10,8 @@
 body {
   margin: 0;
 }
+
+@theme {
+  --color-purple: #FF2D55;
+  --color-primary: #0fc1f7;
+}

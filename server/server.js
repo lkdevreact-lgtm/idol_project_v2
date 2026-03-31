@@ -7,11 +7,10 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-// HTTP server for Socket.io
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // allow anywhere for testing
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -45,7 +44,6 @@ const connectToTikTok = (username, res) => {
         res.status(500).json({ success: false, message: "Failed to connect" });
     });
 
-  // Listen to Gift events
   tiktokLiveConnection.on("gift", (data) => {
     if (data.giftType === 1 && !data.repeatEnd) {
       return;
@@ -60,7 +58,7 @@ const connectToTikTok = (username, res) => {
       data.giftName.toLowerCase().includes("hoa hồng") ||
       data.giftId === 5655
     ) {
-      console.log("🌸 Rose received! Emitting to socket...");
+      console.log("Rose received! Emitting to socket...");
       io.emit("tiktok_gift", {
         user: data.uniqueId,
         giftName: data.giftName,
