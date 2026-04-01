@@ -100,7 +100,7 @@ const TikTokListener = () => {
           <span
             className={` text-xs ${isConnected ? "text-thirdary" : "text-fivethary"}`}
           >
-            {isConnected ? "● Đang kết nối" : "● Chưa kết nối"}
+            {isConnected ? "● Đã kết nối" : "● Chưa kết nối"}
           </span>
           <span className="text-xs text-purple-1 font-semibold">
             Dancer {actualIndex + 1}/{DANCER_VIDEOS.length}
