@@ -38,7 +38,10 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
 
   // ── Sự kiện Gift ──────────────────────────────────────────────
   tiktokLiveConnection.on("gift", (data) => {
-    if (data.giftType === 1 && !data.repeatEnd) {
+    // giftType === 1 là streak gift (có thể bắn nhiều event trong 1 streak)
+    // Chỉ skip khi repeatEnd được gửi rõ ràng là false.
+    // (Một số trường hợp repeatEnd có thể undefined → không nên skip nhầm)
+    if (data.giftType === 1 && data.repeatEnd === false) {
       console.log(
         `[gifts] ⏭ Skipping streak gift: ${data.giftName} (repeatEnd=false)`
       );
@@ -48,34 +51,20 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
     console.log(
       `[gifts] 🎁 Nhận gift: "${data.giftName}" | giftId=${data.giftId} | từ @${data.uniqueId} | qty=${data.repeatCount}`
     );
+    
 
     registerGift(data, knownGifts);
 
-    const isRose =
-      data.giftName.toLowerCase().includes("rose") ||
-      data.giftName.toLowerCase().includes("hoa hồng") ||
-      data.giftId === 5655;
-
-    if (isRose) {
-      console.log("[tiktok] Rose received! Emitting tiktok_gift...");
-      io.emit("tiktok_gift", {
-        user: data.uniqueId,
-        giftName: data.giftName,
-        giftId: data.giftId,
-        nickname: data.nickname,
-        profilePicture: data.profilePictureUrl,
-        amount: data.repeatCount || 1,
-        type: "rose",
-      });
-    } else {
-      io.emit("tiktok_gift_other", {
-        user: data.uniqueId,
-        giftName: data.giftName,
-        nickname: data.nickname,
-        amount: data.repeatCount || 1,
-        profilePicture: data.profilePictureUrl,
-      });
-    }
+    // Gửi event tiktok_gift cho tất cả các loại quà để frontend có thể check matching video
+    io.emit("tiktok_gift", {
+      user: data.uniqueId,
+      giftName: data.giftName,
+      giftId: data.giftId,
+      nickname: data.nickname,
+      profilePicture: data.profilePictureUrl,
+      amount: data.repeatCount || 1,
+      type: "gift",
+    });
   });
 
   // ── Sự kiện Chat ──────────────────────────────────────────────

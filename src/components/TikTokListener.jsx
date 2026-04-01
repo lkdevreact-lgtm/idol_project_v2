@@ -64,7 +64,7 @@ const TikTokListener = () => {
     socket.on("tiktok_gift", (giftData) => {
       const giftName = giftData.giftName ?? "";
       addLog(
-        `🌹 Nhận được ${giftData.amount} ${giftName} từ ${giftData.user} (${giftData.nickname})!`
+        `🎁 Nhận được ${giftData.amount} ${giftName} từ ${giftData.user} (${giftData.nickname})!`
       );
 
       // Lấy danh sách active videos
@@ -93,10 +93,6 @@ const TikTokListener = () => {
 
       // Đẩy vào queue
       useVideoStore.getState().enqueueVideo(matched[nextIdx].video);
-    });
-
-    socket.on("tiktok_gift_other", (giftData) => {
-      addLog(`🎁 ${giftData.user} gửi ${giftData.giftName}`);
     });
 
     socket.on("tiktok_chat", (msg) => {
