@@ -82,7 +82,7 @@ const TikTokListener = () => {
   }, []);
 
   return (
-    <div className="w-96 h-full overflow-hidden bg-black/20 backdrop-blur-sm border border-white/30 rounded-xl flex flex-col">
+    <div className="w-80 h-full overflow-hidden bg-black/20 backdrop-blur-sm border border-white/30 rounded-xl flex flex-col">
       <div className="p-3.5 bg-black/30 shrink-0 border-b border-b-gray-500">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">

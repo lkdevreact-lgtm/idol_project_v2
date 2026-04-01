@@ -108,29 +108,29 @@ const fragmentShader = /* glsl */ `
     float outAlpha = max(alpha, finalAuraAlpha);
 
     // --- HIỆU ỨNG REFLECTION ---
-    if (mappedUv.y < uClipY) {
-        vec2 refUv = vec2(mappedUv.x, 2.0 * uClipY - mappedUv.y);
+    // if (mappedUv.y < uClipY) {
+    //     vec2 refUv = vec2(mappedUv.x, 2.0 * uClipY - mappedUv.y);
         
-        // Thêm distortion nhẹ (ví dụ như mặt sàn bóng/nước)
-        refUv.x += sin(mappedUv.y * 100.0) * ((uClipY - mappedUv.y) * 0.02);
+    //     // Thêm distortion nhẹ (ví dụ như mặt sàn bóng/nước)
+    //     refUv.x += sin(mappedUv.y * 100.0) * ((uClipY - mappedUv.y) * 0.02);
 
-        float refAlphaSrc = getAlpha(refUv);
+    //     float refAlphaSrc = getAlpha(refUv);
         
-        if (refAlphaSrc > 0.0) {
-            vec4 rColor = texture2D(uTexture, refUv);
-            rColor.g = min(rColor.g, max(rColor.r, rColor.b));
+    //     if (refAlphaSrc > 0.0) {
+    //         vec4 rColor = texture2D(uTexture, refUv);
+    //         rColor.g = min(rColor.g, max(rColor.r, rColor.b));
             
-            float dist = uClipY - mappedUv.y;
-            float fade = smoothstep(1.3, 0.0, dist); // mờ dần trong khoảng 1.3 UV
+    //         float dist = uClipY - mappedUv.y;
+    //         float fade = smoothstep(1.3, 0.0, dist); // mờ dần trong khoảng 1.3 UV
             
-            float finalRefAlpha = refAlphaSrc * fade * 0.4; // Opacity thấp hơn
+    //         float finalRefAlpha = refAlphaSrc * fade * 0.4; // Opacity thấp hơn
             
-            // Blend: Nhân vật chính (outColor, outAlpha) đè lên Reflection
-            vec3 blendedColor = mix(rColor.rgb, outColor, outAlpha);
-            outAlpha = outAlpha + finalRefAlpha * (1.0 - outAlpha);
-            outColor = blendedColor;
-        }
-    }
+    //         // Blend: Nhân vật chính (outColor, outAlpha) đè lên Reflection
+    //         vec3 blendedColor = mix(rColor.rgb, outColor, outAlpha);
+    //         outAlpha = outAlpha + finalRefAlpha * (1.0 - outAlpha);
+    //         outColor = blendedColor;
+    //     }
+    // }
 
     // Nếu rỗng hoàn toàn thì discard
     if (outAlpha < 0.02) discard;
@@ -152,7 +152,7 @@ export const BlackScreenVideo = ({ videoSrc }) => {
       uThresholdGreen: { value: 0.4 },
       uSmoothingGreen: { value: 0.06 },
       uClipY: { value: 0.1 }, // Vị trí giới hạn dọc cho reflection
-      uReflectSpace: { value: 0.25 }, // % không gian dự phòng bên dưới cho bóng kéo dài (25%)
+      uReflectSpace: { value: 0 }, // % không gian dự phòng bên dưới cho bóng kéo dài (25%)
       // uAuraColor: { value: new Color(0x33ffff) }, // Màu glow (Sáng xanh lục/lam)
       // uAuraSize: { value: 0.000 }, // Kích cỡ glow
       uAuraIntensity: { value: 3.5 }, // Độ sáng rõ của glow
@@ -185,12 +185,20 @@ export const BlackScreenVideo = ({ videoSrc }) => {
     // khi video có frame đầu
     const handleLoaded = () => {
       video.play().catch((err) => {
-        console.error("Autoplay failed. User interaction is required to play video with sound.", err);
+        console.error(
+          "Autoplay failed. User interaction is required to play video with sound.",
+          err,
+        );
       });
 
       uniforms.uTexture.value = texture;
 
       if (meshRef.current) {
+        // 1️⃣ Scale mesh theo tỉ lệ video
+        const aspect = video.videoWidth / video.videoHeight;
+        const width = 6; // Chiều rộng mong muốn trên scene
+        meshRef.current.scale.set(width, width / aspect, 1);
+
         meshRef.current.visible = true;
         meshRef.current.material.needsUpdate = true;
       }
@@ -209,12 +217,8 @@ export const BlackScreenVideo = ({ videoSrc }) => {
   }, [videoSrc, uniforms]);
 
   return (
-    <mesh
-      ref={meshRef}
-      position={[-0.1, -2.2, -5]}
-      scale={[5, 16, 1]}
-    >
-      <planeGeometry args={[1, 1]} />
+    <mesh ref={meshRef} position={[-0.1, -2.5, -5]} scale={[5, 16, 1]}>
+      <planeGeometry args={[1, 1, 1]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
