@@ -8,7 +8,7 @@ import UploadPage from "./pages/UploadPage";
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
 
-  if (!isConnected) {
+  if (isConnected) {
     return (
       <div className="w-screen h-screen relative flex items-center justify-center bg-black overflow-hidden">
         {/* Background Image */}
@@ -26,7 +26,7 @@ const App = () => {
     <div className="w-screen h-screen relative overflow-hidden bg-black/80 flex ">
       <Sidebar />
 
-      <div className="flex-1 h-screen py-10 px-3">
+      <div className="flex-1 h-screen sm:py-10 sm:px-3">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/upload" element={<UploadPage />} />

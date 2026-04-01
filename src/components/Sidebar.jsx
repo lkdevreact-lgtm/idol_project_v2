@@ -10,7 +10,7 @@ const Menu = [
 
 const Sidebar = () => {
   return (
-    <div className="w-[290px] h-full bg-secondary">
+    <div className="w-[290px] h-full bg-secondary sm:block hidden">
       <div className="w-full h-full flex flex-col gap-5 py-5 ">
         <div className="flex items-center gap-4 px-2 border-b border-white/30 pb-5">
           <img

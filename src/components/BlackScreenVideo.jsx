@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
-import { VideoTexture, DoubleSide, Color } from "three";
+import { VideoTexture, DoubleSide } from "three";
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;

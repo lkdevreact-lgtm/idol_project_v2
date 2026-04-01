@@ -83,56 +83,58 @@ const TikTokListener = () => {
   }, []);
 
   return (
-    <div className="w-80 h-full overflow-hidden bg-black/20 backdrop-blur-sm border border-white/30 rounded-xl flex flex-col">
-      <div className="p-3.5 bg-black/30 shrink-0 border-b border-b-gray-500">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
-            <span>📡</span>
-            <span className="font-semibold text-sm text-purple tracking-wider">
-              TikTok LIVE
+    <div className="sm:block hidden">
+      <div className="w-80 h-full overflow-hidden bg-black/20 backdrop-blur-sm border border-white/30 rounded-xl flex flex-col">
+        <div className="p-3.5 bg-black/30 shrink-0 border-b border-b-gray-500">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <span>📡</span>
+              <span className="font-semibold text-sm text-purple tracking-wider">
+                TikTok LIVE
+              </span>
+            </div>
+            <div
+              className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"} ${isConnected ? "shadow-green-500/50" : "shadow-red-500/50"} shrink-0`}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <span
+              className={` text-xs ${isConnected ? "text-thirdary" : "text-fivethary"}`}
+            >
+              {isConnected ? "● Đã kết nối" : "● Chưa kết nối"}
+            </span>
+            <span className="text-xs text-purple-1 font-semibold">
+              Dancer {actualIndex + 1}/{DANCER_VIDEOS.length}
             </span>
           </div>
-          <div
-            className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"} ${isConnected ? "shadow-green-500/50" : "shadow-red-500/50"} shrink-0`}
-          />
         </div>
-        <div className="flex justify-between items-center">
-          <span
-            className={` text-xs ${isConnected ? "text-thirdary" : "text-fivethary"}`}
-          >
-            {isConnected ? "● Đã kết nối" : "● Chưa kết nối"}
-          </span>
-          <span className="text-xs text-purple-1 font-semibold">
-            Dancer {actualIndex + 1}/{DANCER_VIDEOS.length}
-          </span>
+
+        <div className="flex-1 overflow-auto p-3 flex flex-col gap-2">
+          {logs.length === 0 ? (
+            <div className="flex-1 flex items-center justify-center text-gray-400 text-xs italic text-center">
+              Chưa có sự kiện nào...
+              <br />
+              <span className="text-lg mt-2 block">💤</span>
+            </div>
+          ) : (
+            logs.map((log) => {
+              const style = getMessageStyle(log.text);
+              return (
+                <div
+                  key={log.id}
+                  className={`${style.bg} text-white border-l-2 ${style.border} rounded-lg text-xs p-3 wrap-break-word slideInChat duration-300 ease-in-out`}
+                >
+                  {log.text}
+                </div>
+              );
+            })
+          )}
+          <div ref={chatEndRef} />
         </div>
-      </div>
 
-      <div className="flex-1 overflow-auto p-3 flex flex-col gap-2">
-        {logs.length === 0 ? (
-          <div className="flex-1 flex items-center justify-center text-gray-400 text-xs italic text-center">
-            Chưa có sự kiện nào...
-            <br />
-            <span className="text-lg mt-2 block">💤</span>
-          </div>
-        ) : (
-          logs.map((log) => {
-            const style = getMessageStyle(log.text);
-            return (
-              <div
-                key={log.id}
-                className={`${style.bg} text-white border-l-2 ${style.border} rounded-lg text-xs p-3 wrap-break-word slideInChat duration-300 ease-in-out`}
-              >
-                {log.text}
-              </div>
-            );
-          })
-        )}
-        <div ref={chatEndRef} />
-      </div>
-
-      <div className="shrink-0 px-3 py-4 border-t border-t-gray-500 text-center text-white/70 text-xs">
-        Hoạt động TikTok LIVE realtime
+        <div className="shrink-0 px-3 py-4 border-t border-t-gray-500 text-center text-white/70 text-xs">
+          Hoạt động TikTok LIVE realtime
+        </div>
       </div>
     </div>
   );
