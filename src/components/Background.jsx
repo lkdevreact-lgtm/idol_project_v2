@@ -1,14 +1,19 @@
-import { useLoader } from "@react-three/fiber";
-import { TextureLoader } from "three";
-
 const Background = ({ imgSrc }) => {
-  const texture = useLoader(TextureLoader, imgSrc);
-
   return (
-    <mesh position={[0, 0, -6]} scale={[12, 20, 10]}>
-      <planeGeometry args={[1, 1]} />
-      <meshBasicMaterial map={texture} toneMapped={false} depthWrite={false} depthTest={false} />
-    </mesh>
+    <img
+      src={imgSrc}
+      alt="background"
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        objectPosition: "center",
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+    />
   );
 };
 
