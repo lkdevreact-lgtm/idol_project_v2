@@ -8,6 +8,7 @@ import Background from "../components/Background";
 const HomePage = () => {
   const selectedVideo = useVideoStore((state) => state.selectedVideo);
   const dequeueVideo = useVideoStore((state) => state.dequeueVideo);
+  const playId = useVideoStore((state) => state.playId);
 
   return (
     <>
@@ -21,6 +22,7 @@ const HomePage = () => {
 
               {selectedVideo && (
                 <BlackScreenVideo
+                  key={`${selectedVideo}:${playId}`}
                   videoSrc={selectedVideo}
                   onVideoEnded={dequeueVideo}
                 />
