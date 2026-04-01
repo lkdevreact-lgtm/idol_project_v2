@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { useVideoStore } from "../hooks/useVideoStore";
-import { DANCER_VIDEOS, SOCKET_URL } from "../utils/constant";
+import { SOCKET_URL } from "../utils/constant";
 import { MESSAGE_TYPE } from "../utils/type";
 
 const getMessageStyle = (msg) => {
@@ -18,11 +18,16 @@ const getMessageStyle = (msg) => {
 
 const TikTokListener = () => {
   const selectedVideo = useVideoStore((state) => state.selectedVideo);
+  const getActiveVideos = useVideoStore((state) => state.getActiveVideos);
+  const setSelectedVideo = useVideoStore((state) => state.setSelectedVideo);
+
   const [logs, setLogs] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const chatEndRef = useRef(null);
 
-  const currentIndex = DANCER_VIDEOS.indexOf(selectedVideo);
+  // Get active videos sorted by order
+  const activeVideos = getActiveVideos();
+  const currentIndex = activeVideos.findIndex((v) => v.video === selectedVideo);
   const actualIndex = currentIndex === -1 ? 0 : currentIndex;
 
   useEffect(() => {
@@ -58,18 +63,34 @@ const TikTokListener = () => {
 
     socket.on("tiktok_gift", (giftData) => {
       addLog(
-        ` Nhận được ${giftData.amount} ${giftData.giftName} từ ${giftData.user} (${giftData.nickname})!`,
+        `🌹 Nhận được ${giftData.amount} ${giftData.giftName} từ ${giftData.user} (${giftData.nickname})!`
       );
-      const currentVideo = useVideoStore.getState().selectedVideo;
-      const cIndex = DANCER_VIDEOS.indexOf(currentVideo);
-      const activeIdx = cIndex === -1 ? 0 : cIndex;
-      const nextIndex =
-        activeIdx + 1 >= DANCER_VIDEOS.length ? 0 : activeIdx + 1;
-      useVideoStore.getState().setSelectedVideo(DANCER_VIDEOS[nextIndex]);
+
+      // Find matching active videos for this gift name
+      const active = useVideoStore.getState().getActiveVideos();
+      if (active.length === 0) return;
+
+      const giftNameLower = giftData.giftName?.toLowerCase() ?? "";
+
+      // Try to find a video whose "gift" field matches the gift received
+      const matched = active.filter(
+        (v) =>
+          v.gift &&
+          (giftNameLower.includes(v.gift.toLowerCase()) ||
+            v.gift.toLowerCase().includes(giftNameLower))
+      );
+
+      const pool = matched.length > 0 ? matched : active;
+
+      // Cycle: find current video index in pool, advance to next
+      const curVideo = useVideoStore.getState().selectedVideo;
+      const curIdx = pool.findIndex((v) => v.video === curVideo);
+      const nextIdx = curIdx + 1 >= pool.length ? 0 : curIdx + 1;
+      useVideoStore.getState().setSelectedVideo(pool[nextIdx].video);
     });
 
     socket.on("tiktok_gift_other", (giftData) => {
-      addLog(`${giftData.user} gửi ${giftData.giftName}`);
+      addLog(`🎁 ${giftData.user} gửi ${giftData.giftName}`);
     });
 
     socket.on("tiktok_chat", (msg) => {
@@ -104,7 +125,7 @@ const TikTokListener = () => {
               {isConnected ? "● Đã kết nối" : "● Chưa kết nối"}
             </span>
             <span className="text-xs text-purple-1 font-semibold">
-              Dancer {actualIndex + 1}/{DANCER_VIDEOS.length}
+              Dancer {actualIndex + 1}/{activeVideos.length}
             </span>
           </div>
         </div>
