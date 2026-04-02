@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import ConnectForm from "./components/ConnectForm";
-import Sidebar from "./components/Sidebar";
 import HomePage from "./pages/HomePage";
 import UploadPage from "./pages/UploadPage";
 import { useVideoStore } from "./hooks/useVideoStore";
+import Sidebar from "./components/Layout/Sidebar";
+import FooterBar from "./components/Layout/FooterBar";
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -29,14 +30,15 @@ const App = () => {
   }
 
   return (
-    <div className="w-screen h-screen relative overflow-hidden bg-black/80 flex ">
+    <div className="w-screen h-screen relative overflow-hidden bg-black/80 flex flex-col sm:flex-row">
       <Sidebar />
-      <div className="flex-1 h-screen sm:px-3">
+      <div className="flex-1 h-full sm:h-screen sm:px-3 overflow-auto">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/upload" element={<UploadPage />} />
         </Routes>
       </div>
+      <FooterBar />
     </div>
   );
 };
