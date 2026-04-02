@@ -135,7 +135,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
         {/* header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
           <h2 className="text-white font-bold text-lg">
-            {initial ? "✏️ Chỉnh sửa Video" : "➕ Thêm Video Mới"}
+            {initial ? "Chỉnh sửa Video" : "Thêm Video Mới"}
           </h2>
           <button
             onClick={onClose}
@@ -146,7 +146,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
         </div>
 
         {/* body */}
-        <div className="p-6 flex flex-col gap-4 max-h-[75vh] overflow-y-auto">
+        <div className="p-6 flex flex-col gap-4 max-h-[58vh] overflow-y-auto">
           {/* upload error */}
           {uploadError && (
             <div className="bg-red-500/15 border border-red-500/30 rounded-lg px-3 py-2 text-red-400 text-xs">

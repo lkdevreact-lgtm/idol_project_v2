@@ -86,7 +86,7 @@ const GiftModal = ({ initial, onSave, onClose }) => {
           </button>
           <button
             onClick={handleSave}
-            className="px-5 py-2 rounded-lg bg-pink-500 hover:bg-pink-600 text-white text-sm font-semibold transition flex items-center gap-2"
+            className="px-5 py-2 rounded-lg bg-neon hover:bg-neon/80 text-white text-sm font-semibold transition flex items-center gap-2"
           >
             <MdCheck size={18} />
             Lưu
@@ -305,7 +305,7 @@ const GiftPage = () => {
         <div className="fixed bottom-16 right-4">
           <button
             onClick={() => setModal({ mode: "add" })}
-            className="flex items-center justify-center w-14 h-14 rounded-full bg-pink-500 text-white font-semibold text-sm shadow-lg shadow-pink-500/25 hover:bg-pink-600 transition"
+            className="flex items-center justify-center w-14 h-14 rounded-full bg-neon text-white font-semibold text-sm hover:bg-neon/80 transition"
           >
             <MdAdd size={24} />
           </button>
