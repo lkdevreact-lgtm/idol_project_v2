@@ -38,6 +38,7 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
 
   // ── Sự kiện Gift ──────────────────────────────────────────────
   tiktokLiveConnection.on("gift", (data) => {
+    // console.log(data)
     // giftType === 1 là streak gift (có thể bắn nhiều event trong 1 streak)
     // Chỉ skip khi repeatEnd được gửi rõ ràng là false.
     // (Một số trường hợp repeatEnd có thể undefined → không nên skip nhầm)
@@ -51,7 +52,9 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
     console.log(
       `[gifts] 🎁 Nhận gift: "${data.giftName}" | giftId=${data.giftId} | từ @${data.uniqueId} | qty=${data.repeatCount}`
     );
-    
+
+    // console.log(data)
+
 
     registerGift(data, knownGifts);
 

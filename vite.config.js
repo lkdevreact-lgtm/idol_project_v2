@@ -8,7 +8,8 @@ export default defineConfig({
   server: {
     watch: {
       ignored: [
-        "**/server/gifts.json",
+        "**/server/data/gifts.json",
+        "**/server/data/videos.json",
         // nếu còn file server khác cũng gây reload thì thêm ở đây
         // "**/server/**/*.json",
       ],

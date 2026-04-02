@@ -4,15 +4,20 @@ import ConnectForm from "./components/ConnectForm";
 import Sidebar from "./components/Sidebar";
 import HomePage from "./pages/HomePage";
 import UploadPage from "./pages/UploadPage";
+import GiftPage from "./pages/GiftPage";
 import { useVideoStore } from "./hooks/useVideoStore";
+import { useGiftStore } from "./hooks/useGiftStore";
+import { ROUTES_URL } from "./utils/constant";
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
   const { fetchVideos } = useVideoStore();
+  const { fetchGifts } = useGiftStore();
 
   useEffect(() => {
     fetchVideos();
-  }, [fetchVideos]);
+    fetchGifts();
+  }, [fetchVideos, fetchGifts]);
 
   if (!isConnected) {
     return (
@@ -33,8 +38,9 @@ const App = () => {
       <Sidebar />
       <div className="flex-1 h-screen sm:py-10 sm:px-3">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/upload" element={<UploadPage />} />
+          <Route path={ROUTES_URL.DASHBOARD} element={<HomePage />} />
+          <Route path={ROUTES_URL.UPLOAD} element={<UploadPage />} />
+          <Route path={ROUTES_URL.GIFTS} element={<GiftPage />} />
         </Routes>
       </div>
     </div>

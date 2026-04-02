@@ -8,4 +8,5 @@ export const IMAGES = {
 export const ROUTES_URL = {
     DASHBOARD: "/",
     UPLOAD: "/upload",
+    GIFTS: "/gifts",
 }

@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { MdDashboard, MdOndemandVideo } from "react-icons/md";
+import { MdDashboard, MdOndemandVideo, MdCardGiftcard } from "react-icons/md";
 import { IMAGES, ROUTES_URL } from "../utils/constant";
 
 const Menu = [
   { name: "Dashboard", icon: <MdDashboard />, path: ROUTES_URL.DASHBOARD },
   { name: "Videos", icon: <MdOndemandVideo />, path: ROUTES_URL.UPLOAD },
+  { name: "Gifts", icon: <MdCardGiftcard />, path: ROUTES_URL.GIFTS },
 ];
 
 const Sidebar = () => {
