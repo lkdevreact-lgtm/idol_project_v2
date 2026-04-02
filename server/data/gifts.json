@@ -140,23 +140,59 @@
     "giftName": "Side by Side"
   },
   {
+    "giftId": 41327,
+    "giftName": "Cánh Tiên 1900"
+  },
+  {
+    "giftId": 57597,
+    "giftName": "Vocal Bear"
+  },
+  {
+    "giftId": 7412,
+    "giftName": "Bing Chiling"
+  },
+  {
     "giftId": 8635,
     "giftName": "Okay"
   },
   {
-    "giftId": 19441,
-    "giftName": "Freestyle"
+    "giftId": 9875,
+    "giftName": "Shamrock"
   },
   {
-    "giftId": 7121,
-    "giftName": "Marvelous Confetti"
+    "giftId": 57596,
+    "giftName": "Sax Groove"
+  },
+  {
+    "giftId": 13087,
+    "giftName": "Bubblegum"
+  },
+  {
+    "giftId": 57327,
+    "giftName": "Shining Starlight"
   },
   {
     "giftId": 6064,
     "giftName": "GG"
   },
   {
-    "giftId": 11046,
-    "giftName": "Galaxy"
+    "giftId": 17950,
+    "giftName": "Candy Puffs"
+  },
+  {
+    "giftId": 17947,
+    "giftName": "Bubbly Kiss"
+  },
+    {
+    "giftId": 16690,
+    "giftName": "Super Popular"
+  },
+  {
+    "giftId": 17948,
+    "giftName": "Bubblegum Kiss"
+  },
+  {
+    "giftId": 17949,
+    "giftName": "Candy Kiss"
   }
 ]
