@@ -5,6 +5,7 @@ import SelectThumbnail from "../components/SelectThumbnail";
 import { BlackScreenVideo } from "../components/BlackScreenVideo";
 import Background from "../components/Background";
 import ResizableDraggable from "../components/ResizableDraggable";
+import VideoGiftPodium from "../components/VideoGiftPodium";
 
 const HomePage = () => {
   const selectedVideo = useVideoStore((state) => state.selectedVideo);
@@ -20,6 +21,8 @@ const HomePage = () => {
             <div className="absolute inset-0 rounded-[3.5rem] "></div>
             <div className="relative sm:w-[360px] sm:h-full w-full h-full sm:rounded-[3rem] overflow-hidden pointer-events-auto sm:border-4 border-white/80 bg-black shadow-2xl">
               <Background imgSrc="/images/background.png" />
+
+              <VideoGiftPodium />
 
               {selectedVideo && (
                 <BlackScreenVideo

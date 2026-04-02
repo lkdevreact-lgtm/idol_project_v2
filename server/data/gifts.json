@@ -218,5 +218,37 @@
   {
     "giftId": 11046,
     "giftName": "Galaxy"
+  },
+  {
+    "giftId": 6784,
+    "giftName": "Cake Slice"
+  },
+  {
+    "giftId": 55535,
+    "giftName": "Nyota"
+  },
+  {
+    "giftId": 12988,
+    "giftName": "Super GG"
+  },
+  {
+    "giftId": 8914,
+    "giftName": "Forever Rosa"
+  },
+  {
+    "giftId": 12852,
+    "giftName": "Level Ship"
+  },
+  {
+    "giftId": 13464,
+    "giftName": "Night Star"
+  },
+  {
+    "giftId": 9340,
+    "giftName": "Birthday Cake"
+  },
+  {
+    "giftId": 15063,
+    "giftName": "Journey Pass"
   }
 ]
