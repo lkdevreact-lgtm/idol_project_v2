@@ -4,15 +4,15 @@ import { useVideoStore } from "../hooks/useVideoStore";
 import { SOCKET_URL } from "../utils/constant";
 import { MESSAGE_TYPE } from "../utils/type";
 
-const getMessageStyle = (msg) => {
-  if (msg === MESSAGE_TYPE.CONNECT)
+const getMessageStyle = (type) => {
+  if (type === "connect")
     return { border: "border-l-[#00FF00]", bg: "bg-[#00FF0014]" };
-  if (msg === MESSAGE_TYPE.DISCONNECT)
-    return { border: "border-l-[#FF0000]", bg: "bg-[#EF444434]" };
-  if (msg.startsWith("🌹"))
-    return { border: "border-l-[#ec4899]", bg: "bg-[#EC489914]" };
-  if (msg.startsWith("🎁"))
-    return { border: "border-l-[#a78bfa]", bg: "bg-[#A78BFA14]" };
+  if (type === "disconnect")
+    return { border: "border-l-red-400", bg: "bg-red-400/10" };
+  if (type === "warning")
+    return { border: "border-l-yellow-400", bg: "bg-yellow-400/10" };
+  if (type === "gift")
+    return { border: "border-l-pink-400", bg: "bg-pink-400/10" };
   return { border: "border-l-[#ffffff30]", bg: "bg-[#FFFFFF0A]" };
 };
 
@@ -25,99 +25,114 @@ const TikTokListener = () => {
   const [isConnected, setIsConnected] = useState(false);
   const chatEndRef = useRef(null);
 
-  // Get active videos sorted by order
   const activeVideos = getActiveVideos();
   const currentIndex = activeVideos.findIndex((v) => v.video === selectedVideo);
   const actualIndex = currentIndex === -1 ? 0 : currentIndex;
 
   useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [logs]);
 
   useEffect(() => {
     const socket = io(SOCKET_URL);
 
-    const addLog = (msg) => {
+    const addLog = (data) => {
       setLogs((prev) => {
         const newLogs = [
           ...prev,
-          { text: msg, id: Date.now() + Math.random() },
+          { ...data, id: Date.now() + Math.random() },
         ];
         if (newLogs.length > 30) newLogs.shift();
         return newLogs;
       });
-      console.log("[TikTok LIVE]", msg);
     };
 
     socket.on("connect", () => {
       setIsConnected(true);
-      addLog(`${MESSAGE_TYPE.CONNECT}`);
+      addLog({
+        type: "connect",
+        text: `${MESSAGE_TYPE.CONNECT}`,
+      });
     });
 
     socket.on("disconnect", () => {
       setIsConnected(false);
-      addLog(`${MESSAGE_TYPE.DISCONNECT}`);
+      addLog({
+        type: "disconnect",
+        text: `${MESSAGE_TYPE.DISCONNECT}`,
+      });
     });
 
     socket.on("tiktok_gift", (giftData) => {
       const giftName = giftData.giftName ?? "";
-      addLog(
-        `🎁 Nhận được ${giftData.amount} ${giftName} từ ${giftData.user} (${giftData.nickname})!`
-      );
 
-      // Lấy danh sách active videos
+      addLog({
+        type: "gift",
+        name: giftData.nickname,
+        text: `${giftData.amount} ${giftName}`,
+        avatar: giftData.profilePicture,
+      });
+
       const active = useVideoStore.getState().getActiveVideos();
       if (active.length === 0) return;
 
       const giftNameLower = giftName.toLowerCase().trim();
 
-      // Chỉ lấy video có gift field khớp chính xác với tên quà nhận được
-      // (case-insensitive, exact match)
       const matched = active.filter(
         (v) => v.gift && v.gift.toLowerCase().trim() === giftNameLower
       );
 
-      // Nếu không có video nào khớp với quà này → KHÔNG phát gì cả
       if (matched.length === 0) {
-        addLog(`⚠️ Không có dancer nào được gán quà "${giftName}", bỏ qua.`);
+        addLog({
+          type: "warning",
+          text: `Không có dancer nào cho quà "${giftName}"`,
+        });
         return;
       }
 
-      // Enqueue đúng số lần gift (amount). Có giới hạn để tránh spam queue quá lớn.
       const MAX_PER_EVENT = 50;
       const rawAmount = Number(giftData.amount ?? 1);
       const amount = Number.isFinite(rawAmount) ? Math.max(1, rawAmount) : 1;
       const n = Math.min(amount, MAX_PER_EVENT);
 
-      // Cycle qua các video khớp (vòng tròn), dựa trên video cuối đang/đã queue
       const state = useVideoStore.getState();
       const lastQueued =
-        state.videoQueue[state.videoQueue.length - 1] ?? state.selectedVideo;
+        state.videoQueue[state.videoQueue.length - 1] ??
+        state.selectedVideo;
+
       const curIdx = matched.findIndex((v) => v.video === lastQueued);
 
       const scoreByPath = new Map();
+
       for (let i = 0; i < n; i++) {
         const idx = ((curIdx === -1 ? 0 : curIdx) + 1 + i) % matched.length;
         const path = matched[idx].video;
+
         useVideoStore.getState().enqueueVideo(path);
         scoreByPath.set(path, (scoreByPath.get(path) || 0) + 1);
       }
+
       scoreByPath.forEach((delta, path) => {
         useVideoStore.getState().addGiftScore(path, delta);
       });
 
       if (amount > MAX_PER_EVENT) {
-        addLog(
-          `⚠️ Quà x${amount} vượt giới hạn, chỉ xếp ${MAX_PER_EVENT} lượt phát để tránh quá tải.`
-        );
+        addLog({
+          type: "warning",
+          text: `⚠️ Quà x${amount}, chỉ lấy ${MAX_PER_EVENT}`,
+        });
       }
     });
 
     socket.on("tiktok_chat", (msg) => {
       const name = msg.nickname || msg.user;
-      addLog(`💬 ${name}: ${msg.comment}`);
+
+      addLog({
+        type: "chat",
+        name,
+        text: msg.comment,
+        avatar: msg.profilePicture,
+      });
     });
 
     return () => {
@@ -135,16 +150,25 @@ const TikTokListener = () => {
               TikTok LIVE
             </span>
           </div>
+
           <div
-            className={`w-2 h-2 rounded-full ${isConnected ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" : "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"} shrink-0 animate-pulse`}
+            className={`w-2 h-2 rounded-full ${
+              isConnected
+                ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"
+                : "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"
+            } animate-pulse`}
           />
         </div>
+
         <div className="flex justify-between items-center">
           <span
-            className={`text-[10px] font-medium ${isConnected ? "text-green-400" : "text-red-400"}`}
+            className={`text-[10px] font-medium ${
+              isConnected ? "text-green-400" : "text-red-400"
+            }`}
           >
-            {isConnected ? "CONNECTED" : "DISCONNECTED"}
+            {isConnected ? "Đã kết nối" : "Ngắt kết nối"}
           </span>
+
           <span className="text-[10px] text-white/40 font-bold">
             DANCER {actualIndex + 1}/{activeVideos.length}
             {videoQueue.length > 0 && (
@@ -158,27 +182,42 @@ const TikTokListener = () => {
 
       <div className="flex-1 overflow-auto p-3 flex flex-col gap-2 custom-scrollbar">
         {logs.length === 0 ? (
-          <div className="flex-1 flex flex-col items-center justify-center text-white/20 text-[10px] uppercase tracking-widest gap-2">
-            <span className="text-2xl opacity-20">📡</span>
+          <div className="flex-1 flex items-center justify-center text-white/20 text-[10px] uppercase">
             Waiting for events...
           </div>
         ) : (
           logs.map((log) => {
-            const style = getMessageStyle(log.text);
+            const style = getMessageStyle(log.type);
+
             return (
               <div
                 key={log.id}
-                className={`${style.bg} text-[11px] text-white/90 border-l-2 ${style.border} rounded-lg p-2.5 break-words slideInChat`}
+                className={`${style.bg} border-l-2 ${style.border} rounded-lg p-2.5 flex items-start gap-2 text-[11px] text-white/90`}
               >
-                {log.text}
+                {log.avatar && (
+                  <img
+                    src={log.avatar}
+                    alt=""
+                    className="w-6 h-6 rounded-full object-cover shrink-0"
+                  />
+                )}
+
+                <div className="break-words">
+                  {log.name && (
+                    <span className="font-semibold text-white">
+                      {log.name}:{" "}
+                    </span>
+                  )}
+                  {log.text}
+                </div>
               </div>
             );
           })
         )}
+
         <div ref={chatEndRef} />
       </div>
-
-      <div className="shrink-0 px-3 py-3 border-t border-white/5 text-center text-[9px] text-white/30 uppercase tracking-[0.1em] font-medium">
+      <div className="shrink-0 px-3 py-3 border-t border-white/5 text-center text-[9px] text-white/30 uppercase">
         TikTok LIVE Real-time Feed
       </div>
     </div>

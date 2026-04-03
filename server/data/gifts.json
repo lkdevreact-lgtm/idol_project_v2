@@ -36,7 +36,7 @@
     "giftName": "Love you so much",
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/fc549cf1bc61f9c8a1c97ebab68dced7.png~tplv-obj.png",
     "diamonds": 1,
-    "maxRepeatCount": 50,
+    "maxRepeatCount": 100,
     "active": true
   },
   {
@@ -52,7 +52,7 @@
     "giftName": "Rosa",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/eb77ead5c3abb6da6034d3cf6cfeb438~tplv-obj.png",
     "diamonds": 10,
-    "maxRepeatCount": 2,
+    "maxRepeatCount": 5,
     "active": true
   },
   {
@@ -149,7 +149,7 @@
     "giftName": "Ice Cream Cone",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/968820bc85e274713c795a6aef3f7c67~tplv-obj.png",
     "diamonds": 1,
-    "maxRepeatCount": 10,
+    "maxRepeatCount": 100,
     "active": true
   },
   {
@@ -165,7 +165,7 @@
     "giftName": "You're awesome",
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/e9cafce8279220ed26016a71076d6a8a.png~tplv-obj.png",
     "diamonds": 1,
-    "maxRepeatCount": 7,
+    "maxRepeatCount": 99,
     "active": true
   },
   {
@@ -206,7 +206,11 @@
   },
   {
     "giftId": 37318,
-    "giftName": "Monster Vãi Chè"
+    "giftName": "Monster Vãi Chè",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/saliency_seg_1768348578450_0.97fad32a19b036c77623c3343ce2e457.png~tplv-obj.png",
+    "diamonds": 1,
+    "maxRepeatCount": 20,
+    "active": true
   },
   {
     "giftId": 6427,
@@ -329,7 +333,7 @@
     "giftName": "Glow Stick",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/8e1a5d66370c5586545e358e37c10d25~tplv-obj.png",
     "diamonds": 1,
-    "maxRepeatCount": 1,
+    "maxRepeatCount": 5,
     "active": true
   },
   {
@@ -342,7 +346,11 @@
   },
   {
     "giftId": 19447,
-    "giftName": "Overreact"
+    "giftName": "Overreact",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/dfd48ef1952b6d315856adda7705d02d.png~tplv-obj.png",
+    "diamonds": 5,
+    "maxRepeatCount": 4,
+    "active": true
   },
   {
     "giftId": 11583,
@@ -390,7 +398,7 @@
     "active": true,
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/3ac5ec732f6f4ba7b1492248bfea83d6~tplv-obj.png",
     "diamonds": 1,
-    "maxRepeatCount": 9
+    "maxRepeatCount": 200
   },
   {
     "giftId": 15063,
@@ -525,6 +533,38 @@
     "giftName": "Sports Car",
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/e7ce188da898772f18aaffe49a7bd7db~tplv-obj.png",
     "diamonds": 7000,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 18608,
+    "giftName": "Rocking Shroom",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/cbc0508afc678106f11392ae1ed3c055.png~tplv-obj.png",
+    "diamonds": 349,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 19443,
+    "giftName": "Bravo!",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/075e206d6da035f10ff5f8fecd82abcc.png~tplv-obj.png",
+    "diamonds": 15,
+    "active": true,
+    "maxRepeatCount": 3
+  },
+  {
+    "giftId": 13462,
+    "giftName": "Mini star",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/483fbb7908887e111feb9d68426e33bd.png~tplv-obj.png",
+    "diamonds": 100,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 12316,
+    "giftName": "Balloon Box",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/c2cd98b5d3147b983fcbf35d6dd38e36.png~tplv-obj.png",
+    "diamonds": 100,
     "active": true,
     "maxRepeatCount": 1
   }

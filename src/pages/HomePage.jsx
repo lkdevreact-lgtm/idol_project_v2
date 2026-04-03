@@ -60,7 +60,7 @@ const HomePage = ({ username }) => {
           <ResizableDraggable
             title="DANCER MODELS"
             initialPos={{ x: 330, y: 80 }}
-            initialSize={{ width: 300, height: 500 }}
+            initialSize={{ width: 300, height: 400 }}
             minSize={{ width: 180, height: 300 }}
           >
             <SelectThumbnail />
@@ -69,7 +69,7 @@ const HomePage = ({ username }) => {
           <ResizableDraggable
             title="TIKTOK LIVE FEED"
             initialPos={{ x: 1180, y: 80 }}
-            initialSize={{ width: 320, height: 600 }}
+            initialSize={{ width: 320, height: 400 }}
             minSize={{ width: 220, height: 250 }}
           >
             <TikTokListener />
@@ -77,7 +77,7 @@ const HomePage = ({ username }) => {
           <ResizableDraggable
             title="TOP GIFTS & GIFTERS"
             initialPos={{ x: 20, y: 80 }}
-            initialSize={{ width: 300, height: 600 }}
+            initialSize={{ width: 300, height: 400 }}
             minSize={{ width: 250, height: 300 }}
           >
             <Leaderboard />
