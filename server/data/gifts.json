@@ -72,7 +72,7 @@
     "giftName": "Finger Heart",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/a4c4dc437fd3a6632aba149769491f49.png~tplv-obj.png",
     "diamonds": 5,
-    "maxRepeatCount": 8,
+    "maxRepeatCount": 11,
     "active": true
   },
   {
@@ -118,7 +118,11 @@
   },
   {
     "giftId": 5585,
-    "giftName": "Confetti"
+    "giftName": "Confetti",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/cb4e11b3834e149f08e1cdcc93870b26~tplv-obj.png",
+    "diamonds": 100,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 6781,
@@ -178,7 +182,11 @@
   },
   {
     "giftId": 9948,
-    "giftName": "You're Amazing"
+    "giftName": "You're Amazing",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/b48c69f4df49c28391bcc069bbc31b41.png~tplv-obj.png",
+    "diamonds": 500,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 37318,
@@ -197,7 +205,7 @@
     "giftName": "Peach",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/ff861a220649506452e3dc35c58266ea.png~tplv-obj.png",
     "diamonds": 5,
-    "maxRepeatCount": 1,
+    "maxRepeatCount": 13,
     "active": true
   },
   {
@@ -226,11 +234,19 @@
   },
   {
     "giftId": 7412,
-    "giftName": "Bing Chiling"
+    "giftName": "Bing Chiling",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/a40b91f7a11d4cbce780989e2d20a1f4~tplv-obj.png",
+    "diamonds": 5,
+    "maxRepeatCount": 13,
+    "active": true
   },
   {
     "giftId": 8635,
-    "giftName": "Okay"
+    "giftName": "Okay",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/0573114db41d2cf9c7dd70c8b0fab38e.png~tplv-obj.png",
+    "diamonds": 5,
+    "maxRepeatCount": 10,
+    "active": true
   },
   {
     "giftId": 9875,
@@ -250,7 +266,11 @@
   },
   {
     "giftId": 57327,
-    "giftName": "Shining Starlight"
+    "giftName": "Shining Starlight",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/3b7e12fca3911a4bb65b699b8b0ffb8f.png~tplv-obj.png",
+    "diamonds": 5,
+    "maxRepeatCount": 11,
+    "active": true
   },
   {
     "giftId": 6064,
@@ -366,6 +386,46 @@
     "giftName": "Creeper",
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/d686d45bd66e16b0aca8b0e5eb52a977.png~tplv-obj.png",
     "diamonds": 1,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 9498,
+    "giftName": "Blooming Ribbons",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/f76750ab58ee30fc022c9e4e11d25c9d.png~tplv-obj.png",
+    "diamonds": 1000,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 10017,
+    "giftName": "Love ball",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/2db38e8f2a9fb804cb7d3bd2a0ba635c.png~tplv-obj.png",
+    "diamonds": 500,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 17044,
+    "giftName": "Takoyaki",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/b0d9f32b9d4c04afbb0267dcb5b576fa.png~tplv-obj.png",
+    "diamonds": 88,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 9909,
+    "giftName": "Greeting Card",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/dac91f95d4135654fe16d09369dd8355.png~tplv-obj.png",
+    "diamonds": 1500,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 6820,
+    "giftName": "Whale diving",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/46fa70966d8e931497f5289060f9a794~tplv-obj.png",
+    "diamonds": 2150,
     "active": true,
     "maxRepeatCount": 1
   }

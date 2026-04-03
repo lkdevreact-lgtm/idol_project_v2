@@ -23,7 +23,7 @@ const SelectThumbnail = () => {
         <div className="shrink-0 mb-3 pb-3 border-b border-white/10">
           <div className="text-[10px] text-white/50 uppercase tracking-widest mb-2 flex items-center justify-between">
             <span>Hàng chờ kế tiếp</span>
-            <span className="bg-pink-500/20 text-pink-400 px-1.5 py-0.5 rounded-full">{videoQueue.length}</span>
+            <span className="bg-neon/30 text-neon font-semibold px-1.5 py-0.5 rounded-full">{videoQueue.length}</span>
           </div>
           <div className="flex gap-2 overflow-x-auto pb-1 custom-scrollbar pt-3">
             {videoQueue.map((videoPath, index) => {
@@ -38,12 +38,12 @@ const SelectThumbnail = () => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-[8px] text-pink-400 font-medium px-0.5 text-center truncate w-full">
+                      <span className="text-[8px] text-neon font-medium px-0.5 text-center truncate w-full">
                         {model.gift || 'Auto'}
                       </span>
                     </div>
                   </div>
-                  <div className="absolute -top-1.5 -right-1.5 bg-pink-500 text-white text-[9px] font-bold min-w-[16px] h-4 flex items-center justify-center rounded-full shadow-[0_0_5px_rgba(236,72,153,0.5)] px-1">
+                  <div className="absolute -top-1.5 -right-1.5 bg-neon text-block text-[9px] font-bold min-w-[16px] h-4 flex items-center justify-center rounded-full shadow-[0_0_5px_rgba(236,72,153,0.5)] px-1">
                     {index + 1}
                   </div>
                 </div>
