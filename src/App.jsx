@@ -10,6 +10,7 @@ import FooterBar from "./components/Layout/FooterBar";
 import { ROUTES_URL } from "./utils/constant";
 
 import { useVideoStore } from "./hooks/useVideoStore";
+import ModalTTS from "./pages/ModalTTS";
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -22,7 +23,7 @@ const App = () => {
     fetchGifts();
   }, [fetchVideos, fetchGifts]);
 
-  if (!isConnected) {
+  if (isConnected) {
     return (
       <div className="w-screen h-screen relative flex items-center justify-center bg-black overflow-hidden">
         {/* Background Image */}
@@ -47,6 +48,7 @@ const App = () => {
           <Route path={ROUTES_URL.DASHBOARD} element={<HomePage username={connectedUsername} />} />
           <Route path={ROUTES_URL.UPLOAD} element={<UploadPage />} />
           <Route path={ROUTES_URL.GIFTS} element={<GiftPage />} />
+          <Route path={ROUTES_URL.TTS} element={<ModalTTS />} />
         </Routes>
       </div>
       <FooterBar />

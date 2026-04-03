@@ -12,6 +12,7 @@ export const ROUTES_URL = {
     DASHBOARD: "/",
     UPLOAD: "/upload",
     GIFTS: "/gifts",
+    TTS: "/tts",
 }
 
 

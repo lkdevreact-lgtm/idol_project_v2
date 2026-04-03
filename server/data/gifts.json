@@ -575,5 +575,29 @@
     "diamonds": 1500,
     "active": true,
     "maxRepeatCount": 1
+  },
+  {
+    "giftId": 6592,
+    "giftName": "TGIF",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/2734231d880b5cd20149f4cc8c760279~tplv-obj.png",
+    "diamonds": 1,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 19441,
+    "giftName": "Freestyle",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/1f5ca5cfb4b98c2761fb85987f47c641.png~tplv-obj.png",
+    "diamonds": 1,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 19439,
+    "giftName": "Oldies",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/77f6ab69b0b03bda98a0a3d2bfdeb46f.png~tplv-obj.png",
+    "diamonds": 1,
+    "active": true,
+    "maxRepeatCount": 1
   }
 ]
