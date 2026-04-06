@@ -136,8 +136,8 @@ const Leaderboard = () => {
             )}
             <span
               className={`text-[9px] font-bold px-2.5 py-0.5 rounded-full tracking-wider shadow-sm uppercase ${isConnected
-                  ? "bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30"
-                  : "bg-red-500/15 text-red-400 border border-red-500/30"
+                ? "bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30"
+                : "bg-red-500/15 text-red-400 border border-red-500/30"
                 }`}
             >
               {isConnected ? "Live" : "Offline"}
@@ -160,12 +160,11 @@ const Leaderboard = () => {
         ) : data.length > 0 ? (
           data.slice(0, 10).map((item, index) => (
             <div
-              className={`flex items-center p-3 rounded-[1.25rem] transition-all duration-300 ease-in-out border group ${
-                 index === 0 ? "bg-gradient-to-r from-yellow-500/10 to-transparent border-yellow-500/20 shadow-[0_0_20px_rgba(234,179,8,0.05)]" :
-                 index === 1 ? "bg-gradient-to-r from-gray-500/10 to-transparent border-gray-500/20 shadow-[0_0_20px_rgba(156,163,175,0.05)]" :
-                 index === 2 ? "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.05)]" :
-                 "bg-white/[0.02] border-transparent hover:border-white/10 hover:bg-white/[0.04]"
-              }`}
+              className={`flex items-center p-3 rounded-[1.25rem] transition-all duration-300 ease-in-out border group ${index === 0 ? "bg-gradient-to-r from-yellow-500/10 to-transparent border-yellow-500/20 shadow-[0_0_20px_rgba(234,179,8,0.05)]" :
+                  index === 1 ? "bg-gradient-to-r from-gray-500/10 to-transparent border-gray-500/20 shadow-[0_0_20px_rgba(156,163,175,0.05)]" :
+                    index === 2 ? "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.05)]" :
+                      "bg-white/[0.02] border-transparent hover:border-white/10 hover:bg-white/[0.04]"
+                }`}
               key={item.id}
             >
               <div className="shrink-0">{renderRank(index)}</div>
@@ -181,12 +180,11 @@ const Leaderboard = () => {
                 <p className={`text-[14px] font-bold truncate ${index <= 2 ? "text-white" : "text-white/80"}`}>{item.nickname}</p>
 
                 <div className="flex items-center gap-1.5 opacity-90 mt-0.5">
-                  <span className={`font-black text-[13px] tracking-tight ${
-                    index === 0 ? "text-yellow-400" :
-                    index === 1 ? "text-gray-300" :
-                    index === 2 ? "text-orange-400" :
-                    "text-white/60"
-                  }`}>{item.totalDiamonds.toLocaleString()}</span>
+                  <span className={`font-black text-[13px] tracking-tight ${index === 0 ? "text-yellow-400" :
+                      index === 1 ? "text-gray-300" :
+                        index === 2 ? "text-orange-400" :
+                          "text-white/60"
+                    }`}>{item.totalDiamonds.toLocaleString()}</span>
                   <img src={IMAGES.ICO_COIN} alt="Coin" className="w-[14px] h-[14px] opacity-90" />
                 </div>
               </div>

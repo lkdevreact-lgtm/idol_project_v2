@@ -88,7 +88,7 @@ const HomePage = ({ username }) => {
             className="relative sm:rounded-[2.8rem] bg-black overflow-hidden z-[20] shadow-[inset_0_0_80px_rgba(0,0,0,1)] border border-white/10 ring-[6px] ring-[#0a0a0a]"
             style={{ aspectRatio: "9/19.5", height: "100%" }}
           >
-            <Background imgSrc="/images/background.png" />
+            <Background />
             <VideoGiftPodium />
             {selectedVideo && (
               <BlackScreenVideo
