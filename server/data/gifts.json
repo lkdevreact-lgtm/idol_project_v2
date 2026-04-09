@@ -186,7 +186,11 @@
   },
   {
     "giftId": 5897,
-    "giftName": "Swan"
+    "giftName": "Swan",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/97a26919dbf6afe262c97e22a83f4bf1~tplv-obj.png",
+    "diamonds": 699,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 5659,
@@ -406,7 +410,11 @@
   },
   {
     "giftId": 15063,
-    "giftName": "Journey Pass"
+    "giftName": "Journey Pass",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/551ecaf639c5e02354f9e7c1a763ec72.png~tplv-obj.png",
+    "diamonds": 10,
+    "maxRepeatCount": 3,
+    "active": true
   },
   {
     "giftId": 19438,
@@ -421,7 +429,7 @@
     "giftName": "BFF Necklace",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/e033c3f28632e233bebac1668ff66a2f.png~tplv-obj.png",
     "diamonds": 10,
-    "maxRepeatCount": 3,
+    "maxRepeatCount": 5,
     "active": true
   },
   {
@@ -617,6 +625,14 @@
     "giftName": "Cap",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/6c2ab2da19249ea570a2ece5e3377f04~tplv-obj.png",
     "diamonds": 99,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 6766,
+    "giftName": "Bouquet",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/1bdf0b38142a94af0f71ea53da82a3b1~tplv-obj.png",
+    "diamonds": 100,
     "active": true,
     "maxRepeatCount": 1
   }

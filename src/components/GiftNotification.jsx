@@ -36,7 +36,7 @@ const GiftNotification = () => {
       {gifts.map((g) => (
         <div 
           key={g.id} 
-          className="bg-[#0a0a0a]/95 border border-white/10 p-1.5 pr-3 rounded-full flex items-center justify-between gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] animate-[slideInChat_0.3s_ease-out_forwards]"
+          className="bg-white/[0.1] backdrop-blur-2xl border border-white/30 p-1.5 pr-4 rounded-full flex items-center justify-between gap-3 shadow-[0_15px_30px_rgba(0,0,0,0.3)] animate-[slideInChat_0.3s_ease-out_forwards] ring-1 ring-white/10"
         >
           <div className="flex items-center gap-2.5 w-full overflow-hidden">
             {/* Avatar */}

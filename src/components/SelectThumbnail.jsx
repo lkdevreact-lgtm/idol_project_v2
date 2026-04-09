@@ -79,7 +79,7 @@ const SelectThumbnail = () => {
                   key={model.id}
                   onClick={() => setSelectedVideo(model.video)}
                   className={`w-full flex items-center gap-4 px-4 py-3.5 cursor-pointer rounded-[1.25rem] transition-all duration-300
-                    ${isActive ? "bg-white/[0.06] border border-white/20 shadow-[0_10px_20px_rgba(0,0,0,0.2)]" : "bg-transparent border border-transparent hover:bg-white/[0.02] opacity-50 hover:opacity-100"}
+                    ${isActive ? "bg-white/[0.08] border border-white/30 shadow-[0_10px_30px_rgba(0,0,0,0.3)]" : "bg-white/[0.03] border border-white/[0.05] hover:border-white/20 hover:bg-white/[0.06] opacity-60 hover:opacity-100 shadow-sm"}
                   `}
                 >
                   <div className={`shrink-0 w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-black ${isActive ? "bg-[#06b6d4]/20 text-[#06b6d4] shadow-inner" : "bg-white/5 text-gray-500"}`}>

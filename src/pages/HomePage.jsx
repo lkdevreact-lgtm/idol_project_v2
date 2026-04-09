@@ -83,20 +83,22 @@ const HomePage = ({ username }) => {
       <div className="flex-1 flex items-center justify-center min-h-0 min-w-0 relative">
         <div className="relative h-full flex items-center justify-center">
           {/* LED border ring behind phone */}
-          <div className="absolute inset-[-12px] rounded-[3.25rem] overflow-hidden bg-[#18181b] shadow-[0_30px_100px_rgba(0,0,0,1)] border border-white/[0.08]">
-            <div className="absolute inset-0 z-0 flex items-center justify-center mix-blend-screen bg-black/40">
-              <div className="w-[150%] h-[150%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#d946ef_350deg,#fff_360deg)] animate-[spin_4s_linear_infinite]" />
+          <div className="absolute inset-[-12px] rounded-[3.25rem] overflow-hidden bg-white/[0.1] backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/20">
+            <div className="absolute inset-0 z-0 flex items-center justify-center mix-blend-screen">
+              <div className="w-[150%] h-[150%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#d946ef_350deg,#fff_360deg)] animate-[spin_3s_linear_infinite] opacity-100 scale-110" />
             </div>
-            <div className="absolute inset-0 z-0 flex items-center justify-center mix-blend-screen bg-black/40">
-              <div className="w-[150%] h-[150%] bg-[conic-gradient(from_180deg,transparent_0_300deg,#06b6d4_350deg,#fff_360deg)] animate-[spin_4s_linear_infinite]" />
+            <div className="absolute inset-0 z-0 flex items-center justify-center mix-blend-screen">
+              <div className="w-[150%] h-[150%] bg-[conic-gradient(from_180deg,transparent_0_300deg,#06b6d4_350deg,#fff_360deg)] animate-[spin_3s_linear_infinite] opacity-100 scale-110" />
             </div>
           </div>
 
+
           {/* Phone screen */}
           <div
-            className="relative sm:rounded-[2.8rem] bg-black overflow-hidden z-[20] shadow-[inset_0_0_80px_rgba(0,0,0,1)] border border-white/10 ring-[6px] ring-[#0a0a0a]"
+            className="relative sm:rounded-[2.8rem] bg-[#0c0c12] overflow-hidden z-[20] shadow-[inset_0_0_60px_rgba(0,0,0,0.8)] border border-white/20 ring-[6px] ring-white/10"
             style={{ aspectRatio: "9/19.5", height: "100%" }}
           >
+
             <Background />
             <VideoGiftPodium />
             
@@ -118,10 +120,6 @@ const HomePage = ({ username }) => {
                 onVideoEnded={processNext}
               />
             )}
-            <div
-              className="absolute inset-0 pointer-events-none bg-gradient-to-br from-white/[0.05] to-transparent mix-blend-overlay"
-              style={{ zIndex: 60 }}
-            />
             <GiftNotification />
           </div>
         </div>

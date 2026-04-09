@@ -163,7 +163,7 @@ const Leaderboard = () => {
               className={`flex items-center p-3 rounded-[1.25rem] transition-all duration-300 ease-in-out border group ${index === 0 ? "bg-gradient-to-r from-yellow-500/10 to-transparent border-yellow-500/20 shadow-[0_0_20px_rgba(234,179,8,0.05)]" :
                   index === 1 ? "bg-gradient-to-r from-gray-500/10 to-transparent border-gray-500/20 shadow-[0_0_20px_rgba(156,163,175,0.05)]" :
                     index === 2 ? "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.05)]" :
-                      "bg-white/[0.02] border-transparent hover:border-white/10 hover:bg-white/[0.04]"
+                      "bg-white/[0.05] border-white/[0.08] hover:border-white/20 hover:bg-white/[0.08] shadow-sm"
                 }`}
               key={item.id}
             >

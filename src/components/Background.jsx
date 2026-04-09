@@ -14,11 +14,8 @@ const Background = () => {
         }}
       />
 
-      {/* Ambient Grain & Gloss overlay for texture */}
-      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-
-      {/* Vignette effect to focus the center */}
-      <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,1)]" />
+      {/* Clean overlay */}
+      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
     </div>
   );
 };
