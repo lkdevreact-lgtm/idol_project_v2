@@ -14,9 +14,10 @@ import {
   MdCloudUpload,
   MdTune,
 } from "react-icons/md";
+import { SOCKET_URL } from "../utils/constant";
 
-// Backend API base (proxied through Vite)
-const API = "";
+// Backend API base
+const API = SOCKET_URL;
 
 /* ─── Upload helpers ─── */
 async function uploadFile(file, type) {
@@ -66,9 +67,8 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
   const avatarRef = useRef();
   const videoRef = useRef();
 
-  // Fetch gift list from server
   useEffect(() => {
-    fetch("/api/gifts")
+    fetch(`${API}/api/gifts`)
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {

@@ -696,5 +696,13 @@
     "diamonds": 100,
     "active": true,
     "maxRepeatCount": 1
+  },
+  {
+    "giftId": 42008,
+    "giftName": "Quý Cô Rạng Rỡ",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/saliency_seg_1768805714471_0.f45d66cc4e45fc4922ab01767fa58954.png~tplv-obj.png",
+    "diamonds": 1,
+    "active": true,
+    "maxRepeatCount": 1
   }
 ]

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { SOCKET_URL } from "../utils/constant";
 
 export const useGiftStore = create((set, get) => ({
   gifts: [],
@@ -7,7 +8,7 @@ export const useGiftStore = create((set, get) => ({
   fetchGifts: async () => {
     set({ loading: true });
     try {
-      const res = await fetch("/api/gifts");
+      const res = await fetch(`${SOCKET_URL}/api/gifts`);
       const data = await res.json();
       if (Array.isArray(data)) {
         set({ gifts: data });
@@ -21,7 +22,7 @@ export const useGiftStore = create((set, get) => ({
 
   addGift: async (giftData) => {
     try {
-      const res = await fetch("/api/gifts", {
+      const res = await fetch(`${SOCKET_URL}/api/gifts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(giftData),
@@ -42,7 +43,7 @@ export const useGiftStore = create((set, get) => ({
 
   updateGift: async (id, payload) => {
     try {
-      const res = await fetch(`/api/gifts/${id}`, {
+      const res = await fetch(`${SOCKET_URL}/api/gifts/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -69,7 +70,7 @@ export const useGiftStore = create((set, get) => ({
 
   deleteGift: async (id) => {
     try {
-      const res = await fetch(`/api/gifts/${id}`, {
+      const res = await fetch(`${SOCKET_URL}/api/gifts/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

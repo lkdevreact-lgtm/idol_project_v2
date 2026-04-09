@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { SOCKET_URL } from "../utils/constant";
 
 export const useVideoStore = create((set, get) => ({
   // ---------- video list ----------
@@ -8,7 +9,7 @@ export const useVideoStore = create((set, get) => ({
   fetchVideos: async () => {
     set({ loading: true });
     try {
-      const res = await fetch("/api/videos");
+      const res = await fetch(`${SOCKET_URL}/api/videos`);
       const data = await res.json();
       if (Array.isArray(data)) {
         set({ videos: data });
@@ -22,7 +23,7 @@ export const useVideoStore = create((set, get) => ({
 
   syncVideos: async (newVideos) => {
     try {
-      await fetch("/api/videos", {
+      await fetch(`${SOCKET_URL}/api/videos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newVideos),
@@ -64,7 +65,7 @@ export const useVideoStore = create((set, get) => ({
         /\/\d{10,}-/.test(p);
 
       if (isUploaded(target.video)) {
-        fetch(`/api/files?path=${encodeURIComponent(target.video)}`, {
+        fetch(`${SOCKET_URL}/api/files?path=${encodeURIComponent(target.video)}`, {
           method: "DELETE",
         }).catch((e) => console.warn("Could not delete video file:", e));
       }
