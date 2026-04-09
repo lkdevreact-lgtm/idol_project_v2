@@ -234,7 +234,8 @@
   },
   {
     "giftId": 7122,
-    "giftName": " Gem Gun"
+    "giftName": " Gem Gun",
+    "active": true
   },
   {
     "giftId": 19448,
