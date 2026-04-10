@@ -118,7 +118,11 @@
   },
   {
     "giftId": 6007,
-    "giftName": "Boxing Gloves"
+    "giftName": "Boxing Gloves",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/9f8bd92363c400c284179f6719b6ba9c~tplv-obj.png",
+    "diamonds": 299,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 11179,
