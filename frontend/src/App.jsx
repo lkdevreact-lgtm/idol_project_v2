@@ -6,7 +6,7 @@ import UploadPage from "./pages/UploadPage";
 import GiftPage from "./pages/GiftPage";
 import { useGiftStore } from "./hooks/useGiftStore";
 import Sidebar from "./components/Layout/Sidebar";
-import FooterBar from "./components/Layout/FooterBar";
+
 import { ROUTES_URL } from "./utils/constant";
 
 import { useVideoStore } from "./hooks/useVideoStore";
@@ -65,12 +65,12 @@ const App = () => {
       <div className="flex-1 min-h-0 h-full relative z-10 overflow-hidden">
         <Routes>
           <Route path={ROUTES_URL.DASHBOARD} element={<HomePage username={connectedUsername} />} />
-          <Route path={ROUTES_URL.UPLOAD} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-24 sm:pb-12 px-4 sm:px-6"><UploadPage /></div>} />
-          <Route path={ROUTES_URL.GIFTS} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-24 sm:pb-12 px-4 sm:px-6"><GiftPage /></div>} />
-          <Route path={ROUTES_URL.TTS} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-24 sm:pb-12 px-4 sm:px-6"><ModalTTS /></div>} />
+          <Route path={ROUTES_URL.UPLOAD} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-12 px-4 sm:px-6"><UploadPage /></div>} />
+          <Route path={ROUTES_URL.GIFTS} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-12 px-4 sm:px-6"><GiftPage /></div>} />
+          <Route path={ROUTES_URL.TTS} element={<div className="w-full h-full overflow-y-auto pt-16 sm:pt-20 pb-12 px-4 sm:px-6"><ModalTTS /></div>} />
         </Routes>
       </div>
-      <FooterBar />
+
     </div>
   );
 };

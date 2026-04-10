@@ -712,7 +712,7 @@ const UploadPage = () => {
 
       {/* FAB for mobile */}
       <div className="sm:hidden block">
-        <div className="fixed bottom-20 right-5 z-40">
+        <div className="fixed bottom-8 right-5 z-40">
           <button
             onClick={() => setModal({ mode: "add" })}
             className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white hover:scale-110 shadow-[0_10px_25px_rgba(217,70,239,0.4)] transition-all"
