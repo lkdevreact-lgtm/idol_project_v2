@@ -56,11 +56,11 @@ const HomePage = ({ username }) => {
           </div>
         )}
 
-        <GlassPanel title="TOP GIFTS & GIFTERS" className="flex-[6] min-h-0">
+        <GlassPanel title="BXH ĐẠI GIA" className="flex-[6] min-h-0">
           <Leaderboard />
         </GlassPanel>
 
-        <GlassPanel title="DANCER MODELS" className="flex-[4] min-h-0">
+        <GlassPanel title="DANH SÁCH THÀNH VIÊN" className="flex-[4] min-h-0">
           <SelectThumbnail />
         </GlassPanel>
       </div>

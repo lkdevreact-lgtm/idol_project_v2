@@ -68,11 +68,6 @@ const Leaderboard = () => {
 
   return (
     <div className="w-full h-full flex flex-col bg-transparent">
-      {/* Section header compact */}
-      <div className="shrink-0 px-4 py-2 flex items-center justify-between bg-white/[0.02] border-b border-white/[0.04]">
-        <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Danh sách thành viên</span>
-      </div>
-
       {/* List */}
       <div className="flex-1 overflow-y-auto px-1.5 py-1 flex flex-col gap-0.5 custom-scrollbar">
         {data.length > 0 ? (
