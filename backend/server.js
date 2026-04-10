@@ -68,6 +68,41 @@ app.get("/api/tts/voices-list", async (req, res) => {
   }
 });
 
+// Proxy TTS speak (bypass CORS from ngrok)
+app.post("/api/tts/speak", async (req, res) => {
+  const { url, ...body } = req.body;
+  if (!url) return res.status(400).json({ error: "Missing url in body" });
+  try {
+    console.log("[proxy] TTS speak →", url, body);
+
+    // Send as FormData (TTS API expects multipart form, not JSON)
+    const formData = new URLSearchParams();
+    for (const [key, value] of Object.entries(body)) {
+      formData.append(key, String(value));
+    }
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+      },
+      body: formData,
+    });
+    if (!response.ok) {
+      console.error("[proxy] TTS speak error:", response.status);
+      return res.status(response.status).json({ error: "TTS API error" });
+    }
+    // Pipe audio binary response back to client
+    const contentType = response.headers.get("content-type") || "audio/wav";
+    res.set("Content-Type", contentType);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
+  } catch (err) {
+    console.error("[proxy] TTS speak error:", err.message);
+    res.status(502).json({ error: "Failed to call TTS API" });
+  }
+});
+
 
 const PORT = process.env.PORT || 3004;
 httpServer.listen(PORT, () => {

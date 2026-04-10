@@ -62,12 +62,26 @@ let speechQueue = [];
 let isSpeaking = false;
 let currentAudio = null;
 
-// ─── Custom API TTS ───
+// Unlock audio autoplay on first user interaction
+let audioUnlocked = false;
+const unlockAudio = () => {
+  if (audioUnlocked) return;
+  const silent = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=");
+  silent.play().then(() => { silent.pause(); audioUnlocked = true; }).catch(() => {});
+};
+if (typeof document !== "undefined") {
+  document.addEventListener("click", unlockAudio, { once: true });
+  document.addEventListener("keydown", unlockAudio, { once: true });
+}
+
+// ─── Custom API TTS (via backend proxy to bypass CORS) ───
 const speakWithCustomAPI = async (text, state) => {
   try {
-    const url = state.customApiUrl || "https://unoverlooked-soulfully-rayna.ngrok-free.dev/tts";
+    const ttsUrl = state.customApiUrl || "https://unoverlooked-soulfully-rayna.ngrok-free.dev/tts";
+    const proxyUrl = `${SOCKET_URL}/api/tts/speak`;
 
     const payload = {
+      url: ttsUrl,
       text,
       voice: state.customVoice || "",
       num_step: state.customNumStep ?? 16,
@@ -77,44 +91,63 @@ const speakWithCustomAPI = async (text, state) => {
       no_warmup: state.customNoWarmup ?? true,
     };
 
-    console.log("[TTS] Custom API request:", url, payload);
+    console.log("[TTS] Sending via proxy:", proxyUrl, payload);
 
-    const response = await fetch(url, {
+    const response = await fetch(proxyUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      console.warn("[TTS] Custom API error:", response.status);
+      const errText = await response.text().catch(() => "");
+      console.warn("[TTS] Proxy API error:", response.status, errText);
       isSpeaking = false;
       processQueue();
       return;
     }
 
+    const contentType = response.headers.get("content-type") || "";
+    console.log("[TTS] Response content-type:", contentType, "status:", response.status);
+
     const blob = await response.blob();
+    console.log("[TTS] Blob size:", blob.size, "type:", blob.type);
+
+    if (blob.size === 0) {
+      console.warn("[TTS] Empty audio response");
+      isSpeaking = false;
+      processQueue();
+      return;
+    }
+
     const audioUrl = URL.createObjectURL(blob);
     const audio = new Audio(audioUrl);
     currentAudio = audio;
     audio.volume = state.volume;
 
     audio.onended = () => {
+      console.log("[TTS] Audio ended");
       URL.revokeObjectURL(audioUrl);
       currentAudio = null;
       isSpeaking = false;
       processQueue();
     };
 
-    audio.onerror = () => {
+    audio.onerror = (e) => {
+      console.error("[TTS] Audio play error:", e);
       URL.revokeObjectURL(audioUrl);
       currentAudio = null;
       isSpeaking = false;
       processQueue();
     };
 
-    audio.play();
+    audio.play().catch((e) => {
+      console.error("[TTS] audio.play() rejected:", e);
+      isSpeaking = false;
+      processQueue();
+    });
   } catch (err) {
-    console.warn("[TTS] Custom API fetch failed:", err);
+    console.warn("[TTS] Proxy API fetch failed:", err);
     isSpeaking = false;
     processQueue();
   }
