@@ -135,7 +135,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
       <div className="relative w-full max-w-xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden">
         {/* header */}
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-7 sm:py-4 border-b border-white/[0.05] bg-white/[0.02]">
-          <h2 className="text-white font-extrabold text-base sm:text-lg tracking-tight flex items-center gap-2">
+          <h2 className="text-white font-black text-[15px] sm:text-lg tracking-tight flex items-center gap-2">
             {initial ? (
               <span className="flex items-center gap-2 text-[#d946ef]">
                 <MdEdit className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]" /> Sửa Video
@@ -257,7 +257,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
               </p>
             </div>
             <div>
-              <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">
+              <label className="text-[9px] sm:text-[10px] uppercase font-black text-white/30 tracking-wider mb-2 block">
                 Thứ tự
               </label>
               <input
@@ -266,7 +266,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
                 max={maxOrder + 1}
                 value={form.order}
                 onChange={(e) => set("order", parseInt(e.target.value) || 1)}
-                className="w-full bg-[#252630] border border-[#2e2f38] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] font-mono focus:outline-none focus:border-[#d946ef]/60 transition-all"
+                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] font-mono focus:outline-none focus:border-[#d946ef]/60 transition-all font-medium"
               />
             </div>
           </div>
@@ -340,17 +340,16 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
           </div>
 
           {/* active toggle */}
-          <div className="flex items-center justify-between bg-[#1a1b23] rounded-xl px-4 py-3 sm:px-5 sm:py-4 border border-[#2e2f38] shadow-inner mt-1">
+          <div className="flex items-center justify-between bg-white/[0.03] rounded-xl px-4 py-3 sm:px-5 sm:py-4 border border-white/[0.06] shadow-inner mt-1">
             <div>
               <p className="text-[13px] sm:text-[15px] text-white font-black tracking-tight uppercase">Trạng thái Video</p>
-              <p className="text-[11px] sm:text-[12px] text-gray-500 mt-0.5 font-bold">
+              <p className="text-[11px] sm:text-[12px] text-white/30 mt-0.5 font-medium">
                 Kích hoạt để hiển thị video trên live
               </p>
             </div>
             <button
               onClick={() => set("active", !form.active)}
-              className={`relative w-10 h-5 sm:w-12 sm:h-6 rounded-full transition-colors duration-300 border border-transparent ${form.active ? "bg-[#10b981]" : "bg-[#252630] border-[#3f404d]"
-                }`}
+              className={`relative w-10 h-5 sm:w-12 sm:h-6 rounded-full transition-colors duration-300 border border-transparent ${form.active ? "bg-[#10b981]" : "bg-white/10 border-white/5"}`}
             >
               <div
                 className={`absolute top-[2px] left-[2px] sm:left-[2.5px] w-[16px] h-[16px] sm:w-[20px] sm:h-[20px] bg-white rounded-full transition-transform duration-300 shadow-sm ${form.active ? "translate-x-[20px] sm:translate-x-[25px]" : "translate-x-0"
@@ -396,7 +395,7 @@ const DeleteConfirm = ({ name, onConfirm, onClose }) => (
       <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-1">
         <MdDelete className="text-red-500 w-5 h-5 sm:w-8 sm:h-8" />
       </div>
-      <h3 className="text-white font-black text-base sm:text-xl">Xóa Video</h3>
+      <h3 className="text-white font-black text-[17px] sm:text-xl">Xóa Video</h3>
       <p className="text-gray-400 text-[13px] sm:text-[15px] leading-relaxed">
         Bạn có chắc muốn xóa video{" "}
         <span className="text-white font-bold px-1.5 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.1]">"{name}"</span> không?

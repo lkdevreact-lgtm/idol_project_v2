@@ -32,7 +32,7 @@ const GiftModal = ({ initial, onSave, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <div className="relative w-full max-w-md bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-2xl">
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-7 sm:py-4 border-b border-white/[0.05] bg-white/[0.02]">
-          <h2 className="text-white font-extrabold text-base sm:text-lg tracking-tight flex items-center gap-2">
+          <h2 className="text-white font-black text-[15px] sm:text-lg tracking-tight flex items-center gap-2">
             {initial ? (
               <span className="flex items-center gap-2 text-[#d946ef]">
                 <MdEdit className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]" /> Sửa Quà Tặng
@@ -73,14 +73,14 @@ const GiftModal = ({ initial, onSave, onClose }) => {
           </div>
 
           <div>
-            <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">
-              Tên Quà *
+            <label className="text-[9px] sm:text-[10px] uppercase font-black text-white/30 tracking-wider mb-2 block">
+              Tên quà tặng
             </label>
             <input
               value={giftName}
               onChange={(e) => setGiftName(e.target.value)}
-              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm placeholder-white/20 focus:outline-none focus:border-[#d946ef]/60 transition-all font-medium"
-              placeholder="VD: Rose"
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] placeholder-white/20 focus:outline-none focus:border-[#d946ef]/50 transition-all font-medium"
+              placeholder="Ví dụ: Rose, Galaxy..."
             />
           </div>
         </div>
@@ -109,10 +109,10 @@ const GiftModal = ({ initial, onSave, onClose }) => {
 const DeleteConfirm = ({ name, onConfirm, onClose }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
     <div className="w-full max-w-[320px] sm:max-w-sm mx-4 bg-[#1a1b26]/80 backdrop-blur-3xl rounded-[2rem] border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-4 sm:p-7 flex flex-col gap-3.5 sm:gap-5 text-center items-center">
-      <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-1">
+      <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-1">
         <MdDelete className="text-red-500 w-5 h-5 sm:w-8 sm:h-8" />
       </div>
-      <h3 className="text-white font-black text-base sm:text-xl">Xóa Quà Tặng</h3>
+      <h3 className="text-white font-black text-[17px] sm:text-xl">Xóa Quà Tặng</h3>
       <p className="text-gray-400 text-[13px] sm:text-[15px] leading-relaxed">
         Bạn có chắc muốn xóa quà{" "}
         <span className="text-white font-bold px-1.5 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.1]">"{name}"</span> không?

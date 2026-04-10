@@ -12,9 +12,9 @@ import GiftNotification from "../components/GiftNotification";
 const GlassPanel = ({ title, children, className = "" }) => (
   <div className={`flex flex-col bg-white/[0.03] backdrop-blur-2xl rounded-2xl border border-white/[0.05] overflow-hidden ${className}`}>
     {title && (
-      <div className="shrink-0 px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.03] bg-white/[0.02]">
-        <div className="w-1 h-3.5 rounded-full bg-[#d946ef] shrink-0" />
-        <span className="text-[10px] font-extrabold text-white/50 uppercase tracking-[0.2em] select-none">
+      <div className="shrink-0 px-4 py-2 sm:py-2.5 flex items-center gap-2 border-b border-white/[0.03] bg-white/[0.02]">
+        <div className="w-[3px] h-3 rounded-full bg-[#d946ef] shrink-0" />
+        <span className="text-[8.5px] sm:text-[9.5px] font-black text-white/30 uppercase tracking-[0.25em] select-none">
           {title}
         </span>
       </div>
@@ -118,20 +118,20 @@ const HomePage = ({ username }) => {
           {/* Gift Performance Badge */}
           {videoMode === "queue" && currentGiftName && (
             <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[100] w-full px-4 pointer-events-none">
-              <div className="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl py-2.5 px-5 flex items-center justify-center gap-3 shadow-2xl">
-                <span className="text-[10px] font-black text-[#d946ef] uppercase tracking-widest leading-none">Đang trình diễn</span>
-                <div className="w-1 h-1 rounded-full bg-white/20" />
-                <span className="text-[13px] font-black text-white uppercase leading-none">{currentGiftName}</span>
+              <div className="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl py-2 px-5 flex items-center justify-center gap-3 shadow-2xl">
+                <span className="text-[9px] font-black text-[#d946ef] uppercase tracking-widest leading-none">Showtime</span>
+                <div className="w-1 h-1 rounded-full bg-white/10" />
+                <span className="text-[11px] font-black text-white uppercase leading-none tracking-tight">{currentGiftName}</span>
               </div>
             </div>
           )}
 
           {/* Streamer Badge Mobile */}
           {username && (
-            <div className="absolute top-4 right-4 z-[100] bg-white/[0.05] backdrop-blur-xl border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-2xl">
+            <div className="absolute top-4 right-4 z-[100] bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-2xl">
               <div className="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse shrink-0" />
-              <span className="text-white/30 uppercase font-black text-[9px] tracking-widest leading-none">Streamer</span>
-              <span className="font-black text-[#d946ef] text-[11px] leading-none">@{username}</span>
+              <span className="text-white/20 uppercase font-black text-[8.5px] tracking-widest leading-none">Live</span>
+              <span className="font-black text-[#d946ef] text-[10.5px] leading-none tracking-tight">@{username}</span>
             </div>
           )}
 

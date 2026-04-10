@@ -60,7 +60,7 @@ const SelectThumbnail = () => {
 
                 {/* Name in Yellow/White - TikTok Style */}
                 <div className="flex-1 min-w-0">
-                  <p className={`text-[9px] sm:text-[12px] font-black uppercase tracking-wider truncate leading-tight ${isActive ? "text-[#fbbf24]" : "text-[#fbbf24]/80 group-hover:text-[#fbbf24]"}`}>
+                  <p className={`text-[8.5px] sm:text-[10px] font-semibold uppercase tracking-wider truncate leading-tight ${isActive ? "text-[#eab308]" : "text-[#eab308]/80 group-hover:text-[#eab308]"}`}>
                     {model.name}
                   </p>
                 </div>

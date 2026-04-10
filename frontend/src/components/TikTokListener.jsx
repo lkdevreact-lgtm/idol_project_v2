@@ -103,13 +103,13 @@ const TikTokListener = () => {
       {/* Header compact */}
       <div className="shrink-0 px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
         <div className="flex items-center gap-2">
-          <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? "bg-[#10b981] animate-pulse" : "bg-red-500"}`} />
-          <span className="text-[9px] font-bold uppercase tracking-wider text-white/40">
+          <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full ${isConnected ? "bg-[#10b981] animate-pulse" : "bg-red-500"}`} />
+          <span className="text-[8px] sm:text-[9px] font-semibold uppercase tracking-wider text-white/40">
             {isConnected ? "Live Stream" : "Disconnected"}
           </span>
         </div>
-        <span className="text-[9px] font-bold text-white/30 tracking-tight">
-          IDOL <span className="text-white/60">{actualIndex + 1}/{activeVideos.length}</span>
+        <span className="text-[8px] sm:text-[9px] font-semibold text-white/30 tracking-tight">
+          IDOL <span className="text-white/55">{actualIndex + 1}/{activeVideos.length}</span>
         </span>
       </div>
 
@@ -129,11 +129,11 @@ const TikTokListener = () => {
               )}
               <div className="flex-1 min-w-0 leading-tight">
                 {log.name && (
-                  <span className="text-[10.5px] sm:text-[11.5px] font-bold text-white/60 mr-1 group-hover:text-white/80 transition-colors">
+                  <span className="text-[9.5px] sm:text-[10.5px] font-semibold text-white/50 mr-1 group-hover:text-white/80 transition-colors">
                     {log.name}
                   </span>
                 )}
-                <span className={`text-[10.5px] sm:text-[11.5px] font-medium break-words leading-tight sm:leading-snug ${getMessageStyle(log.type)}`}>
+                <span className={`text-[9.5px] sm:text-[10.5px] font-normal break-words leading-tight sm:leading-snug ${getMessageStyle(log.type)}`}>
                   {log.text}
                 </span>
               </div>
