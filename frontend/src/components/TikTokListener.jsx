@@ -121,19 +121,19 @@ const TikTokListener = () => {
           </div>
         ) : (
           logs.map((log) => (
-            <div key={log.id} className="flex items-start gap-2.5 px-2.5 py-1.5 hover:bg-white/[0.03] rounded-lg transition-colors group">
+            <div key={log.id} className="flex items-start gap-1.5 sm:gap-2.5 px-2 sm:px-2.5 py-1 sm:py-1.5 hover:bg-white/[0.03] rounded-lg transition-colors group">
               {log.avatar ? (
-                <img src={log.avatar} alt="" className="w-6 h-6 rounded-full object-cover shrink-0 border border-white/5" />
+                <img src={log.avatar} alt="" className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover shrink-0 border border-white/5" />
               ) : (
-                <div className="w-6 h-6 rounded-full bg-white/5 shrink-0" />
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/5 shrink-0" />
               )}
               <div className="flex-1 min-w-0 leading-tight">
                 {log.name && (
-                  <span className="text-[11.5px] font-bold text-white/60 mr-1.5 group-hover:text-white/80 transition-colors">
+                  <span className="text-[10.5px] sm:text-[11.5px] font-bold text-white/60 mr-1 group-hover:text-white/80 transition-colors">
                     {log.name}
                   </span>
                 )}
-                <span className={`text-[11.5px] font-medium break-words leading-snug ${getMessageStyle(log.type)}`}>
+                <span className={`text-[10.5px] sm:text-[11.5px] font-medium break-words leading-tight sm:leading-snug ${getMessageStyle(log.type)}`}>
                   {log.text}
                 </span>
               </div>

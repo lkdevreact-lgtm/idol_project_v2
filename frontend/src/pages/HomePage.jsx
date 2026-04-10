@@ -165,7 +165,7 @@ const HomePage = ({ username }) => {
           {/* Toggle Live Feed Button */}
           <button
             onClick={() => setShowLiveFeed(!showLiveFeed)}
-            className="pointer-events-auto w-fit px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] text-white/70 text-[10px] font-black uppercase tracking-widest backdrop-blur-md active:scale-95 transition-all mt-1"
+            className="pointer-events-auto w-fit px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-white/50 text-[9px] font-black uppercase tracking-widest backdrop-blur-md active:scale-95 transition-all mt-1"
           >
             {showLiveFeed ? "Ẩn Chat" : "Hiện Chat"}
           </button>

@@ -90,14 +90,15 @@ const Leaderboard = () => {
               />
 
               {/* Info - Style "FENGMI / 105" */}
-              <div className="flex-1 min-w-0 flex flex-col">
-                <p className="text-[10px] sm:text-[12px] font-bold text-white/90 truncate uppercase tracking-tight leading-none group-hover:text-white transition-colors">
-                  {item.nickname}
-                </p>
-                <p className="text-[9px] sm:text-[11px] font-black text-white mt-1 sm:mt-1.5 tabular-nums leading-none">
-                  {item.totalDiamonds.toLocaleString()}
-                </p>
-              </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] sm:text-[10px] font-black text-white/90 truncate leading-tight uppercase tracking-tight">
+                    {item.nickname}
+                  </p>
+                  <p className="text-[8px] sm:text-[9px] font-bold text-[#fbbf24] leading-tight flex items-center gap-0.5">
+                    <span className="opacity-80 tabular-nums">{item.totalDiamonds.toLocaleString()}</span>
+                    <span className="text-[7px] opacity-60 uppercase tracking-tighter">pts</span>
+                  </p>
+                </div>
             </div>
           ))
         ) : (

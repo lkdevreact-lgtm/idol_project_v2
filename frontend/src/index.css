@@ -96,7 +96,11 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #07f2e7;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   transition: all 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
 }

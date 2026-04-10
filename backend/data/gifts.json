@@ -339,7 +339,11 @@
   },
   {
     "giftId": 16690,
-    "giftName": "Super Popular"
+    "giftName": "Super Popular",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/2fa794a99919386b85402d9a0a991b2b.png~tplv-obj.png",
+    "diamonds": 9,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 17948,
@@ -750,6 +754,14 @@
     "giftName": "Signature Jet",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/fe27eba54a50c0a687e3dc0f2c02067d~tplv-obj.png",
     "diamonds": 4888,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 14000,
+    "giftName": "Glitter Bow",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/dd02c4c2cb726134314e89abec0b5476.png~tplv-obj.png",
+    "diamonds": 149,
     "active": true,
     "maxRepeatCount": 1
   }

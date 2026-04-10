@@ -181,14 +181,13 @@ const GiftPage = () => {
         </div>
       </div>
 
-      {/* Toolbar / Search */}
-      <div className="mb-6 md:mb-8 shrink-0 flex items-center w-full sm:max-w-md relative">
-        <MdSearch className="absolute left-5 text-gray-500" size={22} />
+      <div className="mb-6 md:mb-8 shrink-0 flex items-center w-full sm:max-w-md relative group">
+        <MdSearch className="absolute left-3.5 sm:left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d946ef]/60 transition-colors" size={18} />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Tìm kiếm theo tên hoặc ID..."
-          className="w-full bg-white/[0.03] border border-white/5 hover:border-white/10 rounded-2xl pl-12 pr-5 py-4 text-[15px] text-gray-200 placeholder-white/20 focus:outline-none focus:border-[#d946ef]/40 focus:bg-white/[0.05] transition-all backdrop-blur-md"
+          placeholder="Tìm kiếm..."
+          className="w-full bg-white/[0.03] border border-white/5 hover:border-white/10 rounded-xl sm:rounded-2xl pl-10 sm:pl-12 pr-4 sm:pr-5 py-2 sm:py-4 text-[13px] sm:text-[15px] text-gray-200 placeholder-white/20 focus:outline-none focus:border-[#d946ef]/40 focus:bg-white/[0.05] transition-all backdrop-blur-md"
         />
       </div>
 
@@ -207,7 +206,7 @@ const GiftPage = () => {
             <p className="text-sm">Không tìm thấy món quà nào. Vui lòng thử lại với từ khóa khác.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-6">
             {filtered.map((gift) => {
               const isUsed = usedGiftNames.has(gift.giftName);
               const isActive = gift.active !== false;
@@ -215,14 +214,14 @@ const GiftPage = () => {
               return (
                 <div
                   key={gift.giftId}
-                  className={`group relative flex flex-col p-6 rounded-3xl border transition-all duration-300 backdrop-blur-xl ${isActive
+                  className={`group relative flex flex-col p-4 sm:p-6 rounded-2xl sm:rounded-3xl border transition-all duration-300 backdrop-blur-xl ${isActive
                     ? "bg-white/[0.03] border-white/5 hover:border-[#d946ef]/30 hover:shadow-[0_8px_30px_rgba(217,70,239,0.08)] hover:-translate-y-1 hover:bg-white/[0.06]"
                     : "bg-white/[0.01] border-white/[0.03] opacity-[0.55] grayscale"
                     }`}
                 >
-                  <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-start justify-between mb-3 sm:mb-5">
                     <div
-                      className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-2xl ${isActive
+                      className={`relative w-11 h-11 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-2xl ${isActive
                         ? "bg-white/[0.02] border-white/5 text-[#d946ef] group-hover:scale-[1.05]"
                         : "bg-black/20 border-white/5 text-gray-500"
                         }`}
@@ -231,72 +230,79 @@ const GiftPage = () => {
                         <img
                           src={gift.image}
                           alt={gift.giftName}
-                          className="w-10 h-10 object-contain drop-shadow-md"
+                          className="w-7 h-7 sm:w-10 sm:h-10 object-contain drop-shadow-md"
                         />
                       ) : (
-                        <MdCardGiftcard size={32} />
+                        <MdCardGiftcard size={22} className="sm:size-[32px]" />
+                      )}
+
+                      {/* Hit Overlay (Mobile Only) */}
+                      {gift.maxRepeatCount > 1 && (
+                        <div className="sm:hidden absolute -top-1.5 -left-1.5 px-1.5 py-0.5 rounded-md bg-white/[0.08] backdrop-blur-md border border-white/10 text-[7px] font-black text-[#fbbf24] shadow-xl z-10 whitespace-nowrap">
+                          H:{gift.maxRepeatCount}
+                        </div>
                       )}
                     </div>
 
                     {/* Toggle Switch */}
                     <button
                       onClick={() => useGiftStore.getState().toggleActive(gift.giftId)}
-                      className={`w-12 h-6 rounded-full relative transition-colors duration-300 border border-transparent ${isActive ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6]" : "bg-[#252630] border-[#3f404d]"
+                      className={`w-8 h-4 sm:w-12 sm:h-6 rounded-full relative transition-colors duration-300 border border-transparent ${isActive ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6]" : "bg-[#252630] border-[#3f404d]"
                         }`}
                     >
                       <div
-                        className={`absolute top-[2px] left-[2.5px] w-[18px] h-[18px] bg-white rounded-full transition-transform duration-300 shadow-sm ${isActive ? "translate-x-[25px]" : "translate-x-0"
+                        className={`absolute top-[1.5px] sm:top-[2px] left-[1.5px] sm:left-[2.5px] w-[12px] h-[12px] sm:w-[18px] sm:h-[18px] bg-white rounded-full transition-transform duration-300 shadow-sm ${isActive ? "translate-x-[16px] sm:translate-x-[25px]" : "translate-x-0"
                           }`}
                       />
                     </button>
                   </div>
 
                   <div className="mb-3">
-                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                      <h3 className={`text-[17px] font-extrabold tracking-tight ${isActive ? "text-white" : "text-gray-300"}`}>
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-1.5">
+                      <h3 className={`text-[13px] sm:text-[17px] font-black sm:font-extrabold tracking-tight truncate leading-tight ${isActive ? "text-white" : "text-gray-300"}`}>
                         {gift.giftName}
                       </h3>
                       {isUsed && (
-                        <span className="px-2.5 py-1 rounded-full bg-[#10b981]/15 border border-[#10b981]/30 text-[9px] text-[#10b981] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                        <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-[#10b981]/15 border border-[#10b981]/30 text-[8.5px] sm:text-[9px] text-[#10b981] font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                           Used
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-3">
-                      <p className="text-[12px] text-gray-500 font-mono">
-                        ID: <span className="text-gray-400">{gift.giftId}</span>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                      <p className="text-[10px] sm:text-[12px] text-gray-500 font-mono leading-none">
+                        ID: <span className="text-gray-400 font-bold">{gift.giftId}</span>
                       </p>
                       {gift.diamonds > 0 && (
-                        <span className="text-[11px] font-bold flex items-center gap-1.5 px-2 py-0.5 rounded-[6px] bg-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/20">
+                        <span className="w-fit text-[10px] sm:text-[11px] font-black flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-[6px] bg-[#fbbf24]/10 text-[#fbbf24] border border-[#fbbf24]/20 mt-1 sm:mt-0">
                           💎 {gift.diamonds}
                         </span>
                       )}
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-5 border-t border-white/[0.08] flex items-center justify-between">
-                    <div className="flex items-center gap-2 opacity-100 min-h-[36px]">
+                  <div className="mt-auto pt-3 sm:pt-5 border-t border-white/[0.08] flex items-center justify-between min-h-[38px] sm:min-h-[46px]">
+                    <div className="hidden sm:flex items-center opacity-100">
                       {gift.maxRepeatCount > 1 && (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.05] border border-white/[0.1] shadow-sm">
-                          <span className="text-xs">🏆</span>
-                          <span className="text-[10px] uppercase tracking-wider font-bold text-gray-400">
-                            Hit: <span className="text-white">{gift.maxRepeatCount}</span>
+                        <div className="flex items-center px-1 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg bg-white/[0.05] border border-white/[0.1] shadow-sm">
+                          <span className="text-[10px] sm:text-xs mr-1">🏆</span>
+                          <span className="text-[7px] sm:text-[10px] uppercase tracking-tighter sm:tracking-wider font-bold text-gray-400">
+                            H:{gift.maxRepeatCount}
                           </span>
                         </div>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300">
+                    <div className="flex flex-1 sm:flex-none items-center justify-end gap-2 sm:gap-2">
                       <button
                         onClick={() => setModal({ mode: "edit", data: gift })}
-                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.06] text-gray-400 hover:text-[#06b6d4] hover:bg-[#06b6d4]/10 border border-white/[0.1] hover:border-[#06b6d4]/40 transition-all shadow-sm"
+                        className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg sm:rounded-xl bg-white/[0.06] text-gray-400 hover:text-[#06b6d4] hover:bg-[#06b6d4]/10 border border-white/[0.1] hover:border-[#06b6d4]/40 transition-all shadow-sm"
                       >
-                        <MdEdit size={18} />
+                        <MdEdit size={16} className="sm:size-[18px]" />
                       </button>
                       <button
                         onClick={() => setDeleteTarget(gift)}
-                        className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.06] text-gray-400 hover:text-red-500 hover:bg-red-500/10 border border-white/[0.1] hover:border-red-500/40 transition-all shadow-sm"
+                        className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg sm:rounded-xl bg-white/[0.06] text-gray-400 hover:text-red-500 hover:bg-red-500/10 border border-white/[0.1] hover:border-red-500/40 transition-all shadow-sm"
                       >
-                        <MdDelete size={18} />
+                        <MdDelete size={16} className="sm:size-[18px]" />
                       </button>
                     </div>
                   </div>
@@ -309,12 +315,12 @@ const GiftPage = () => {
 
       {/* FAB for Mobile */}
       <div className="sm:hidden block">
-        <div className="fixed bottom-8 right-5 z-40">
+        <div className="fixed bottom-6 right-5 z-40">
           <button
             onClick={() => setModal({ mode: "add" })}
-            className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white hover:scale-110 shadow-[0_10px_25px_rgba(217,70,239,0.4)] transition-all"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_8px_20px_rgba(217,70,239,0.3)] transition-all"
           >
-            <MdAdd size={28} />
+            <MdAdd size={24} />
           </button>
         </div>
       </div>
