@@ -31,15 +31,15 @@ const GiftModal = ({ initial, onSave, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <div className="relative w-full max-w-md bg-white/[0.03] border border-white/10 rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-2xl">
-        <div className="flex items-center justify-between px-5 py-3 sm:px-7 sm:py-5 border-b border-white/[0.05] bg-white/[0.02]">
-          <h2 className="text-white font-extrabold text-lg sm:text-xl tracking-tight flex items-center gap-2">
+        <div className="flex items-center justify-between px-4 py-2.5 sm:px-7 sm:py-4 border-b border-white/[0.05] bg-white/[0.02]">
+          <h2 className="text-white font-extrabold text-base sm:text-lg tracking-tight flex items-center gap-2">
             {initial ? (
               <span className="flex items-center gap-2 text-[#d946ef]">
-                <MdEdit size={22} /> Sửa Quà Tặng
+                <MdEdit className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]" /> Sửa Quà Tặng
               </span>
             ) : (
               <span className="flex items-center gap-2 text-[#06b6d4]">
-                <MdAdd size={24} /> Thêm Quà Mới
+                <MdAdd className="w-5 h-5 sm:w-6 sm:h-6" /> Thêm Quà Mới
               </span>
             )}
           </h2>
@@ -51,15 +51,15 @@ const GiftModal = ({ initial, onSave, onClose }) => {
           </button>
         </div>
 
-        <div className="p-5 sm:p-7 flex flex-col gap-4 sm:gap-6">
+        <div className="p-4 sm:p-7 flex flex-col gap-3.5 sm:gap-6">
           {error && (
-            <div className="text-red-400 text-[13px] bg-red-400/10 border border-red-400/20 px-4 py-3 rounded-xl font-medium">
+            <div className="text-red-400 text-[11px] sm:text-[13px] bg-red-400/10 border border-red-400/20 px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl font-medium">
               ⚠️ {error}
             </div>
           )}
 
           <div>
-            <label className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5 block">
+            <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">
               Gift ID (Số) *
             </label>
             <input
@@ -67,36 +67,36 @@ const GiftModal = ({ initial, onSave, onClose }) => {
               value={giftId}
               disabled={!!initial}
               onChange={(e) => setGiftId(e.target.value)}
-              className="w-full bg-white/[0.06] border border-white/[0.1] rounded-xl px-5 py-3.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-[#d946ef]/60 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-mono"
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm placeholder-white/20 focus:outline-none focus:border-[#d946ef]/60 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-mono"
               placeholder="VD: 5655"
             />
           </div>
 
           <div>
-            <label className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5 block">
+            <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">
               Tên Quà *
             </label>
             <input
               value={giftName}
               onChange={(e) => setGiftName(e.target.value)}
-              className="w-full bg-white/[0.06] border border-white/[0.1] rounded-xl px-5 py-3.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-[#d946ef]/60 transition-all font-medium"
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm placeholder-white/20 focus:outline-none focus:border-[#d946ef]/60 transition-all font-medium"
               placeholder="VD: Rose"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 px-5 py-4 sm:px-7 sm:py-5 border-t border-white/[0.05] bg-white/[0.02]">
+        <div className="flex items-center justify-end gap-2.5 px-4 py-3 sm:px-7 sm:py-5 border-t border-white/[0.05] bg-white/[0.02]">
           <button
             onClick={onClose}
-            className="px-6 py-3 rounded-xl border border-white/[0.12] text-gray-400 hover:text-white hover:bg-white/[0.08] text-sm font-semibold transition"
+            className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl border border-white/[0.1] text-gray-500 hover:text-white hover:bg-white/[0.06] text-xs sm:text-sm font-semibold transition"
           >
             Hủy
           </button>
           <button
             onClick={handleSave}
-            className="px-7 py-3 rounded-xl bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white text-sm font-bold shadow-[0_0_15px_rgba(217,70,239,0.3)] hover:shadow-[0_0_25px_rgba(217,70,239,0.5)] transition-all flex items-center gap-2"
+            className="px-5 py-2 sm:px-7 sm:py-3 rounded-xl bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white text-xs sm:text-sm font-black shadow-[0_0_15px_rgba(217,70,239,0.3)] hover:shadow-[0_0_25px_rgba(217,70,239,0.5)] transition-all flex items-center gap-1.5"
           >
-            <MdCheck size={20} />
+            <MdCheck className="w-4 h-4 sm:w-5 sm:h-5" />
             Lưu
           </button>
         </div>
@@ -108,27 +108,27 @@ const GiftModal = ({ initial, onSave, onClose }) => {
 /* ─── Delete Confirm ─── */
 const DeleteConfirm = ({ name, onConfirm, onClose }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-    <div className="w-full max-w-sm mx-4 bg-white/[0.06] border border-red-500/30 backdrop-blur-[40px] rounded-[1.5rem] sm:rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5)] p-5 sm:p-7 flex flex-col gap-4 sm:gap-5 text-center items-center">
-      <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-1 sm:mb-2">
-        <MdDelete size={24} className="text-red-500 sm:size-[32px]" />
+    <div className="w-full max-w-[320px] sm:max-w-sm mx-4 bg-[#1a1b26]/80 backdrop-blur-3xl rounded-[2rem] border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-4 sm:p-7 flex flex-col gap-3.5 sm:gap-5 text-center items-center">
+      <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-1">
+        <MdDelete className="text-red-500 w-5 h-5 sm:w-8 sm:h-8" />
       </div>
-      <h3 className="text-white font-extrabold text-lg sm:text-xl">Xóa Quà Tặng</h3>
-      <p className="text-gray-400 text-[15px] leading-relaxed">
+      <h3 className="text-white font-black text-base sm:text-xl">Xóa Quà Tặng</h3>
+      <p className="text-gray-400 text-[13px] sm:text-[15px] leading-relaxed">
         Bạn có chắc muốn xóa quà{" "}
-        <span className="text-white font-bold px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.1] whitespace-nowrap">"{name}"</span><br />không?
+        <span className="text-white font-bold px-1.5 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.1]">"{name}"</span> không?
       </p>
-      <div className="flex w-full gap-3 mt-4">
+      <div className="flex w-full gap-2.5 mt-2">
         <button
           onClick={onClose}
-          className="flex-1 py-3.5 rounded-xl border border-white/[0.12] text-gray-400 hover:text-white hover:bg-white/[0.08] text-sm font-semibold transition"
+          className="flex-1 py-2.5 sm:py-3.5 rounded-xl border border-white/[0.1] text-gray-500 hover:text-white hover:bg-white/[0.06] text-xs sm:text-sm font-semibold transition"
         >
           Hủy
         </button>
         <button
           onClick={onConfirm}
-          className="flex-1 py-3.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/40 text-red-400 hover:text-red-300 text-sm font-bold transition shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+          className="flex-1 py-2.5 sm:py-3.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-500 text-xs sm:text-sm font-black transition"
         >
-          Xóa Ngay
+          Xóa
         </button>
       </div>
     </div>
@@ -233,7 +233,7 @@ const GiftPage = () => {
                           className="w-7 h-7 sm:w-10 sm:h-10 object-contain drop-shadow-md"
                         />
                       ) : (
-                        <MdCardGiftcard size={22} className="sm:size-[32px]" />
+                        <MdCardGiftcard className="w-[22px] h-[22px] sm:w-8 sm:h-8" />
                       )}
 
                       {/* Hit Overlay (Mobile Only) */}
@@ -296,13 +296,13 @@ const GiftPage = () => {
                         onClick={() => setModal({ mode: "edit", data: gift })}
                         className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg sm:rounded-xl bg-white/[0.06] text-gray-400 hover:text-[#06b6d4] hover:bg-[#06b6d4]/10 border border-white/[0.1] hover:border-[#06b6d4]/40 transition-all shadow-sm"
                       >
-                        <MdEdit size={16} className="sm:size-[18px]" />
+                        <MdEdit className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                       </button>
                       <button
                         onClick={() => setDeleteTarget(gift)}
                         className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg sm:rounded-xl bg-white/[0.06] text-gray-400 hover:text-red-500 hover:bg-red-500/10 border border-white/[0.1] hover:border-red-500/40 transition-all shadow-sm"
                       >
-                        <MdDelete size={16} className="sm:size-[18px]" />
+                        <MdDelete className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                       </button>
                     </div>
                   </div>

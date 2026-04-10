@@ -13,17 +13,17 @@ import {
 const Slider = ({ label, value, min, max, step, displayValue, onChange }) => {
   const percentage = ((value - min) / (max - min)) * 100;
   return (
-    <div className="mb-4 md:mb-8">
-      <div className="flex justify-between text-[10px] font-bold mb-3">
-        <span className="text-gray-400 uppercase tracking-[0.15em]">{label}</span>
+    <div className="mb-4 sm:mb-6">
+      <div className="flex justify-between text-[9px] sm:text-[10px] font-black mb-2.5">
+        <span className="text-gray-500 uppercase tracking-[0.2em]">{label}</span>
         <span className="text-white font-mono">{displayValue}</span>
       </div>
-      <div className="relative h-1.5 bg-white/[0.05] rounded-full flex items-center cursor-pointer">
+      <div className="relative h-1 bg-white/[0.05] rounded-full flex items-center cursor-pointer">
         <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] rounded-full shadow-[0_0_10px_rgba(217,70,239,0.4)]" style={{ width: `${percentage}%` }}></div>
         <input type="range" min={min} max={max} step={step} value={value} onChange={onChange}
           className="w-full h-full opacity-0 cursor-pointer relative z-10"
         />
-        <div className="absolute w-3 h-3 bg-white rounded-full shadow-[0_0_12px_rgba(217,70,239,0.8)] pointer-events-none transition-all duration-200" style={{ left: `calc(${percentage}% - 6px)` }}></div>
+        <div className="absolute w-2.5 h-2.5 bg-white rounded-full shadow-[0_0_12px_rgba(217,70,239,0.8)] pointer-events-none transition-all duration-200" style={{ left: `calc(${percentage}% - 5px)` }}></div>
       </div>
     </div>
   );
@@ -95,9 +95,9 @@ const ModalTTS = () => {
       {/* Header */}
       <div className="mb-6 md:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-6 shrink-0">
         <div>
-          <h4 className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-[#d946ef] uppercase mb-2 sm:mb-3">Configuration Studio</h4>
-          <h1 className="text-xl sm:text-3xl md:text-5xl font-extrabold text-white mb-2 sm:mb-4 tracking-tight">Voice Dynamics</h1>
-          <p className="text-sm text-gray-400 max-w-2xl leading-relaxed">
+          <h4 className="text-[8px] sm:text-[9px] font-black tracking-[0.25em] text-[#d946ef] uppercase mb-1.5 sm:mb-2 text-center sm:text-left">Configuration Studio</h4>
+          <h1 className="text-lg sm:text-2xl md:text-3xl font-black text-white mb-1.5 sm:mb-3 tracking-tighter text-center sm:text-left">Voice Dynamics</h1>
+          <p className="text-[11px] sm:text-sm text-gray-500 max-w-2xl leading-relaxed text-center sm:text-left">
             Cấu hình TTS Custom API cho luồng phát sóng của bạn. Tự động đọc khi có quà tặng và chào đón người mới vào live.
           </p>
         </div>
@@ -113,82 +113,82 @@ const ModalTTS = () => {
         <div className="md:col-span-1 lg:col-span-2 space-y-8">
 
           {/* API Config */}
-          <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/5 rounded-[2.5rem] p-4 md:p-8 shadow-2xl">
-            <h3 className="text-white font-black mb-7 flex items-center gap-3">
-              <span className="p-2.5 bg-white/[0.03] rounded-2xl border border-white/5"><MdApi className="text-[#d946ef]" size={20} /></span>
+          <div className="bg-white/[0.03] backdrop-blur-3xl border border-white/5 rounded-[2rem] p-4 sm:p-7 shadow-2xl">
+            <h3 className="text-white font-black mb-6 flex items-center gap-3 text-sm sm:text-base">
+              <span className="p-2 sm:p-2.5 bg-white/[0.03] rounded-xl sm:rounded-2xl border border-white/5"><MdApi className="text-[#d946ef] w-[18px] h-[18px] sm:w-[20px] sm:h-[20px]" /></span>
               Cấu hình API
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="sm:col-span-2">
-                <label className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5 block">API URL</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">API URL</label>
                 <input
                   value={customApiUrl}
                   onChange={(e) => setCustomApiUrl(e.target.value)}
-                  className="w-full bg-white/[0.06] border border-white/[0.1] rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all font-mono"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all font-mono"
                   placeholder="https://your-api.ngrok-free.dev/tts"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5 block">Num Step</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">Num Step</label>
                 <input
                   type="number"
                   value={customNumStep}
                   onChange={(e) => setCustomNumStep(Number(e.target.value))}
-                  className="w-full bg-white/[0.06] border border-white/[0.1] rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase font-bold text-white/30 tracking-wider mb-2.5 block">First Chunk Words</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">First Chunk Words</label>
                 <input
                   type="number"
                   value={customFirstChunkWords}
                   onChange={(e) => setCustomFirstChunkWords(Number(e.target.value))}
-                  className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#d946ef]/40 transition-all"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase font-bold text-white/30 tracking-wider mb-2.5 block">Min Chunk Words</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">Min Chunk Words</label>
                 <input
                   type="number"
                   value={customMinChunkWords}
                   onChange={(e) => setCustomMinChunkWords(Number(e.target.value))}
-                  className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#d946ef]/40 transition-all"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase font-bold text-white/30 tracking-wider mb-2.5 block">Batch Size</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">Batch Size</label>
                 <input
                   type="number"
                   value={customBatchSize}
                   onChange={(e) => setCustomBatchSize(Number(e.target.value))}
-                  className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-5 py-4 text-white text-sm focus:outline-none focus:border-[#d946ef]/40 transition-all"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-2.5 sm:px-5 sm:py-3.5 text-white text-[13px] sm:text-sm focus:outline-none focus:border-[#d946ef]/60 transition-all"
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-2.5 block">No Warmup</label>
+                <label className="text-[9px] sm:text-[10px] uppercase font-black text-gray-500 tracking-wider mb-2 block">No Warmup</label>
                 <button
                   onClick={() => setCustomNoWarmup(!customNoWarmup)}
-                  className={`w-full h-[50px] rounded-xl border text-sm font-semibold transition-all flex items-center justify-center gap-2 ${customNoWarmup
-                    ? "bg-[#d946ef]/20 border-[#d946ef]/40 text-[#d946ef]"
-                    : "bg-[#252630] border-[#2e2f38] text-gray-400 hover:bg-[#2a2c36]"
+                  className={`w-full h-[40px] sm:h-[50px] rounded-xl border text-[11px] sm:text-sm font-black transition-all flex items-center justify-center gap-2 ${customNoWarmup
+                    ? "bg-[#d946ef]/15 border-[#d946ef]/40 text-[#d946ef]"
+                    : "bg-white/[0.04] border-white/10 text-gray-500 hover:bg-white/[0.08]"
                     }`}
                 >
-                  {customNoWarmup ? <><MdCheckCircle size={18} /> Enabled (True)</> : "Disabled (False)"}
+                  {customNoWarmup ? <><MdCheckCircle className="w-4 h-4 sm:w-[18px] sm:h-[18px]" /> Enabled</> : "Disabled"}
                 </button>
               </div>
             </div>
           </div>
 
           {/* Voice Selection */}
-          <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-7">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-white font-bold flex items-center gap-2">
-                <MdRecordVoiceOver className="text-[#d946ef]" size={20} /> Chọn Giọng đọc
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-[2rem] p-4 sm:p-7 shadow-2xl">
+            <div className="flex items-center justify-between mb-5 sm:mb-6">
+              <h3 className="text-white font-black flex items-center gap-2 text-sm sm:text-base">
+                <MdRecordVoiceOver className="text-[#d946ef] w-[18px] h-[18px] sm:w-[20px] sm:h-[20px]" /> Chọn Giọng đọc
               </h3>
               <button
                 onClick={handleRefreshVoices}
                 disabled={voicesLoading}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-gray-400 hover:text-white text-[10px] font-bold uppercase tracking-wider transition-all disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-gray-500 hover:text-white text-[9px] font-black uppercase tracking-widest transition-all disabled:opacity-50"
               >
                 <MdRefresh size={14} className={voicesLoading ? "animate-spin" : ""} />
                 {voicesLoading ? "Loading..." : "Refresh"}
@@ -200,7 +200,7 @@ const ModalTTS = () => {
                 {voicesLoading ? "Đang tải danh sách voice..." : "Không có voice sẵn. Nhấn Refresh để tải lại."}
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3">
                 {voicesList.map((v) => {
                   const id = getVoiceId(v);
                   const label = getVoiceLabel(v);
@@ -209,13 +209,13 @@ const ModalTTS = () => {
                     <button
                       key={id}
                       onClick={() => setCustomVoice(id)}
-                      className={`p-4 rounded-2xl border flex flex-col items-center gap-2 transition-all backdrop-blur-xl ${isActive
+                      className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border flex flex-col items-center gap-1.5 sm:gap-2 transition-all backdrop-blur-xl ${isActive
                         ? "bg-white/[0.08] border-[#d946ef]/40 text-white shadow-[0_0_20px_rgba(217,70,239,0.1)]"
-                        : "bg-white/[0.02] border-white/5 text-white/40 hover:border-white/10"
+                        : "bg-white/[0.02] border-white/5 text-white/30 hover:border-white/10"
                         }`}
                     >
-                      <span className="font-bold text-sm tracking-wide">{label}</span>
-                      {isActive && <MdCheckCircle className="text-[#d946ef]" size={16} />}
+                      <span className="font-black text-[11px] sm:text-[13px] tracking-wide truncate w-full">{label}</span>
+                      {isActive && <MdCheckCircle className="text-[#d946ef] w-[14px] h-[14px] sm:w-4 sm:h-4" />}
                     </button>
                   );
                 })}
@@ -225,9 +225,9 @@ const ModalTTS = () => {
         </div>
 
         {/* Right Column */}
-        <div className="md:col-span-1 border border-white/5 bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] p-4 md:p-8 h-fit top-0 shadow-2xl relative overflow-hidden">
+        <div className="md:col-span-1 border border-white/5 bg-white/[0.03] backdrop-blur-3xl rounded-[2rem] p-4 sm:p-7 h-fit top-0 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#d946ef]/5 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
-          <h3 className="text-white font-bold text-[17px] mb-8">Audio Dynamics</h3>
+          <h3 className="text-white font-black text-sm sm:text-base mb-7 sm:mb-8">Audio Dynamics</h3>
 
           <div className="mt-2 text-[#d946ef]">
             <Slider
@@ -241,11 +241,10 @@ const ModalTTS = () => {
             />
           </div>
 
-          <h3 className="text-gray-400 text-[10px] uppercase font-bold tracking-[0.15em] mt-12 mb-5">SYSTEM CONTROLS</h3>
-
-          <div className="space-y-4">
-            <div className="flex justify-between items-center p-4 rounded-xl bg-white/[0.05] hover:bg-white/[0.08] transition-colors border border-white/[0.08]">
-              <span className="text-[13px] text-gray-300">TTS Auto-Read</span>
+          <h3 className="text-gray-500 text-[9px] sm:text-[10px] uppercase font-black tracking-[0.2em] mt-8 sm:mt-12 mb-4 sm:mb-5 text-center sm:text-left">SYSTEM CONTROLS</h3>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex justify-between items-center p-3 sm:p-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] transition-colors border border-white/[0.06]">
+              <span className="text-[12px] sm:text-[13px] text-gray-400 font-bold uppercase tracking-wider">TTS Auto-Read</span>
               <button
                 onClick={() => setEnabled(!enabled)}
                 className={`w-12 h-6 rounded-full relative transition-colors ${enabled ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6]" : "bg-[#3f404d]"}`}
