@@ -158,12 +158,12 @@ const GiftPage = () => {
     .sort((a, b) => a.giftName.localeCompare(b.giftName));
 
   return (
-    <div className="w-full h-full text-white overflow-y-auto p-6 md:p-10 font-sans flex flex-col">
+    <div className="w-full h-full text-white overflow-y-auto p-4 sm:p-6 md:p-10 font-sans flex flex-col">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 shrink-0">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
         <div>
           <h4 className="text-[10px] font-bold tracking-[0.2em] text-[#d946ef] uppercase mb-3">Asset Studio</h4>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Quản lý Quà tặng</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4 tracking-tight">Quản lý Quà tặng</h1>
           <p className="text-sm text-gray-400 max-w-2xl leading-relaxed">
             Quản lý phần thưởng và quà tặng phân bổ trong phiên phát sóng. Hiện đang có{" "}
             <span className="text-white font-semibold">{usedGiftNames.size} / {gifts.length}</span>{" "}
@@ -182,7 +182,7 @@ const GiftPage = () => {
       </div>
 
       {/* Toolbar / Search */}
-      <div className="mb-8 shrink-0 flex items-center w-full max-w-md relative">
+      <div className="mb-6 md:mb-8 shrink-0 flex items-center w-full sm:max-w-md relative">
         <MdSearch className="absolute left-5 text-gray-500" size={22} />
         <input
           value={search}
@@ -309,7 +309,7 @@ const GiftPage = () => {
 
       {/* FAB for Mobile */}
       <div className="sm:hidden block">
-        <div className="fixed bottom-8 right-6 z-40">
+        <div className="fixed bottom-20 right-5 z-40">
           <button
             onClick={() => setModal({ mode: "add" })}
             className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white hover:scale-110 shadow-[0_10px_25px_rgba(217,70,239,0.4)] transition-all"

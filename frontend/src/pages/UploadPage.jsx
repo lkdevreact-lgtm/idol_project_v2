@@ -132,7 +132,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-      <div className="relative w-full max-w-xl mx-4 bg-white/[0.06] border border-white/[0.12] backdrop-blur-[40px] rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] overflow-hidden">
+      <div className="relative w-full max-w-xl mx-3 sm:mx-4 bg-white/[0.06] border border-white/[0.12] backdrop-blur-[40px] rounded-2xl sm:rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] overflow-hidden">
         {/* header */}
         <div className="flex items-center justify-between px-7 py-5 border-b border-[#2e2f38] bg-[#252630]/50">
           <h2 className="text-white font-extrabold text-xl tracking-tight flex items-center gap-2">
@@ -155,7 +155,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
         </div>
 
         {/* body */}
-        <div className="p-7 flex flex-col gap-6 max-h-[65vh] overflow-y-auto">
+        <div className="p-4 sm:p-7 flex flex-col gap-5 sm:gap-6 max-h-[60vh] sm:max-h-[65vh] overflow-y-auto">
           {/* upload error */}
           {uploadError && (
             <div className="text-red-400 text-[13px] bg-red-400/10 border border-red-400/20 px-4 py-3 rounded-xl font-medium">
@@ -596,12 +596,12 @@ const UploadPage = () => {
   };
 
   return (
-    <div className="w-full h-full text-white overflow-y-auto p-6 md:p-10 font-sans flex flex-col">
+    <div className="w-full h-full text-white overflow-y-auto p-4 sm:p-6 md:p-10 font-sans flex flex-col">
       {/* ── Header ── */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 shrink-0">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 md:gap-6 mb-6 md:mb-8 shrink-0">
         <div>
           <h4 className="text-[10px] font-bold tracking-[0.2em] text-[#d946ef] uppercase mb-3">Cinema Studio</h4>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Quản lý Video</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4 tracking-tight">Quản lý Video</h1>
           <p className="text-sm text-gray-400 max-w-2xl leading-relaxed">
             Upload và liên kết các video với các món quà trên TikTok Live. Hiện đang có {" "}
             <span className="text-white font-semibold">{activeCount} / {videos.length}</span> {" "}
@@ -619,12 +619,12 @@ const UploadPage = () => {
       </div>
 
       {/* ── Stats row / Filters ── */}
-      <div className="mb-8 shrink-0 flex items-center gap-3 flex-wrap">
+      <div className="mb-6 md:mb-8 shrink-0 flex items-center gap-2 sm:gap-3 flex-wrap">
         {["all", "active", "inactive"].map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`px-5 py-2.5 rounded-xl text-[11px] font-extrabold uppercase tracking-[0.1em] transition-all duration-300 ${filter === f
+            className={`px-4 sm:px-5 py-2.5 rounded-xl text-[11px] font-extrabold uppercase tracking-[0.1em] transition-all duration-300 min-h-[40px] ${filter === f
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_15px_rgba(217,70,239,0.3)] border border-transparent hover:brightness-110"
                 : "bg-white/[0.05] border border-white/[0.1] text-gray-400 hover:text-white hover:border-[#d946ef]/40 hover:bg-white/[0.1]"
               }`}
@@ -639,7 +639,7 @@ const UploadPage = () => {
       </div>
 
       {/* ── Queue Priority Settings ── */}
-      <div className="mb-10 p-5 md:p-7 rounded-[2rem] bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden group">
+      <div className="mb-8 md:mb-10 p-4 sm:p-5 md:p-7 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl flex flex-col items-start md:flex-row md:items-center justify-between gap-4 md:gap-6 shadow-2xl relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#d946ef]/5 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
         
         <div className="flex items-center gap-5 relative z-10">
@@ -655,10 +655,10 @@ const UploadPage = () => {
           </div>
         </div>
 
-        <div className="flex bg-[#0a0a0f] p-1.5 rounded-2xl border border-white/[0.06] shadow-2xl shrink-0 relative z-10">
+        <div className="flex bg-[#0a0a0f] p-1.5 rounded-2xl border border-white/[0.06] shadow-2xl relative z-10 self-stretch sm:self-auto w-full md:w-auto">
           <button
             onClick={() => setQueuePriority("voting")}
-            className={`px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+            className={`flex-1 md:flex-none px-4 sm:px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 min-h-[44px] ${
               queuePriority === "voting"
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] scale-[1.02]"
                 : "text-gray-500 hover:text-white hover:bg-white/[0.02]"
@@ -668,7 +668,7 @@ const UploadPage = () => {
           </button>
           <button
             onClick={() => setQueuePriority("fifo")}
-            className={`px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+            className={`flex-1 md:flex-none px-4 sm:px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 min-h-[44px] ${
               queuePriority === "fifo"
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] scale-[1.02]"
                 : "text-gray-500 hover:text-white hover:bg-white/[0.02]"
@@ -712,7 +712,7 @@ const UploadPage = () => {
 
       {/* FAB for mobile */}
       <div className="sm:hidden block">
-        <div className="fixed bottom-8 right-6 z-40">
+        <div className="fixed bottom-20 right-5 z-40">
           <button
             onClick={() => setModal({ mode: "add" })}
             className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white hover:scale-110 shadow-[0_10px_25px_rgba(217,70,239,0.4)] transition-all"

@@ -54,14 +54,15 @@ const HomePage = ({ username }) => {
   }, [selectedVideo, processNext]);
 
   return (
-    <div className="w-full h-full flex items-stretch gap-8 p-6 pt-6 overflow-hidden">
+    <div className="w-full h-full flex flex-col lg:flex-row items-stretch gap-3 md:gap-4 lg:gap-6 p-3 md:p-4 lg:p-6 pt-14 sm:pt-3 md:pt-4 lg:pt-6 overflow-hidden">
 
-      {/* ── LEFT COLUMN: Leaderboard + Dancer Models (stacked) ── */}
-      <div className="flex flex-col gap-4 w-[340px] shrink-0 min-h-0">
+      {/* ── LEFT COLUMN: Leaderboard + Dancer Models ── */}
+      {/* Hidden on mobile (shown via bottom tabs), visible sm+ */}
+      <div className="hidden lg:flex flex-col gap-3 lg:gap-4 w-[280px] xl:w-[320px] shrink-0 min-h-0">
 
         {/* Streamer badge */}
         {username && (
-          <div className="shrink-0 bg-white/[0.04] backdrop-blur-[40px] border border-white/[0.08] text-white px-5 py-2.5 rounded-2xl text-[12px] flex items-center gap-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
+          <div className="shrink-0 bg-white/[0.04] backdrop-blur-[40px] border border-white/[0.08] text-white px-4 py-2.5 rounded-2xl text-[12px] flex items-center gap-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
             <div className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.7)] animate-pulse shrink-0" />
             <span className="text-gray-400 uppercase font-extrabold text-[9px] tracking-widest">Streamer</span>
             <span className="font-extrabold text-[#d946ef] text-[13px]">@{username}</span>
@@ -83,7 +84,7 @@ const HomePage = ({ username }) => {
       <div className="flex-1 flex items-center justify-center min-h-0 min-w-0 relative">
         <div className="relative h-full flex items-center justify-center">
           {/* LED border ring behind phone */}
-          <div className="absolute inset-[-12px] rounded-[3.25rem] overflow-hidden bg-white/[0.1] backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/20">
+          <div className="absolute inset-[-8px] md:inset-[-12px] rounded-[3.25rem] overflow-hidden bg-white/[0.1] backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/20">
             <div className="absolute inset-0 z-0 flex items-center justify-center mix-blend-screen">
               <div className="w-[150%] h-[150%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#d946ef_350deg,#fff_360deg)] animate-[spin_3s_linear_infinite] opacity-100 scale-110" />
             </div>
@@ -92,20 +93,18 @@ const HomePage = ({ username }) => {
             </div>
           </div>
 
-
           {/* Phone screen */}
           <div
             className="relative sm:rounded-[2.8rem] bg-[#0c0c12] overflow-hidden z-[20] shadow-[inset_0_0_60px_rgba(0,0,0,0.8)] border border-white/20 ring-[6px] ring-white/10"
             style={{ aspectRatio: "9/19.5", height: "100%" }}
           >
-
             <Background />
             <VideoGiftPodium />
-            
+
             {/* Gift Performance Badge */}
             {videoMode === "queue" && currentGiftName && (
-              <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[100] w-full px-6 pointer-events-none">
-                <div className="bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl py-2 px-4 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+              <div className="absolute top-20 left-1/2 -translate-x-1/2 z-[100] w-full px-4 pointer-events-none">
+                <div className="bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl py-2 px-3 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(217,70,239,0.3)]">
                   <span className="text-[10px] font-black text-[#d946ef] uppercase tracking-widest">Đang trình diễn</span>
                   <div className="w-1 h-1 rounded-full bg-white/40" />
                   <span className="text-[12px] font-bold text-white uppercase">{currentGiftName}</span>
@@ -125,8 +124,9 @@ const HomePage = ({ username }) => {
         </div>
       </div>
 
-      {/* ── RIGHT COLUMN: TikTok Live Feed (full height) ── */}
-      <GlassPanel title="TIKTOK LIVE FEED" className="w-[360px] shrink-0">
+      {/* ── RIGHT COLUMN: TikTok Live Feed ── */}
+      {/* Hidden on small screens to avoid overflow, visible md+ */}
+      <GlassPanel title="TIKTOK LIVE FEED" className="hidden md:flex w-[300px] xl:w-[340px] shrink-0">
         <TikTokListener />
       </GlassPanel>
 
@@ -135,4 +135,3 @@ const HomePage = ({ username }) => {
 };
 
 export default HomePage;
-

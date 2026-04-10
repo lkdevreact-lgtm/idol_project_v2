@@ -13,7 +13,7 @@ import {
 const Slider = ({ label, value, min, max, step, displayValue, onChange }) => {
   const percentage = ((value - min) / (max - min)) * 100;
   return (
-    <div className="mb-8">
+    <div className="mb-4 md:mb-8">
       <div className="flex justify-between text-[10px] font-bold mb-3">
         <span className="text-gray-400 uppercase tracking-[0.15em]">{label}</span>
         <span className="text-white font-mono">{displayValue}</span>
@@ -91,12 +91,12 @@ const ModalTTS = () => {
   const getVoiceLabel = (v) => (typeof v === "string" ? v : v.name || v.id);
 
   return (
-    <div className="w-full h-full text-white overflow-y-auto p-6 md:p-10 font-sans">
+    <div className="w-full h-full text-white overflow-y-auto p-4 sm:p-6 md:p-10 font-sans">
       {/* Header */}
-      <div className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div className="mb-6 md:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 md:gap-6">
         <div>
           <h4 className="text-[10px] font-bold tracking-[0.2em] text-[#d946ef] uppercase mb-3">Configuration Studio</h4>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Voice Dynamics</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4 tracking-tight">Voice Dynamics</h1>
           <p className="text-sm text-gray-400 max-w-2xl leading-relaxed">
             Cấu hình TTS Custom API cho luồng phát sóng của bạn. Tự động đọc khi có quà tặng và chào đón người mới vào live.
           </p>
@@ -108,12 +108,12 @@ const ModalTTS = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-6 md:mb-8">
         {/* Left Column */}
         <div className="md:col-span-1 lg:col-span-2 space-y-8">
 
           {/* API Config */}
-          <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-7">
+          <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-7">
             <h3 className="text-white font-bold mb-6 flex items-center gap-2">
               <MdApi className="text-[#d946ef]" size={20} /> Cấu hình API
             </h3>
@@ -179,7 +179,7 @@ const ModalTTS = () => {
           </div>
 
           {/* Voice Selection */}
-          <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-7">
+          <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-7">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-white font-bold flex items-center gap-2">
                 <MdRecordVoiceOver className="text-[#d946ef]" size={20} /> Chọn Giọng đọc
@@ -199,7 +199,7 @@ const ModalTTS = () => {
                 {voicesLoading ? "Đang tải danh sách voice..." : "Không có voice sẵn. Nhấn Refresh để tải lại."}
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {voicesList.map((v) => {
                   const id = getVoiceId(v);
                   const label = getVoiceLabel(v);
@@ -224,7 +224,7 @@ const ModalTTS = () => {
         </div>
 
         {/* Right Column */}
-        <div className="md:col-span-1 border border-white/[0.1] bg-white/[0.04] rounded-2xl p-7 h-fit relative sm:sticky top-0 shadow-lg">
+        <div className="md:col-span-1 border border-white/[0.1] bg-white/[0.04] rounded-2xl p-4 md:p-7 h-fit top-0 shadow-lg">
           <h3 className="text-white font-bold text-[17px] mb-8">Audio Dynamics</h3>
 
           <div className="mt-2 text-[#d946ef]">
@@ -266,7 +266,7 @@ const ModalTTS = () => {
       </div>
 
       {/* Gift Template */}
-      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-8 mb-8 relative">
+      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-8 mb-4 md:mb-8 relative">
         <div className="flex items-center gap-3 mb-5">
           <div className="p-2 bg-[#252630] rounded-lg">
             <MdTextFields className="text-gray-300" size={18} />
@@ -301,7 +301,7 @@ const ModalTTS = () => {
       </div>
 
       {/* Welcome Template */}
-      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-8 mb-8 relative">
+      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-8 mb-4 md:mb-8 relative">
         <div className="flex items-center gap-3 mb-5">
           <div className="p-2 bg-[#252630] rounded-lg">
             <MdRecordVoiceOver className="text-[#10b981]" size={18} />
@@ -330,7 +330,7 @@ const ModalTTS = () => {
       </div>
 
       {/* Test & Save */}
-      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-8 relative">
+      <div className="bg-white/[0.04] border border-white/[0.1] rounded-2xl p-4 md:p-8 relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="flex-1 w-full flex items-center bg-white/[0.06] border border-white/[0.1] rounded-xl px-5 focus-within:border-[#d946ef]/60 transition-colors">
             <MdPlayArrow className="text-gray-500 shrink-0" size={20} />
