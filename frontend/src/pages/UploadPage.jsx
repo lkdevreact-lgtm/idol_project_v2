@@ -131,10 +131,10 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
   const valid = form.name.trim() && form.video && !isUploading;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-      <div className="relative w-full max-w-xl mx-3 sm:mx-4 bg-white/[0.06] border border-white/[0.12] backdrop-blur-[40px] rounded-2xl sm:rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl overflow-hidden">
         {/* header */}
-        <div className="flex items-center justify-between px-7 py-5 border-b border-[#2e2f38] bg-[#252630]/50">
+        <div className="flex items-center justify-between px-7 py-5 border-b border-white/[0.05] bg-white/[0.02]">
           <h2 className="text-white font-extrabold text-xl tracking-tight flex items-center gap-2">
             {initial ? (
               <span className="flex items-center gap-2 text-[#d946ef]">
@@ -148,7 +148,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition p-2 rounded-xl hover:bg-[#252630]"
+            className="text-gray-400 hover:text-white transition p-2 rounded-xl hover:bg-white/[0.08]"
           >
             <MdClose size={22} />
           </button>
@@ -167,7 +167,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
           <div className="flex gap-5 items-start">
             {/* avatar */}
             <div
-              className={`relative shrink-0 w-24 h-24 rounded-2xl border-2 border-dashed bg-[#252630] flex items-center justify-center cursor-pointer transition-colors group overflow-hidden shadow-inner ${uploading.avatar ? "border-[#06b6d4]" : "border-[#3f404d] hover:border-[#06b6d4]"
+              className={`relative shrink-0 w-24 h-24 rounded-2xl border-2 border-dashed bg-white/[0.02] flex items-center justify-center cursor-pointer transition-colors group overflow-hidden shadow-2xl ${uploading.avatar ? "border-[#06b6d4]" : "border-white/10 hover:border-[#06b6d4]"
                 }`}
               onClick={() => !uploading.avatar && avatarRef.current?.click()}
             >
@@ -361,10 +361,10 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
         </div>
 
         {/* footer */}
-        <div className="flex items-center justify-end gap-3 px-7 py-5 border-t border-[#2e2f38] bg-[#15161c]">
+        <div className="flex items-center justify-end gap-3 px-7 py-5 border-t border-white/[0.05] bg-white/[0.02]">
           <button
             onClick={onClose}
-            className="px-6 py-3 rounded-xl border border-[#3f404d] text-gray-400 hover:text-white hover:bg-[#252630] text-[14px] font-semibold transition"
+            className="px-6 py-3 rounded-xl border border-white/10 text-gray-400 hover:text-white hover:bg-white/[0.08] text-[14px] font-semibold transition"
           >
             Hủy
           </button>
@@ -373,7 +373,7 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
             onClick={() => onSave(form)}
             className={`px-7 py-3 rounded-xl text-[14px] font-bold transition-all flex items-center gap-2 ${valid
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_15px_rgba(217,70,239,0.3)] hover:shadow-[0_0_25px_rgba(217,70,239,0.5)]"
-                : "bg-[#252630] text-gray-600 cursor-not-allowed border border-[#3f404d]"
+                : "bg-white/[0.05] text-gray-600 cursor-not-allowed border border-white/5"
               }`}
           >
             {isUploading ? (
@@ -391,9 +391,9 @@ const VideoModal = ({ initial, onSave, onClose, maxOrder }) => {
 
 /* ─── Delete Confirm ─── */
 const DeleteConfirm = ({ name, onConfirm, onClose }) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-    <div className="w-full max-w-sm mx-4 bg-white/[0.06] border border-red-500/30 backdrop-blur-[40px] rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5)] p-7 flex flex-col gap-5 text-center items-center">
-      <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-2">
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+    <div className="w-full max-w-sm bg-white/[0.03] border border-red-500/20 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl p-8 flex flex-col gap-6 text-center items-center">
+      <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/10 mb-1">
         <MdDelete size={32} className="text-red-500" />
       </div>
       <h3 className="text-white font-extrabold text-xl">Xóa Video</h3>
@@ -432,9 +432,9 @@ const VideoCard = ({
 }) => {
   return (
     <div
-      className={`group relative flex flex-col md:flex-row items-center gap-5 p-5 rounded-3xl border transition-all duration-300 ${video.active
-          ? "bg-white/[0.05] border-white/[0.1] hover:border-[#d946ef]/50 hover:shadow-[0_8px_30px_rgba(217,70,239,0.12)] hover:bg-white/[0.08]"
-          : "bg-white/[0.02] border-white/[0.06] opacity-[0.65] grayscale-[0.8]"
+      className={`group relative flex flex-col md:flex-row items-center gap-5 p-5 rounded-3xl border transition-all duration-300 backdrop-blur-xl ${video.active
+          ? "bg-white/[0.03] border-white/5 hover:border-[#d946ef]/30 hover:shadow-[0_8px_30px_rgba(217,70,239,0.08)] hover:bg-white/[0.06]"
+          : "bg-white/[0.01] border-white/[0.03] opacity-[0.55] grayscale"
         }`}
     >
       {/* order badge */}
@@ -639,29 +639,29 @@ const UploadPage = () => {
       </div>
 
       {/* ── Queue Priority Settings ── */}
-      <div className="mb-8 md:mb-10 p-4 sm:p-5 md:p-7 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl flex flex-col items-start md:flex-row md:items-center justify-between gap-4 md:gap-6 shadow-2xl relative overflow-hidden group">
+      <div className="mb-8 md:mb-10 p-4 sm:p-5 md:p-7 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/5 backdrop-blur-2xl flex flex-col items-start md:flex-row md:items-center justify-between gap-4 md:gap-6 shadow-2xl relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#d946ef]/5 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
         
         <div className="flex items-center gap-5 relative z-10">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d946ef]/20 to-[#8b5cf6]/20 flex items-center justify-center text-[#d946ef] border border-[#d946ef]/30 shadow-lg group-hover:scale-110 transition-transform duration-500">
+          <div className="w-14 h-14 rounded-2xl bg-white/[0.02] flex items-center justify-center text-[#d946ef] border border-white/10 shadow-lg group-hover:scale-110 transition-transform duration-500">
             <MdTune size={28} />
           </div>
           <div className="max-w-md">
             <h3 className="text-xl font-black text-white tracking-tight">Chế độ Ưu tiên Hàng đợi</h3>
             <p className="text-[12px] text-gray-400 mt-1.5 leading-relaxed font-medium">
               Cách hệ thống chọn video tiếp theo khi có nhiều quà tặng cùng lúc. 
-              <span className="text-white/60 ml-1">Bình chọn (Voting)</span> giúp tăng tương tác hơn.
+              <span className="text-white/40 ml-1">Bình chọn (Voting)</span> giúp tăng tương tác hơn.
             </p>
           </div>
         </div>
 
-        <div className="flex bg-[#0a0a0f] p-1.5 rounded-2xl border border-white/[0.06] shadow-2xl relative z-10 self-stretch sm:self-auto w-full md:w-auto">
+        <div className="flex bg-white/[0.02] p-1.5 rounded-2xl border border-white/5 shadow-2xl relative z-10 self-stretch sm:self-auto w-full md:w-auto">
           <button
             onClick={() => setQueuePriority("voting")}
             className={`flex-1 md:flex-none px-4 sm:px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 min-h-[44px] ${
               queuePriority === "voting"
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] scale-[1.02]"
-                : "text-gray-500 hover:text-white hover:bg-white/[0.02]"
+                : "text-white/30 hover:text-white hover:bg-white/[0.02]"
             }`}
           >
             Bình chọn (Voting)
@@ -671,7 +671,7 @@ const UploadPage = () => {
             className={`flex-1 md:flex-none px-4 sm:px-7 py-3 rounded-[1rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 min-h-[44px] ${
               queuePriority === "fifo"
                 ? "bg-gradient-to-r from-[#d946ef] to-[#8b5cf6] text-white shadow-[0_0_20px_rgba(217,70,239,0.4)] scale-[1.02]"
-                : "text-gray-500 hover:text-white hover:bg-white/[0.02]"
+                : "text-white/30 hover:text-white hover:bg-white/[0.02]"
             }`}
           >
             Thời gian (FIFO)

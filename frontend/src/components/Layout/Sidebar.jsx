@@ -46,7 +46,7 @@ const Sidebar = () => {
   return (
     <>
       {/* ── Desktop Sidebar ── */}
-      <div className="hidden sm:flex w-[260px] lg:w-[300px] h-[calc(100vh-2rem)] bg-white/[0.04] backdrop-blur-[60px] shrink-0 border border-white/[0.08] relative overflow-hidden my-4 ml-4 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] flex-col justify-between py-10 px-5 z-10">
+      <div className="hidden sm:flex w-[260px] lg:w-[300px] h-[calc(100vh-2rem)] bg-white/[0.03] backdrop-blur-2xl shrink-0 border border-white/[0.08] relative overflow-hidden my-4 ml-4 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.4)] flex-col justify-between py-10 px-5 z-10">
         {/* Logo */}
         <div>
           <div className="mb-10 px-4">
@@ -68,10 +68,9 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* ── Mobile Hamburger Button ── */}
       <button
         onClick={() => setDrawerOpen(true)}
-        className="sm:hidden fixed top-4 left-4 z-[100] w-11 h-11 flex items-center justify-center rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/[0.12] text-white shadow-lg active:scale-95 transition-all"
+        className="sm:hidden fixed top-4 left-4 z-[100] w-11 h-11 flex items-center justify-center rounded-2xl bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] text-white/70 shadow-2xl active:scale-95 transition-all"
         aria-label="Open menu"
       >
         <MdMenu size={22} />
@@ -80,14 +79,14 @@ const Sidebar = () => {
       {/* ── Mobile Drawer Backdrop ── */}
       {drawerOpen && (
         <div
-          className="sm:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+          className="sm:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
           onClick={() => setDrawerOpen(false)}
         />
       )}
 
       {/* ── Mobile Drawer Panel ── */}
       <div
-        className={`sm:hidden fixed top-0 left-0 h-full z-50 w-72 bg-[#0d0d1a]/95 backdrop-blur-[60px] border-r border-white/[0.1] shadow-[4px_0_40px_rgba(0,0,0,0.6)] flex flex-col justify-between py-10 px-5 transition-transform duration-300 ease-in-out ${drawerOpen ? "translate-x-0" : "-translate-x-full"
+        className={`sm:hidden fixed top-0 left-0 h-full z-50 w-72 bg-white/[0.03] backdrop-blur-2xl border-r border-white/10 shadow-2xl flex flex-col justify-between py-10 px-5 transition-transform duration-300 ease-in-out ${drawerOpen ? "translate-x-0" : "-translate-x-full"
           }`}
       >
         {/* Header row */}

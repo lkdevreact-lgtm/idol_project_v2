@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useVideoStore } from "../hooks/useVideoStore";
 import TikTokListener from "../components/TikTokListener";
 import SelectThumbnail from "../components/SelectThumbnail";
@@ -8,36 +8,23 @@ import VideoGiftPodium from "../components/VideoGiftPodium";
 import Leaderboard from "../components/Leaderboard";
 import GiftNotification from "../components/GiftNotification";
 
-/* ─── Reusable Glass Panel ─── */
+/* ─── TikTok-style Ultra-Glass Panel ─── */
 const GlassPanel = ({ title, children, className = "" }) => (
-  <div
-    className={`flex flex-col bg-white/[0.06] backdrop-blur-[50px] border border-white/[0.12] rounded-[1.75rem] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] ${className}`}
-  >
-    {/* Top glow line */}
-    <div className="shrink-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-
-    {/* Header */}
+  <div className={`flex flex-col bg-white/[0.03] backdrop-blur-2xl rounded-2xl border border-white/[0.05] overflow-hidden ${className}`}>
     {title && (
-      <div className="shrink-0 h-11 px-5 flex items-center justify-between border-b border-white/[0.08] bg-gradient-to-r from-white/[0.06] to-transparent">
-        <div className="flex items-center gap-2.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#d946ef] to-[#06b6d4] shadow-[0_0_8px_rgba(217,70,239,0.7)]" />
-          <span className="text-[10px] font-extrabold text-white/80 uppercase tracking-[0.25em] select-none">
-            {title}
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-white/10" />
-          <div className="w-2 h-2 rounded-full bg-white/10" />
-        </div>
+      <div className="shrink-0 px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.03] bg-white/[0.02]">
+        <div className="w-1 h-3.5 rounded-full bg-[#d946ef] shrink-0" />
+        <span className="text-[10px] font-extrabold text-white/50 uppercase tracking-[0.2em] select-none">
+          {title}
+        </span>
       </div>
     )}
-
-    {/* Content */}
     <div className="flex-1 overflow-hidden min-h-0">
       {children}
     </div>
   </div>
 );
+
 
 const HomePage = ({ username }) => {
   const selectedVideo = useVideoStore((state) => state.selectedVideo);
@@ -45,6 +32,8 @@ const HomePage = ({ username }) => {
   const playId = useVideoStore((state) => state.playId);
   const videoMode = useVideoStore((state) => state.videoMode);
   const currentGiftName = useVideoStore((state) => state.currentGiftName);
+
+  const [showLiveFeed, setShowLiveFeed] = useState(false);
 
   // Auto-start or pick favorite on mount
   useEffect(() => {
@@ -56,30 +45,27 @@ const HomePage = ({ username }) => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row items-stretch gap-3 md:gap-4 lg:gap-6 sm:p-3 sm:pt-3 md:p-4 md:pt-4 lg:p-6 lg:pt-6 overflow-hidden">
 
-      {/* ── LEFT COLUMN: Leaderboard + Dancer Models (desktop only) ── */}
+      {/* ── LEFT COLUMN: Leaderboard + Dancer Models (Desktop) ── */}
       <div className="hidden lg:flex flex-col gap-3 lg:gap-4 w-[280px] xl:w-[320px] shrink-0 min-h-0">
-
         {/* Streamer badge */}
         {username && (
-          <div className="shrink-0 bg-white/[0.04] backdrop-blur-[40px] border border-white/[0.08] text-white px-4 py-2.5 rounded-2xl text-[12px] flex items-center gap-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
-            <div className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.7)] animate-pulse shrink-0" />
-            <span className="text-gray-400 uppercase font-extrabold text-[9px] tracking-widest">Streamer</span>
-            <span className="font-extrabold text-[#d946ef] text-[13px]">@{username}</span>
+          <div className="shrink-0 bg-black/45 backdrop-blur-md border border-white/5 px-4 py-2 rounded-full flex items-center gap-3 shadow-xl">
+            <div className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse shrink-0" />
+            <span className="text-white/40 uppercase font-black text-[10px] tracking-widest">Streamer</span>
+            <span className="font-black text-[#d946ef] text-[13px]">@{username}</span>
           </div>
         )}
 
-        {/* Top Gifts Panel */}
         <GlassPanel title="TOP GIFTS & GIFTERS" className="flex-[6] min-h-0">
           <Leaderboard />
         </GlassPanel>
 
-        {/* Dancer Models Panel */}
         <GlassPanel title="DANCER MODELS" className="flex-[4] min-h-0">
           <SelectThumbnail />
         </GlassPanel>
       </div>
 
-      {/* ── CENTER: Phone Frame (desktop) / Full Screen (mobile) ── */}
+      {/* ── CENTER: Phone Frame (Desktop) / Full Screen (Mobile) ── */}
       <div className="flex-1 flex items-center justify-center min-h-0 min-w-0 relative">
 
         {/* ─── DESKTOP: LED ring + phone frame ─── */}
@@ -132,11 +118,20 @@ const HomePage = ({ username }) => {
           {/* Gift Performance Badge */}
           {videoMode === "queue" && currentGiftName && (
             <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[100] w-full px-4 pointer-events-none">
-              <div className="bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl py-2 px-3 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+              <div className="bg-black/80 backdrop-blur-lg border border-white/10 rounded-2xl py-2 px-4 flex items-center justify-center gap-2.5 shadow-2xl">
                 <span className="text-[10px] font-black text-[#d946ef] uppercase tracking-widest">Đang trình diễn</span>
-                <div className="w-1 h-1 rounded-full bg-white/40" />
-                <span className="text-[12px] font-bold text-white uppercase">{currentGiftName}</span>
+                <div className="w-1 h-1 rounded-full bg-white/20" />
+                <span className="text-[12px] font-black text-white uppercase">{currentGiftName}</span>
               </div>
+            </div>
+          )}
+
+          {/* Streamer Badge Mobile */}
+          {username && (
+            <div className="absolute top-4 right-4 z-[100] bg-black/45 backdrop-blur-md border border-white/5 px-4 py-2 rounded-full flex items-center gap-3 shadow-xl">
+              <div className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse shrink-0" />
+              <span className="text-white/40 uppercase font-black text-[10px] tracking-widest">Streamer</span>
+              <span className="font-black text-[#d946ef] text-[13px]">@{username}</span>
             </div>
           )}
 
@@ -150,20 +145,43 @@ const HomePage = ({ username }) => {
           <GiftNotification />
         </div>
 
-        {/* ── Leaderboard overlay mobile: fixed góc giữa-trái ── */}
-        <div className="sm:hidden fixed left-0 top-1/2 -translate-y-1/2 z-[90] w-[175px] max-h-[55vh] flex flex-col rounded-r-2xl overflow-hidden shadow-[4px_0_30px_rgba(0,0,0,0.6)]">
-          <div className="shrink-0 bg-black/60 backdrop-blur-md px-3 py-2 border-b border-white/10 flex items-center gap-2">
-            <span className="text-[13px]">🏆</span>
-            <span className="text-[9px] font-extrabold text-[#fbbf24] uppercase tracking-[0.2em]">Top Đại Gia</span>
+        {/* ── MOBILE OVERLAYS: TikTok Style (Light Glass) ── */}
+        <div className="sm:hidden fixed left-2 top-20 bottom-24 w-[180px] z-[90] pointer-events-none flex flex-col gap-2">
+
+          {/* Dancer Models (Action List) */}
+          <div className="pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden flex-[4] min-h-0 flex flex-col">
+            <div className="px-3 py-2 border-b border-white/[0.03] bg-white/[0.02]">
+              <span className="text-[9px] font-black text-white/30 uppercase tracking-widest leading-none">Hành động</span>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <SelectThumbnail />
+            </div>
           </div>
-          <div className="flex-1 overflow-hidden bg-black/50 backdrop-blur-md">
+
+          {/* Member List */}
+          <div className="pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden flex-[6] min-h-0 flex flex-col shadow-2xl">
             <Leaderboard />
           </div>
+
+          {/* Toggle Live Feed Button */}
+          <button
+            onClick={() => setShowLiveFeed(!showLiveFeed)}
+            className="pointer-events-auto w-fit px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] text-white/70 text-[10px] font-black uppercase tracking-widest backdrop-blur-md active:scale-95 transition-all mt-1"
+          >
+            {showLiveFeed ? "Ẩn Chat" : "Hiện Chat"}
+          </button>
         </div>
+
+        {/* Mobile Live Feed Overlay */}
+        {showLiveFeed && (
+          <div className="sm:hidden fixed right-2 bottom-24 left-[200px] top-1/2 z-[90] pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden shadow-2xl animate-fade-in">
+            <TikTokListener />
+          </div>
+        )}
 
       </div>
 
-      {/* ── RIGHT COLUMN: TikTok Live Feed (desktop only) ── */}
+      {/* ── RIGHT COLUMN: TikTok Live Feed (Desktop) ── */}
       <GlassPanel title="TIKTOK LIVE FEED" className="hidden md:flex w-[300px] xl:w-[340px] shrink-0">
         <TikTokListener />
       </GlassPanel>

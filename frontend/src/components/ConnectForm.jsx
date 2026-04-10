@@ -44,7 +44,7 @@ const ConnectForm = ({ onConnectSuccess }) => {
   };
 
   return (
-    <div className="relative z-20 sm:max-w-md w-full sm:h-auto h-full bg-secondary/80 backdrop-blur-2xl sm:border border-white/10 sm:rounded-[2rem] p-8 text-white font-sans pointer-events-auto shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
+    <div className="relative z-20 sm:max-w-md w-full sm:h-auto h-full bg-white/[0.03] backdrop-blur-2xl sm:border border-white/[0.08] sm:rounded-[3rem] p-10 text-white font-sans pointer-events-auto shadow-2xl overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-luminous-cyan/10 blur-[80px] pointer-events-none" />
 

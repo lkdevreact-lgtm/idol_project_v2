@@ -29,9 +29,9 @@ const GiftModal = ({ initial, onSave, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
-      <div className="relative w-full max-w-md mx-4 bg-white/[0.06] border border-white/[0.12] rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-[40px]">
-        <div className="flex items-center justify-between px-7 py-5 border-b border-[#2e2f38] bg-[#252630]/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-md bg-white/[0.03] border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl backdrop-blur-2xl">
+        <div className="flex items-center justify-between px-7 py-5 border-b border-white/[0.05] bg-white/[0.02]">
           <h2 className="text-white font-extrabold text-xl tracking-tight flex items-center gap-2">
             {initial ? (
               <span className="flex items-center gap-2 text-[#d946ef]">
@@ -85,7 +85,7 @@ const GiftModal = ({ initial, onSave, onClose }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 px-7 py-5 border-t border-[#2e2f38] bg-[#15161c]">
+        <div className="flex items-center justify-end gap-3 px-7 py-5 border-t border-white/[0.05] bg-white/[0.02]">
           <button
             onClick={onClose}
             className="px-6 py-3 rounded-xl border border-white/[0.12] text-gray-400 hover:text-white hover:bg-white/[0.08] text-sm font-semibold transition"
@@ -188,7 +188,7 @@ const GiftPage = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Tìm kiếm theo tên hoặc ID..."
-          className="w-full bg-white/[0.06] border border-white/[0.1] hover:border-white/20 rounded-2xl pl-12 pr-5 py-4 text-[15px] text-gray-200 placeholder-white/30 focus:outline-none focus:border-[#d946ef]/60 focus:bg-white/[0.08] transition-colors shadow-inner"
+          className="w-full bg-white/[0.03] border border-white/5 hover:border-white/10 rounded-2xl pl-12 pr-5 py-4 text-[15px] text-gray-200 placeholder-white/20 focus:outline-none focus:border-[#d946ef]/40 focus:bg-white/[0.05] transition-all backdrop-blur-md"
         />
       </div>
 
@@ -215,16 +215,16 @@ const GiftPage = () => {
               return (
                 <div
                   key={gift.giftId}
-                  className={`group relative flex flex-col p-6 rounded-3xl border transition-all duration-300 ${isActive
-                    ? "bg-white/[0.05] border-white/[0.1] hover:border-[#d946ef]/50 hover:shadow-[0_8px_30px_rgba(217,70,239,0.12)] hover:-translate-y-1 hover:bg-white/[0.08]"
-                    : "bg-white/[0.02] border-white/[0.06] opacity-[0.65] grayscale-[0.8]"
+                  className={`group relative flex flex-col p-6 rounded-3xl border transition-all duration-300 backdrop-blur-xl ${isActive
+                    ? "bg-white/[0.03] border-white/5 hover:border-[#d946ef]/30 hover:shadow-[0_8px_30px_rgba(217,70,239,0.08)] hover:-translate-y-1 hover:bg-white/[0.06]"
+                    : "bg-white/[0.01] border-white/[0.03] opacity-[0.55] grayscale"
                     }`}
                 >
                   <div className="flex items-start justify-between mb-5">
                     <div
-                      className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-inner ${isActive
-                        ? "bg-[#252630] border-[#3f404d] text-[#d946ef] group-hover:scale-[1.05]"
-                        : "bg-[#1a1b23] border-[#2e2f38] text-gray-500"
+                      className={`w-16 h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-2xl ${isActive
+                        ? "bg-white/[0.02] border-white/5 text-[#d946ef] group-hover:scale-[1.05]"
+                        : "bg-black/20 border-white/5 text-gray-500"
                         }`}
                     >
                       {gift.image ? (
