@@ -254,4 +254,11 @@ export const useVideoStore = create((set, get) => ({
       };
     }),
 
+  // ---------- transition overlay ----------
+  // URL của file overlay (.webm / .gif) đang được hiển thị; null = không có
+  activeOverlayUrl: null,
+
+  triggerOverlay: (url) => set({ activeOverlayUrl: url }),
+  clearOverlay: ()      => set({ activeOverlayUrl: null }),
+
 }));

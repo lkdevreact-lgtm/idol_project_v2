@@ -5,7 +5,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import fs from "fs";
 
-import { PUBLIC_DIR, VIDEO_DIR, AVATAR_DIR, DATA_DIR } from "./config/paths.js";
+import { PUBLIC_DIR, VIDEO_DIR, AVATAR_DIR, OVERLAY_DIR, DATA_DIR } from "./config/paths.js";
 import { loadGifts } from "./services/gifts.service.js";
 import { loadVideos } from "./services/videos.service.js";
 import { createTiktokRouter } from "./routes/tiktok.routes.js";
@@ -17,7 +17,7 @@ import statsRouter from "./routes/stats.routes.js";
 import { createIdolsRouter } from "./routes/idols.routes.js";
 
 // Ensure directories exist
-[VIDEO_DIR, AVATAR_DIR, DATA_DIR].forEach((dir) => {
+[VIDEO_DIR, AVATAR_DIR, OVERLAY_DIR, DATA_DIR].forEach((dir) => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 

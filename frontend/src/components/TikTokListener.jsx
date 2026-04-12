@@ -88,6 +88,11 @@ const TikTokListener = () => {
   const giftDiamonds = giftInfo?.diamonds || 1;
   const giftImage = giftInfo?.image || null;
 
+  // Kích hoạt overlay nếu gift có cấu hình overlayMedia
+  if (giftInfo?.overlayMedia) {
+    useVideoStore.getState().triggerOverlay(giftInfo.overlayMedia);
+  }
+
  const state = useVideoStore.getState();
  const lastQueued = state.videoQueue[state.videoQueue.length - 1] ?? state.selectedVideo;
  const curIdx = matchedVideos.findIndex((v) => v.video === lastQueued);

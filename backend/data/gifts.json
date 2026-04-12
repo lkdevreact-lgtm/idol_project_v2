@@ -6,7 +6,9 @@
     "diamonds": 1,
     "maxRepeatCount": 998,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1775999319240-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 1
   },
   {
     "giftId": 7934,
@@ -15,7 +17,9 @@
     "diamonds": 1,
     "maxRepeatCount": 1,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1775999720229-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 5658,
@@ -24,7 +28,9 @@
     "diamonds": 20,
     "maxRepeatCount": 5,
     "active": true,
-    "idolId": 1775919085139
+    "idolId": 1775919085139,
+    "overlayMedia": "/overlay/1775999735998-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 5269,
@@ -33,7 +39,9 @@
     "diamonds": 1,
     "maxRepeatCount": 100,
     "active": true,
-    "idolId": 1775919085138
+    "idolId": 1775919085138,
+    "overlayMedia": "/overlay/1775999728793-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 15231,
@@ -1070,6 +1078,14 @@
     "giftName": "Meteor Shower",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/71883933511237f7eaa1bf8cd12ed575~tplv-obj.png",
     "diamonds": 3000,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 9500,
+    "giftName": "Flying Jets",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/1d067d13988e8754ed6adbebd89b9ee8.png~tplv-obj.png",
+    "diamonds": 5000,
     "active": true,
     "maxRepeatCount": 1
   }

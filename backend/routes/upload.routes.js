@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import path from "path";
-import { VIDEO_DIR, AVATAR_DIR } from "../config/paths.js";
+import { VIDEO_DIR, AVATAR_DIR, OVERLAY_DIR } from "../config/paths.js";
 
 const videoStorage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, VIDEO_DIR),
@@ -23,8 +23,21 @@ const avatarStorage = multer.diskStorage({
   },
 });
 
+const overlayStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, OVERLAY_DIR),
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const base = path
+      .basename(file.originalname, ext)
+      .replace(/[^a-zA-Z0-9_\-\u00C0-\u024F\u1E00-\u1EFF]/g, "-")
+      .slice(0, 80);
+    cb(null, `${Date.now()}-overlay-${base}${ext}`);
+  },
+});
+
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".avi", ".mkv", ".ogg"]);
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif"]);
+const OVERLAY_EXTS = new Set([".webm", ".gif", ".mp4", ".mov"]);
 
 const uploadVideo = multer({
   storage: videoStorage,
@@ -50,6 +63,18 @@ const uploadAvatar = multer({
   },
 });
 
+const uploadOverlay = multer({
+  storage: overlayStorage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB
+  fileFilter: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (OVERLAY_EXTS.has(ext) || file.mimetype.startsWith("video/") || file.mimetype === "image/gif")
+      cb(null, true);
+    else
+      cb(new Error("Only overlay files are allowed (.webm, .gif, .mp4, .mov)"));
+  },
+});
+
 export const uploadRouter = Router();
 
 // POST /api/upload/video → saves to public/video/
@@ -69,5 +94,15 @@ uploadRouter.post("/avatar", (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
     console.log("[upload] Avatar saved:", req.file.filename);
     res.json({ path: `/avatar/${req.file.filename}` });
+  });
+});
+
+// POST /api/upload/overlay → saves to public/overlay/
+uploadRouter.post("/overlay", (req, res) => {
+  uploadOverlay.single("file")(req, res, (err) => {
+    if (err) return res.status(400).json({ error: err.message });
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+    console.log("[upload] Overlay saved:", req.file.filename);
+    res.json({ path: `/overlay/${req.file.filename}` });
   });
 });

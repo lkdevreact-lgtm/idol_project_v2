@@ -7,6 +7,7 @@ import Background from "../components/Background";
 import VideoGiftPodium from "../components/VideoGiftPodium";
 import Leaderboard from "../components/Leaderboard";
 import GiftNotification from "../components/GiftNotification";
+import OverlayPlayer from "../components/OverlayPlayer";
 
 /* ─── TikTok-style Ultra-Glass Panel ─── */
 const GlassPanel = ({ title, children, className = "" }) => (
@@ -107,6 +108,7 @@ const HomePage = ({ username }) => {
  onVideoEnded={processNext}
  />
  )}
+ <OverlayPlayer />
  <GiftNotification />
  </div>
  </div>
@@ -143,6 +145,7 @@ const HomePage = ({ username }) => {
  onVideoEnded={processNext}
  />
  )}
+ <OverlayPlayer />
  <GiftNotification />
  </div>
 
