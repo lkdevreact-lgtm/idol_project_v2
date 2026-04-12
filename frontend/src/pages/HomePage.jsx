@@ -118,21 +118,21 @@ const HomePage = ({ username }) => {
 
  {/* Gift Performance Badge */}
  {videoMode === "queue" && currentGiftName && (
- <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[100] w-full px-4 pointer-events-none">
- <div className="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl py-2 px-5 flex items-center justify-center gap-3 shadow-2xl">
- <span className="text-[9px] font-bold text-[#d946ef] leading-none">Showtime</span>
- <div className="w-1 h-1 rounded-full bg-white/10" />
- <span className="text-[11px] font-bold text-white leading-none tracking-tight">{currentGiftName}</span>
- </div>
+ <div className="absolute bottom-36 left-1/2 -translate-x-1/2 z-[100] w-full px-4 pointer-events-none animate-bounce-subtle">
+      <div className="bg-white/[0.12] backdrop-blur-2xl border border-white/20 rounded-2xl py-2.5 px-5 flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+        <span className="text-[10px] sm:text-[11px] font-bold text-white text-center leading-tight">
+          Cảm ơn <span className="text-[#d946ef]">{currentGiftSender || "bạn"}</span> đã tặng <span className="text-[#eab308]">{currentGiftName}</span>
+        </span>
+      </div>
  </div>
  )}
 
  {/* Streamer Badge Mobile */}
  {username && (
- <div className="absolute top-4 right-4 z-[100] bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xl">
+ <div className="absolute top-2 right-2 z-[100] bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] px-2 py-0.5 rounded-full flex items-center gap-1 shadow-2xl scale-90">
  <div className="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse shrink-0" />
- <span className="text-white/20 font-semibold text-[7.5px] leading-none">Live</span>
- <span className="font-bold text-[#d946ef] text-[10px] leading-none tracking-tight">@{username}</span>
+ <span className="text-white/20 font-semibold text-[7px] leading-none">Live</span>
+ <span className="font-bold text-[#d946ef] text-[9px] leading-none tracking-tight">@{username}</span>
  </div>
  )}
 
@@ -147,17 +147,10 @@ const HomePage = ({ username }) => {
  </div>
 
  {/* ── MOBILE OVERLAYS: TikTok Style (Light Glass) ── */}
- <div className="sm:hidden fixed left-2 top-20 bottom-24 w-[145px] z-[90] pointer-events-none flex flex-col gap-1.5">
- {/* Dancer Models (Action List) */}
- <div className="pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden flex-[4] min-h-0 flex flex-col">
- {/* No title on mobile as per request */}
- <div className="flex-1 overflow-hidden">
- <SelectThumbnail isCompact={true} />
- </div>
- </div>
+ <div className="sm:hidden fixed right-2 top-48 bottom-24 w-[130px] z-[90] pointer-events-none flex flex-col items-end gap-1.5">
 
  {/* Member List */}
- <div className="pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden flex-[6] min-h-0 flex flex-col shadow-2xl">
+ <div className="pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden flex-col h-fit shadow-2xl">
  <Leaderboard />
  </div>
 
@@ -172,7 +165,7 @@ const HomePage = ({ username }) => {
 
  {/* Mobile Live Feed Overlay */}
  {showLiveFeed && (
- <div className="sm:hidden fixed right-2 bottom-24 left-[160px] top-1/2 z-[90] pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden shadow-2xl animate-fade-in">
+ <div className="sm:hidden fixed left-2 bottom-24 right-[140px] top-1/2 z-[90] pointer-events-auto bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-white/[0.05] overflow-hidden shadow-2xl animate-fade-in">
  <TikTokListener />
  </div>
  )}

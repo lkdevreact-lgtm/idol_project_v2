@@ -546,7 +546,7 @@
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/d686d45bd66e16b0aca8b0e5eb52a977.png~tplv-obj.png",
     "diamonds": 1,
     "active": true,
-    "maxRepeatCount": 1,
+    "maxRepeatCount": 9,
     "idolId": null
   },
   {
@@ -999,7 +999,7 @@
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/963e12ba84805721d96b06deaf5d660b.png~tplv-obj.png",
     "diamonds": 199,
     "active": true,
-    "maxRepeatCount": 1
+    "maxRepeatCount": 5
   },
   {
     "giftId": 19308,
@@ -1046,6 +1046,30 @@
     "giftName": "Family",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/8821932e2d3fe78e9af0bcf785ca1759.png~tplv-obj.png",
     "diamonds": 90,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 19314,
+    "giftName": "Panda Snap",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/a96c32f3272df1905eb3f3d51b53308b.png~tplv-obj.png",
+    "diamonds": 399,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 17549,
+    "giftName": "Pawfect",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/8710c33f4929aa91c7ec7154f5f90268.png~tplv-obj.png",
+    "diamonds": 299,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 6563,
+    "giftName": "Meteor Shower",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/71883933511237f7eaa1bf8cd12ed575~tplv-obj.png",
+    "diamonds": 3000,
     "active": true,
     "maxRepeatCount": 1
   }

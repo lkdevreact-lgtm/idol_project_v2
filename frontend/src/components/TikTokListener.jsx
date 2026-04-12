@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { useVideoStore } from "../hooks/useVideoStore";
 import { useIdolStore } from "../hooks/useIdolStore";
 import { useTTSStore } from "../hooks/useTTSStore";
+import { useGiftStore } from "../hooks/useGiftStore";
 import { SOCKET_URL } from "../utils/constant";
 import { MESSAGE_TYPE } from "../utils/type";
 
@@ -83,6 +84,10 @@ const TikTokListener = () => {
 
  if (matchedVideos.length === 0) return;
 
+  const giftInfo = useGiftStore.getState().gifts.find(g => g.giftName === giftName);
+  const giftDiamonds = giftInfo?.diamonds || 1;
+  const giftImage = giftInfo?.image || null;
+
  const state = useVideoStore.getState();
  const lastQueued = state.videoQueue[state.videoQueue.length - 1] ?? state.selectedVideo;
  const curIdx = matchedVideos.findIndex((v) => v.video === lastQueued);
@@ -91,8 +96,10 @@ const TikTokListener = () => {
  for (let i = 0; i < n; i++) {
  // Rotary mode pick
  const idx = ((curIdx === -1 ? 0 : curIdx) + 1 + i) % matchedVideos.length;
- const path = matchedVideos[idx].video;
+ const v = matchedVideos[idx];
+    const path = v.video;
  useVideoStore.getState().enqueueVideo(path, giftName, giftData.nickname);
+    useVideoStore.getState().addIdolGift(v.idolId, giftDiamonds, giftImage);
  scoreByPath.set(path, (scoreByPath.get(path) || 0) + 1);
  }
  scoreByPath.forEach((delta, path) => useVideoStore.getState().addGiftScore(path, delta));

@@ -221,6 +221,8 @@ export const useVideoStore = create((set, get) => ({
 
   // ---------- điểm quà ----------
   videoGiftScores: {},
+  idolGiftScores: {}, // { idolId: totalDiamonds }
+  idolGiftHistory: {}, // { idolId: [giftImage1, giftImage2, ...] }
 
   addGiftScore: (videoPath, delta = 1) =>
     set((state) => ({
@@ -229,5 +231,27 @@ export const useVideoStore = create((set, get) => ({
         [videoPath]: (state.videoGiftScores[videoPath] || 0) + delta,
       },
     })),
+
+  addIdolGift: (idolId, diamonds = 0, giftImage = null) =>
+    set((state) => {
+      const prevScore = state.idolGiftScores[idolId] || 0;
+      const prevHistory = state.idolGiftHistory[idolId] || [];
+
+      const nextHistory =
+        giftImage && !prevHistory.includes(giftImage)
+          ? [...prevHistory, giftImage].slice(-8) // Keep last 8 unique gifts
+          : prevHistory;
+
+      return {
+        idolGiftScores: {
+          ...state.idolGiftScores,
+          [idolId]: prevScore + diamonds,
+        },
+        idolGiftHistory: {
+          ...state.idolGiftHistory,
+          [idolId]: nextHistory,
+        },
+      };
+    }),
 
 }));
