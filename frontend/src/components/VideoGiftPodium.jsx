@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useVideoStore } from "../hooks/useVideoStore";
 import { useIdolStore } from "../hooks/useIdolStore";
+import { useGiftStore } from "../hooks/useGiftStore";
 
 const rankStyles = {
   1: {
@@ -77,8 +78,36 @@ function PodiumCell({ rank, data }) {
 
 const VideoGiftPodium = () => {
   const idols = useIdolStore((state) => state.idols);
+  const gifts = useGiftStore((state) => state.gifts);
+  const videos = useVideoStore((state) => state.videos);
   const idolGiftScores = useVideoStore((state) => state.idolGiftScores);
-  const idolGiftHistory = useVideoStore((state) => state.idolGiftHistory);
+
+  // Map idolId -> [triggerGiftImage1, triggerGiftImage2, ...] based on video config
+  const idolTriggerGiftImages = useMemo(() => {
+    const map = {};
+    
+    // Create a lookup for gift images by name
+    const giftNameToImage = {};
+    gifts.forEach(g => {
+      if (g.giftName && g.image) {
+        giftNameToImage[g.giftName] = g.image;
+      }
+    });
+
+    // Find all gifts assigned to videos for each idol
+    videos.forEach((v) => {
+      if (v.idolId && v.gift) {
+        const giftImg = giftNameToImage[v.gift];
+        if (giftImg) {
+          if (!map[v.idolId]) map[v.idolId] = [];
+          if (!map[v.idolId].includes(giftImg)) {
+            map[v.idolId].push(giftImg);
+          }
+        }
+      }
+    });
+    return map;
+  }, [gifts, videos]);
 
   const { first, second, third } = useMemo(() => {
     const ranked = idols
@@ -87,10 +116,14 @@ const VideoGiftPodium = () => {
         name: idol.name,
         avatar: idol.avatar,
         score: idolGiftScores[idol.id] || 0,
-        history: idolGiftHistory[idol.id] || [],
+        order: idol.order ?? 999,
+        // Always show trigger gifts so users know what to send
+        history: idolTriggerGiftImages[idol.id] || [],
       }))
-      .filter(item => item.score > 0)
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.order - b.order;
+      })
       .slice(0, 3);
 
     return {
@@ -98,7 +131,7 @@ const VideoGiftPodium = () => {
       second: ranked[1] ?? null,
       third: ranked[2] ?? null,
     };
-  }, [idols, idolGiftScores, idolGiftHistory]);
+  }, [idols, idolGiftScores, idolTriggerGiftImages]);
 
   return (
     <div className="absolute top-4 left-0 right-0 z-[100] pointer-events-none px-2 sm:px-4">
