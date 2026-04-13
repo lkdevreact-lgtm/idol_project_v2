@@ -8,10 +8,9 @@ let tiktokLiveConnection = null;
  * Kết nối tới TikTok Live của `username`.
  * @param {string} username
  * @param {import("socket.io").Server} io
- * @param {object[]} knownGifts  - Mảng shared để lưu gift (mutate in-place)
  * @param {import("express").Response} [res]
  */
-export const connectToTikTok = (username, io, knownGifts, res) => {
+export const connectToTikTok = (username, io, res) => {
   // Ngắt kết nối cũ nếu có
   if (tiktokLiveConnection) {
     try {
@@ -89,8 +88,8 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
     // console.log(data)
 
 
-    registerGift(data, knownGifts);
-    logGift(data); // Log for leaderboard statistics
+    registerGift(data).catch(e => console.error("registerGift Error:", e));
+    logGift(data).catch(e => console.error("logGift Error:", e)); // Log for leaderboard statistics
 
 
     // Gửi event tiktok_gift cho tất cả các loại quà để frontend có thể check matching video

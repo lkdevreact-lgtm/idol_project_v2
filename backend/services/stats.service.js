@@ -1,46 +1,43 @@
-import fs from "fs";
-import { GIFT_LOGS_FILE } from "../config/paths.js";
+import { supabase } from "../config/supabase.js";
 
 /**
- * Log a gift transaction to gift_logs.json
+ * Log a gift transaction to Supabase gift_logs table
  */
-export const logGift = (giftData) => {
+export const logGift = async (giftData) => {
   try {
-    let logs = [];
-    if (fs.existsSync(GIFT_LOGS_FILE)) {
-      const raw = fs.readFileSync(GIFT_LOGS_FILE, "utf-8");
-      logs = JSON.parse(raw);
-    }
-
     const newLog = {
-      giftId: giftData.giftId,
+      giftId: Number(giftData.giftId),
       giftName: giftData.giftName,
       userId: giftData.userId || giftData.uniqueId,
       nickname: giftData.nickname,
-      profilePicture: giftData.profilePictureUrl || giftData.profilePicture,
+      profilePicture: giftData.profilePictureUrl || giftData.profilePicture || "",
       amount: giftData.amount || giftData.repeatCount || 1,
       diamonds: giftData.diamonds || giftData.diamondCount || 0,
       timestamp: new Date().toISOString(),
     };
 
-    logs.push(newLog);
-    fs.writeFileSync(GIFT_LOGS_FILE, JSON.stringify(logs, null, 2), "utf-8");
+    const { error } = await supabase.from("gift_logs").insert([newLog]);
+    if (error) throw error;
+
     console.log(
-      `[stats] 📝 Logged gift: ${giftData.giftName} x${newLog.amount} from ${giftData.nickname}`,
+      `[stats] 📝 Logged gift: ${giftData.giftName} x${newLog.amount} from ${giftData.nickname}`
     );
   } catch (e) {
-    console.error("[stats] Error logging gift:", e.message);
+    console.error("[stats] Error logging gift to Supabase:", e.message);
   }
 };
 
-export const getLeaderboard = () => {
+export const getLeaderboard = async () => {
   try {
-    if (!fs.existsSync(GIFT_LOGS_FILE)) return [];
+    const { data, error } = await supabase
+      .from("gift_logs")
+      .select("*")
+      .order("timestamp", { ascending: false });
 
-    const raw = fs.readFileSync(GIFT_LOGS_FILE, "utf-8");
-    return JSON.parse(raw);
+    if (error) throw error;
+    return data || [];
   } catch (e) {
-    console.error("[stats] Error reading gift logs:", e.message);
+    console.error("[stats] Error reading gift logs from Supabase:", e.message);
     return [];
   }
 };
@@ -48,9 +45,17 @@ export const getLeaderboard = () => {
 /**
  * Clear the leaderboard (reset for a new live session)
  */
-export const clearLeaderboard = () => {
+export const clearLeaderboard = async () => {
   try {
-    fs.writeFileSync(GIFT_LOGS_FILE, JSON.stringify([]), "utf-8");
+    // Delete all rows safely. In Supabase, you need a condition to delete all.
+    // eq('id', id) or just delete with neq.
+    // Using a dummy filter to delete all
+    const { error } = await supabase
+      .from("gift_logs")
+      .delete()
+      .neq("id", "00000000-0000-0000-0000-000000000000"); // deletes all rows
+
+    if (error) throw error;
     console.log("[stats] 🧹 Leaderboard reset for new live session.");
   } catch (e) {
     console.error("[stats] Error resetting leaderboard:", e.message);

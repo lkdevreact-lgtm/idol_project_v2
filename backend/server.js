@@ -6,8 +6,6 @@ import cors from "cors";
 import fs from "fs";
 
 import { PUBLIC_DIR, VIDEO_DIR, AVATAR_DIR, OVERLAY_DIR, DATA_DIR } from "./config/paths.js";
-import { loadGifts } from "./services/gifts.service.js";
-import { loadVideos } from "./services/videos.service.js";
 import { createTiktokRouter } from "./routes/tiktok.routes.js";
 import { uploadRouter } from "./routes/upload.routes.js";
 import { filesRouter } from "./routes/files.routes.js";
@@ -16,16 +14,11 @@ import { createVideosRouter } from "./routes/videos.routes.js";
 import statsRouter from "./routes/stats.routes.js";
 import { createIdolsRouter } from "./routes/idols.routes.js";
 
-// Ensure directories exist
+// Đảm bảo các thư mục vật lý tồn tại
 [VIDEO_DIR, AVATAR_DIR, OVERLAY_DIR, DATA_DIR].forEach((dir) => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-const knownGifts = loadGifts();
-console.log(`[gifts] Loaded ${knownGifts.length} gift(s) from gifts.json`);
-
-const initialVideos = loadVideos();
-console.log(`[videos] Loaded ${initialVideos.length} video(s) from videos.json`);
 const app = express();
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*";
 
@@ -46,11 +39,12 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use("/api", createTiktokRouter(io, knownGifts));   // POST /api/connect
+// Các Routes mới, không còn dependency in-memory
+app.use("/api", createTiktokRouter(io));                // POST /api/connect
 app.use("/api/upload", uploadRouter);                   // POST /api/upload/video|avatar
 app.use("/api/files", filesRouter);                     // DELETE /api/files
-app.use("/api/gifts", createGiftsRouter(knownGifts));   // GET /api/gifts
-app.use("/api/videos", createVideosRouter(initialVideos)); // GET/POST/PATCH /api/videos
+app.use("/api/gifts", createGiftsRouter());             // GET/POST/PATCH /api/gifts
+app.use("/api/videos", createVideosRouter());           // GET/POST/PATCH /api/videos
 app.use("/api/idols", createIdolsRouter());             // GET/POST/PATCH/DELETE /api/idols
 app.use("/api/stats", statsRouter);                     // GET /api/stats/leaderboard
 
@@ -109,5 +103,5 @@ app.post("/api/tts/speak", async (req, res) => {
 const PORT = process.env.PORT || 3004;
 httpServer.listen(PORT, () => {
   console.log(`Backend Server listening at http://localhost:${PORT}`);
-  console.log(`   Waiting for frontend to connect TikTok Live via API...\n`);
+  console.log(`📡 Dữ liệu đang được lưu ở Supabase PostgreSQL`);
 });

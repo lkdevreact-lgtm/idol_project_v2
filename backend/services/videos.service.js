@@ -1,33 +1,59 @@
-import fs from "fs";
-import { VIDEOS_FILE } from "../config/paths.js";
+import { supabase } from "../config/supabase.js";
 
-/**
- * Load videos from videos.json
- * @returns {Array}
- */
-export const loadVideos = () => {
+export const loadVideos = async () => {
   try {
-    if (!fs.existsSync(VIDEOS_FILE)) return [];
-    const raw = fs.readFileSync(VIDEOS_FILE, "utf-8");
-    return JSON.parse(raw);
+    const { data, error } = await supabase
+      .from("videos")
+      .select("*")
+      .order("order", { ascending: true });
+
+    if (error) throw error;
+    return data || [];
   } catch (e) {
-    console.warn("[videos] Could not read videos.json:", e.message);
+    console.warn("[videos] Could not read videos from Supabase:", e.message);
     return [];
   }
 };
 
-/**
- * Save videos to videos.json
- * @param {Array} videos 
- */
-export const saveVideos = (videos) => {
+export const saveVideo = async (videoData) => {
   try {
-    // Ensure parent directory exists (though paths.js/server.js should handle it)
-    const dir = VIDEOS_FILE.substring(0, VIDEOS_FILE.lastIndexOf("/"));
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    
-    fs.writeFileSync(VIDEOS_FILE, JSON.stringify(videos, null, 2), "utf-8");
+    const { data, error } = await supabase
+      .from("videos")
+      .insert([videoData])
+      .select();
+    if (error) throw error;
+    return data[0];
   } catch (e) {
-    console.error("[videos] Could not write videos.json:", e.message);
+    console.error("[videos] Could not insert video:", e.message);
+    return null;
+  }
+};
+
+export const updateVideo = async (id, patch) => {
+  try {
+    const { data, error } = await supabase
+      .from("videos")
+      .update(patch)
+      .eq("id", id)
+      .select();
+    if (error) throw error;
+    return data[0];
+  } catch (e) {
+    console.error("[videos] Could not update video:", e.message);
+    return null;
+  }
+};
+
+export const deleteVideo = async (id) => {
+  try {
+    const { error } = await supabase
+      .from("videos")
+      .delete()
+      .eq("id", id);
+    if (error) throw error;
+    return true;
+  } catch (e) {
+    console.error("[videos] Could not delete video:", e.message);
+    return false;
   }
 };

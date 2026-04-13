@@ -1,77 +1,88 @@
-import fs from "fs";
-import { GIFTS_FILE } from "../config/paths.js";
+import { supabase } from "../config/supabase.js";
 
-export const loadGifts = () => {
+// Lấy danh sách toàn bộ gifts từ Supabase (ordered theo id để ổn định)
+export const loadGifts = async () => {
   try {
-    if (!fs.existsSync(GIFTS_FILE)) return [];
-    const raw = fs.readFileSync(GIFTS_FILE, "utf-8");
-    return JSON.parse(raw);
+    const { data, error } = await supabase
+      .from("gifts")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (error) throw error;
+    return data || [];
   } catch (e) {
-    console.warn("[gifts] Could not read gifts.json:", e.message);
+    console.error("[gifts] Could not read gifts from Supabase:", e.message);
     return [];
   }
 };
 
-export const saveGifts = (gifts) => {
-  try {
-    fs.writeFileSync(GIFTS_FILE, JSON.stringify(gifts, null, 2), "utf-8");
-  } catch (e) {
-    console.error("[gifts] Could not write gifts.json:", e.message);
-  }
-};
-
-
-export const registerGift = (giftData, knownGifts) => {
+// Đăng ký/Cập nhật gift khi nhận được từ TikTok Live
+export const registerGift = async (giftData) => {
   const giftId = Number(giftData.giftId);
-  const giftIndex = knownGifts.findIndex((g) => Number(g.giftId) === giftId);
+  const newRepeatCount = giftData.repeatCount || 1;
 
-  if (giftIndex !== -1) {
-    // If gift exists but lacks info or has a new maxRepeatCount record
-    const gift = knownGifts[giftIndex];
-    let updated = false;
+  try {
+    // Kiểm tra xem gift đã tồn tại chưa
+    const { data: existingGifts, error: fetchError } = await supabase
+      .from("gifts")
+      .select("*")
+      .eq("giftId", giftId)
+      .limit(1);
 
-    if (!gift.image && giftData.giftPictureUrl) {
-      gift.image = giftData.giftPictureUrl;
-      updated = true;
-    }
-    if ((gift.diamonds === undefined || gift.diamonds === null) && giftData.diamondCount !== undefined) {
-      gift.diamonds = giftData.diamondCount;
-      updated = true;
-    }
+    if (fetchError) throw fetchError;
 
-    // New: Track maxRepeatCount record
-    const newRepeatCount = giftData.repeatCount || 1;
-    if (!gift.maxRepeatCount || newRepeatCount > gift.maxRepeatCount) {
-      gift.maxRepeatCount = newRepeatCount;
-      updated = true;
-      console.log(`[gifts] 🏆 New record for "${giftData.giftName}": ${newRepeatCount}`);
-    }
+    if (existingGifts && existingGifts.length > 0) {
+      // Gift đã tồn tại -> Cập nhật nếu cần
+      const gift = existingGifts[0];
+      const updates = {};
+      let needsUpdate = false;
 
-    // Ensure active field exists for old records
-    if (gift.active === undefined) {
-      gift.active = true;
-      updated = true;
+      if (!gift.image && giftData.giftPictureUrl) {
+        updates.image = giftData.giftPictureUrl;
+        needsUpdate = true;
+      }
+      if ((gift.diamonds === undefined || gift.diamonds === null) && giftData.diamondCount !== undefined) {
+        updates.diamonds = giftData.diamondCount;
+        needsUpdate = true;
+      }
+      if (!gift.maxRepeatCount || newRepeatCount > gift.maxRepeatCount) {
+        updates.maxRepeatCount = newRepeatCount;
+        needsUpdate = true;
+        console.log(`[gifts] 🏆 New record for "${giftData.giftName}": ${newRepeatCount}`);
+      }
+
+      if (needsUpdate) {
+        const { error: updateError } = await supabase
+          .from("gifts")
+          .update(updates)
+          .eq("giftId", giftId);
+          
+        if (updateError) throw updateError;
+      }
+      return { saved: false };
+    } else {
+      // Bổ sung Gift mới vào Database
+      const newGift = {
+        giftId: giftId,
+        giftName: giftData.giftName,
+        image: giftData.giftPictureUrl,
+        diamonds: giftData.diamondCount || 0,
+        active: true,
+        maxRepeatCount: newRepeatCount,
+      };
+
+      const { data: insertedGift, error: insertError } = await supabase
+        .from("gifts")
+        .insert([newGift])
+        .select();
+
+      if (insertError) throw insertError;
+      
+      console.log(`[gifts] 💾 Đã lưu gift mới: "${giftData.giftName}" (id=${giftId}) | 💎 ${giftData.diamondCount}`);
+      return { saved: true, data: insertedGift[0] };
     }
-    
-    if (updated) {
-      saveGifts(knownGifts);
-    }
-    return { saved: false, total: knownGifts.length };
+  } catch (err) {
+    console.error("[gifts] Error in registerGift:", err.message);
+    return { saved: false };
   }
-
-  const newGift = {
-    giftId: giftId,
-    giftName: giftData.giftName,
-    image: giftData.giftPictureUrl,
-    diamonds: giftData.diamondCount,
-    active: true, // Default to active
-    maxRepeatCount: giftData.repeatCount || 1, // Record first streak
-  };
-
-  knownGifts.push(newGift);
-  saveGifts(knownGifts);
-  console.log(
-    `[gifts] 💾 Đã lưu gift mới: "${giftData.giftName}" (id=${giftId}) | 💎 ${giftData.diamondCount} → tổng ${knownGifts.length} gift(s)`
-  );
-  return { saved: true, total: knownGifts.length };
 };

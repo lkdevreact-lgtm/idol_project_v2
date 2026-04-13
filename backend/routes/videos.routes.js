@@ -1,47 +1,50 @@
 import { Router } from "express";
-import { loadVideos, saveVideos } from "../services/videos.service.js";
+import { loadVideos, saveVideo, updateVideo, deleteVideo } from "../services/videos.service.js";
+import { supabase } from "../config/supabase.js";
 
-/**
- * @param {object[]} initialVideos 
- */
-export const createVideosRouter = (initialVideos) => {
+export const createVideosRouter = () => {
   const router = Router();
-  let currentVideos = loadVideos();
-
-  // If file is empty, use initialVideos passed from server.js
-  if (currentVideos.length === 0 && initialVideos && initialVideos.length > 0) {
-    currentVideos = initialVideos;
-    saveVideos(currentVideos);
-  }
 
   // GET /api/videos
-  router.get("/", (_req, res) => {
-    res.json(currentVideos);
+  router.get("/", async (_req, res) => {
+    try {
+      const videos = await loadVideos();
+      res.json(videos);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   });
 
-  // POST /api/videos - Replace the whole list
-  router.post("/", (req, res) => {
-    const newVideos = req.body;
-    if (Array.isArray(newVideos)) {
-      currentVideos = newVideos;
-      saveVideos(currentVideos);
-      res.json({ success: true, count: currentVideos.length });
-    } else {
-      res.status(400).json({ error: "Invalid data format. Expected an array." });
+  // POST /api/videos - Replace the whole list (bulk sync)
+  router.post("/", async (req, res) => {
+    try {
+      const newVideos = req.body;
+      if (Array.isArray(newVideos)) {
+        await supabase.from("videos").delete().neq("id", -1); // delete all
+        const { data, error } = await supabase.from("videos").insert(newVideos).select();
+        if (error) throw error;
+        res.json({ success: true, count: data?.length || 0 });
+      } else {
+        res.status(400).json({ error: "Invalid data format. Expected an array." });
+      }
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   });
 
   // Single update: PATCH /api/videos/:id
-  router.patch("/:id", (req, res) => {
-    const { id } = req.params;
-    const patch = req.body;
-    const idx = currentVideos.findIndex(v => String(v.id) === String(id));
-    if (idx !== -1) {
-      currentVideos[idx] = { ...currentVideos[idx], ...patch };
-      saveVideos(currentVideos);
-      res.json(currentVideos[idx]);
-    } else {
-      res.status(404).json({ error: "Video not found" });
+  router.patch("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const patch = req.body;
+      const result = await updateVideo(id, patch);
+      if (result) {
+        res.json(result);
+      } else {
+        res.status(404).json({ error: "Video not found" });
+      }
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   });
 

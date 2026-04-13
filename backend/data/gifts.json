@@ -369,7 +369,11 @@
   {
     "giftId": 13087,
     "giftName": "Bubblegum",
-    "idolId": null
+    "idolId": null,
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/52ebbe9f3f53b5567ad11ad6f8303c58.png~tplv-obj.png",
+    "diamonds": 99,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 57327,
@@ -1168,6 +1172,22 @@
     "giftName": "Cactus Shuffle",
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/b243b36466f8e18116deb7be245e1a56.png~tplv-obj.png",
     "diamonds": 399,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 12678,
+    "giftName": "Level-up Sparks",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/c6c5b0efea6f1f7e1fd1f3909284d12c.png~tplv-obj.png",
+    "diamonds": 99,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 14656,
+    "giftName": "Greeting Heart",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/9325524bd9ca181bd8e76eb99b44c042.png~tplv-obj.png",
+    "diamonds": 99,
     "active": true,
     "maxRepeatCount": 1
   }

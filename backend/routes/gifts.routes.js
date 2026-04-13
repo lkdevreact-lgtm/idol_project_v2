@@ -1,57 +1,87 @@
 import { Router } from "express";
-import { saveGifts } from "../services/gifts.service.js";
+import { loadGifts } from "../services/gifts.service.js";
+import { supabase } from "../config/supabase.js";
 
-/**
- * @param {object[]} knownGifts 
- */
-export const createGiftsRouter = (knownGifts) => {
+export const createGiftsRouter = () => {
   const router = Router();
 
   // GET /api/gifts
-  router.get("/", (_req, res) => {
-    res.json(knownGifts);
+  router.get("/", async (_req, res) => {
+    try {
+      const gifts = await loadGifts();
+      res.json(gifts);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
   });
 
   // POST /api/gifts - Add new gift manually
-  router.post("/", (req, res) => {
-    const { giftId, giftName } = req.body;
-    if (!giftId || !giftName) {
-      return res.status(400).json({ error: "giftId and giftName are required" });
+  router.post("/", async (req, res) => {
+    try {
+      const { giftId, giftName } = req.body;
+      if (!giftId || !giftName) {
+        return res.status(400).json({ error: "giftId and giftName are required" });
+      }
+
+      // Kiểm tra trùng lặp
+      const { data: existingGifts, error: fetchErr } = await supabase
+        .from("gifts")
+        .select("id")
+        .eq("giftId", Number(giftId));
+
+      if (fetchErr) throw fetchErr;
+      if (existingGifts && existingGifts.length > 0) {
+        return res.status(400).json({ error: "Gift ID already exists" });
+      }
+
+      const newGift = { giftId: Number(giftId), giftName, active: true };
+      const { data, error } = await supabase.from("gifts").insert([newGift]).select();
+      if (error) throw error;
+      res.status(201).json(data[0]);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
-    const alreadyExists = knownGifts.find(g => String(g.giftId) === String(giftId));
-    if (alreadyExists) {
-      return res.status(400).json({ error: "Gift ID already exists" });
-    }
-    const newGift = { giftId: Number(giftId), giftName };
-    knownGifts.push(newGift);
-    saveGifts(knownGifts);
-    res.status(201).json(newGift);
   });
 
   // PATCH /api/gifts/:id - Update gift fields (name, active, etc.)
-  router.patch("/:id", (req, res) => {
-    const { id } = req.params;
-    const patch = req.body;
-    const gift = knownGifts.find(g => String(g.giftId) === String(id));
-    if (gift) {
-      Object.assign(gift, patch);
-      saveGifts(knownGifts);
-      res.json(gift);
-    } else {
-      res.status(404).json({ error: "Gift not found" });
+  router.patch("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const patch = req.body;
+      
+      const { data, error } = await supabase
+        .from("gifts")
+        .update(patch)
+        .eq("giftId", Number(id))
+        .select();
+
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        return res.status(404).json({ error: "Gift not found" });
+      }
+      res.json(data[0]);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   });
 
   // DELETE /api/gifts/:id - Remove gift
-  router.delete("/:id", (req, res) => {
-    const { id } = req.params;
-    const index = knownGifts.findIndex(g => String(g.giftId) === String(id));
-    if (index !== -1) {
-      const deleted = knownGifts.splice(index, 1);
-      saveGifts(knownGifts);
-      res.json(deleted[0]);
-    } else {
-      res.status(404).json({ error: "Gift not found" });
+  router.delete("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { data, error } = await supabase
+        .from("gifts")
+        .delete()
+        .eq("giftId", Number(id))
+        .select();
+
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        return res.status(404).json({ error: "Gift not found" });
+      }
+      res.json(data[0]);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   });
 

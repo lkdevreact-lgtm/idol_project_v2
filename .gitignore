@@ -37,3 +37,5 @@ data/videos.json
 server/data/*
 server/yarn.lock
 
+# Supabase
+supabase/.temp/

@@ -12,10 +12,10 @@ import { SOCKET_URL } from "../utils/constant";
  * - GIF : dùng <img> + setTimeout(overlayDuration) → tự clearOverlay()
  */
 const OverlayPlayer = () => {
-  const activeOverlayUrl  = useVideoStore((s) => s.activeOverlayUrl);
-  const clearOverlay      = useVideoStore((s) => s.clearOverlay);
-  const gifts             = useGiftStore((s)  => s.gifts);
-  const timerRef          = useRef(null);
+  const activeOverlayUrl = useVideoStore((s) => s.activeOverlayUrl);
+  const clearOverlay = useVideoStore((s) => s.clearOverlay);
+  const gifts = useGiftStore((s) => s.gifts);
+  const timerRef = useRef(null);
 
   // Lấy overlayDuration từ gift tương ứng với URL đang active
   const getOverlayDuration = () => {
@@ -29,8 +29,8 @@ const OverlayPlayer = () => {
   };
 
   // Detect loại file
-  const url  = activeOverlayUrl;
-  const ext  = url ? url.split(".").pop().toLowerCase() : "";
+  const url = activeOverlayUrl;
+  const ext = url ? url.split(".").pop().toLowerCase() : "";
   const isGif = ext === "gif";
   const isVideo = ["webm", "mp4", "mov", "ogg"].includes(ext);
 
