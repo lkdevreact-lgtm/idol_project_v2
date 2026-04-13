@@ -95,7 +95,7 @@ const Leaderboard = () => {
 
               {/* Info: Nickname & Points */}
               <div className="flex-1 min-w-0 flex flex-col justify-center">
-                <p className="text-[7.5px] font-bold text-white/90 truncate leading-tight">
+                <p className="text-[7.5px] font-bold text-white/90 truncate leading-tight max-w-[85px] lg:max-w-[180px]">
                   {item.nickname}
                 </p>
                 <p className="text-[7px] font-medium text-[#eab308] leading-tight tabular-nums mt-0.5">

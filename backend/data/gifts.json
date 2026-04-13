@@ -86,7 +86,9 @@
     "diamonds": 199,
     "maxRepeatCount": 1,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045604720-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 5879,
@@ -137,7 +139,9 @@
     "diamonds": 199,
     "maxRepeatCount": 20,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045613199-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 6007,
@@ -206,7 +210,9 @@
     "diamonds": 1,
     "maxRepeatCount": 101,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045571499-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 16145,
@@ -329,14 +335,16 @@
     "diamonds": 5,
     "maxRepeatCount": 13,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045581999-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 8635,
     "giftName": "Okay",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/resource/0573114db41d2cf9c7dd70c8b0fab38e.png~tplv-obj.png",
     "diamonds": 5,
-    "maxRepeatCount": 10,
+    "maxRepeatCount": 20,
     "active": true,
     "idolId": null
   },
@@ -483,7 +491,11 @@
   {
     "giftId": 12852,
     "giftName": "Level Ship",
-    "idolId": null
+    "idolId": null,
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/61863cebe02f25d95f187d3b0033718d.png~tplv-obj.png",
+    "diamonds": 1500,
+    "maxRepeatCount": 1,
+    "active": true
   },
   {
     "giftId": 13464,
@@ -528,7 +540,9 @@
     "diamonds": 10,
     "maxRepeatCount": 5,
     "active": true,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045541869-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 6267,
@@ -699,7 +713,9 @@
     "diamonds": 100,
     "active": true,
     "maxRepeatCount": 1,
-    "idolId": null
+    "idolId": null,
+    "overlayMedia": "/overlay/1776045508650-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 10668,
@@ -911,7 +927,9 @@
     "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/7b3f141efe8a943faba19f855a003943.png~tplv-obj.png",
     "diamonds": 149,
     "active": true,
-    "maxRepeatCount": 1
+    "maxRepeatCount": 1,
+    "overlayMedia": "/overlay/1776045526466-overlay-grok-video-bb093b32-c868-41f7-8310-f9752ffc77f6.mp4",
+    "overlayDuration": 3
   },
   {
     "giftId": 37953,
@@ -1094,6 +1112,62 @@
     "giftName": "Coral",
     "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/d4faa402c32bf4f92bee654b2663d9f1~tplv-obj.png",
     "diamonds": 499,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 58235,
+    "giftName": "Seahorse Pop",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/7b023066149c8d1f865348257d49556f.png~tplv-obj.png",
+    "diamonds": 649,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 16479,
+    "giftName": "Mystery Mask",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/8fde56ae6a7ea22d3d17184ac362585f.png~tplv-obj.png",
+    "diamonds": 149,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 14866,
+    "giftName": "Sparklers",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/192a873e366e2410da4fa406aba0e0af.png~tplv-obj.png",
+    "diamonds": 199,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 6646,
+    "giftName": "Leon the Kitten",
+    "image": "https://p16-webcast.tiktokcdn.com/img/maliva/webcast-va/a7748baba012c9e2d98a30dce7cc5a27~tplv-obj.png",
+    "diamonds": 4888,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 17101,
+    "giftName": "Coconut Juice",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/8157f47f794c8395969034574dd12082.png~tplv-obj.png",
+    "diamonds": 199,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 55676,
+    "giftName": "NON-PK crown ring",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/118885dce8374525432a22ddacc9fe63.png~tplv-obj.png",
+    "diamonds": 30,
+    "active": true,
+    "maxRepeatCount": 1
+  },
+  {
+    "giftId": 58236,
+    "giftName": "Cactus Shuffle",
+    "image": "https://p16-webcast.tiktokcdn.com/img/alisg/webcast-sg/resource/b243b36466f8e18116deb7be245e1a56.png~tplv-obj.png",
+    "diamonds": 399,
     "active": true,
     "maxRepeatCount": 1
   }

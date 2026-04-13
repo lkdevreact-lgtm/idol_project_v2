@@ -17,9 +17,9 @@
     "video": "/video/1775983180855-maianh_3.webm",
     "order": 2,
     "active": true,
-    "idolId": 1775982868562,
+    "idolId": null,
     "id": 1775983194641,
-    "gift": "Rose"
+    "gift": ""
   },
   {
     "name": "Mai Anh nhảy 2 ",
@@ -30,7 +30,7 @@
     "active": true,
     "idolId": 1775982868562,
     "id": 1775983220234,
-    "gift": "Heart Me"
+    "gift": "Love you so much"
   },
   {
     "name": "Mai Anh nhảy 3",
@@ -41,6 +41,72 @@
     "active": true,
     "idolId": 1775982868562,
     "id": 1775983246260,
+    "gift": "Fairy Wings"
+  },
+  {
+    "name": "Tuyết Nhi đứng chờ",
+    "description": "Tuyết Nhi đứng chờ",
+    "avatar": "",
+    "video": "/video/1776043841668-tuyá--t-nhi-Ä-á--ng-chá--.mp4",
+    "order": 5,
+    "active": true,
+    "idolId": 1776043618415,
+    "id": 1776043860541,
+    "gift": "You're awesome"
+  },
+  {
+    "name": "Tuyết Nhi nhảy 1 ",
+    "description": "Tuyết Nhi nhảy 1 ",
+    "avatar": "",
+    "video": "/video/1776043902521-má--n-nhi-nhá--y-bÃ-i-2.mp4",
+    "order": 6,
+    "active": true,
+    "idolId": 1776043618415,
+    "id": 1776043919896,
+    "gift": "Rose"
+  },
+  {
+    "name": "Tuyết Nhi nhảy 2 ",
+    "description": "Tuyết Nhi nhảy 2 ",
+    "avatar": "",
+    "video": "/video/1776043949093-903074.mp4",
+    "order": 7,
+    "active": true,
+    "idolId": 1776043618415,
+    "id": 1776043950067,
+    "gift": "Bing Chiling"
+  },
+  {
+    "name": "Tuyết Nhi nhảy 3",
+    "description": "Tuyết Nhi nhảy 3",
+    "avatar": "",
+    "video": "/video/1776043975688-903087.mp4",
+    "order": 8,
+    "active": true,
+    "idolId": 1776043618415,
+    "id": 1776043977662,
     "gift": "TikTok"
+  },
+  {
+    "name": "Mẫn Nhi nhảy 1",
+    "description": "Mẫn Nhi nhảy 1",
+    "avatar": "",
+    "video": "/video/1776044140168-má--n-nhi.mp4",
+    "order": 9,
+    "active": true,
+    "idolId": 1776044055048,
+    "id": 1776044141784,
+    "gift": "Sunglasses"
+  },
+  {
+    "name": "Mẫn Nhi nhảy 2",
+    "description": "Mẫn Nhi nhảy 2",
+    "avatar": "",
+    "video": "/video/1776044156855-má--n-nhi-nhá--y-bÃ-i-3.mp4",
+    "order": 10,
+    "active": true,
+    "idolId": 1776044055048,
+    "id": 1776044165265,
+    "gift": "Hearts"
   }
 ]
