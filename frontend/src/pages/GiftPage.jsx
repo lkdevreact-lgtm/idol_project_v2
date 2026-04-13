@@ -285,6 +285,7 @@ const GiftPage = () => {
   const [modal, setModal] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState("all"); // "all", "used", "unused"
 
   useEffect(() => {
     fetchGifts();
@@ -294,11 +295,18 @@ const GiftPage = () => {
   const usedGiftNames = new Set(videos.map((v) => v.gift).filter(Boolean));
 
   const filtered = gifts
-    .filter(
-      (g) =>
+    .filter((g) => {
+      const matchesSearch =
         g.giftName.toLowerCase().includes(search.toLowerCase()) ||
-        String(g.giftId).includes(search),
-    )
+        String(g.giftId).includes(search);
+
+      if (!matchesSearch) return false;
+
+      const isUsed = usedGiftNames.has(g.giftName);
+      if (activeTab === "used") return isUsed;
+      if (activeTab === "unused") return !isUsed;
+      return true;
+    })
     .sort((a, b) => a.giftName.localeCompare(b.giftName));
 
   return (
@@ -323,14 +331,41 @@ const GiftPage = () => {
         </div>
       </div>
 
-      <div className="mb-6 md:mb-8 shrink-0 flex items-center w-full sm:max-w-md relative group">
-        <MdSearch className="absolute left-3.5 sm:left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d946ef]/60 transition-colors" size={18} />
-        <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Tìm kiếm..."
-          className="w-full bg-white/[0.03] border border-white/5 hover:border-white/10 rounded-xl sm:rounded-2xl pl-10 sm:pl-12 pr-4 sm:pr-5 py-2 sm:py-4 text-[13px] sm:text-[15px] text-gray-200 placeholder-white/20 focus:outline-none focus:border-[#d946ef]/40 focus:bg-white/[0.05] transition-all backdrop-blur-md"
-        />
+      <div className="flex flex-col md:flex-row items-center gap-4 mb-6 md:mb-8 shrink-0">
+        <div className="flex items-center w-full sm:max-w-md relative group">
+          <MdSearch className="absolute left-3.5 sm:left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#d946ef]/60 transition-colors" size={18} />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Tìm kiếm..."
+            className="w-full bg-white/[0.03] border border-white/5 hover:border-white/10 rounded-xl sm:rounded-2xl pl-10 sm:pl-12 pr-4 sm:pr-5 py-2 sm:py-3.5 text-[13px] sm:text-[15px] text-gray-200 placeholder-white/20 focus:outline-none focus:border-[#d946ef]/40 focus:bg-white/[0.05] transition-all backdrop-blur-md"
+          />
+        </div>
+
+        <div className="flex items-center gap-1 p-1 bg-white/[0.03] border border-white/5 rounded-xl sm:rounded-2xl backdrop-blur-md">
+          {[
+            { id: "all", label: "Tất cả", count: gifts.length },
+            { id: "used", label: "Đã sử dụng", count: gifts.filter(g => usedGiftNames.has(g.giftName)).length },
+            { id: "unused", label: "Chưa sử dụng", count: gifts.filter(g => !usedGiftNames.has(g.giftName)).length },
+          ].map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-[13px] font-bold transition-all flex items-center gap-2 ${
+                activeTab === t.id
+                  ? "bg-[#d946ef] text-white shadow-[0_0_15px_rgba(217,70,239,0.3)]"
+                  : "text-gray-500 hover:text-gray-300 hover:bg-white/[0.05]"
+              }`}
+            >
+              {t.label}
+              <span className={`px-1.5 py-0.5 rounded-md text-[10px] sm:text-[11px] ${
+                activeTab === t.id ? "bg-white/20 text-white" : "bg-white/[0.05] text-gray-500"
+              }`}>
+                {t.count}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Content */}

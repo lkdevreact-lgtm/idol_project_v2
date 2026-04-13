@@ -1,5 +1,7 @@
-import React, { useState, useRef } from "react";
 import { useIdolStore } from "../hooks/useIdolStore";
+import { useGiftStore } from "../hooks/useGiftStore";
+import { useVideoStore } from "../hooks/useVideoStore";
+import React, { useState, useRef, useEffect } from "react";
 import IdolDetailPanel from "../components/IdolDetailPanel";
 import {
  MdAdd,
@@ -190,9 +192,17 @@ const DeleteConfirm = ({ name, onConfirm, onClose }) => (
 
 const IdolPage = () => {
  const { idols, addIdol, updateIdol, deleteIdol, toggleActive, reorderIdol } = useIdolStore();
+ const { gifts, fetchGifts } = useGiftStore();
+ const { videos, fetchVideos } = useVideoStore();
+
  const [modal, setModal] = useState(null); // 'add' or null
  const [deleteTarget, setDeleteTarget] = useState(null);
  const [selectedIdolId, setSelectedIdolId] = useState(null);
+
+ useEffect(() => {
+   fetchGifts();
+   fetchVideos();
+ }, [fetchGifts, fetchVideos]);
 
  const sorted = [...idols].sort((a, b) => a.order - b.order);
  const activeCount = idols.filter(i => i.active).length;
@@ -267,7 +277,26 @@ const IdolPage = () => {
  <h3 className={`text-[15px] font-semibold ${idol.active ? "text-white" : "text-gray-400"}`}>{idol.name}</h3>
  <span className={`text-[8.5px] px-1.5 py-0.5 rounded-full font-medium border ${idol.active ? "bg-[#10b981]/15 text-[#10b981] border-[#10b981]/30" : "bg-[#252630] text-gray-500 border-[#3f404d]"}`}>{idol.active ? "Đang chạy" : "Tạm dừng"}</span>
  </div>
- <p className="text-[9px] text-gray-500 font-mono">ID: {idol.id}</p>
+ <div className="flex flex-col md:flex-row items-center gap-3">
+   <p className="text-[9px] text-gray-500 font-mono">ID: {idol.id}</p>
+   
+   {/* Assigned gift icons */}
+   <div className="flex items-center gap-1.5 flex-wrap justify-center md:justify-start">
+     {Array.from(new Set(videos.filter(v => v.idolId === idol.id && v.gift).map(v => v.gift)))
+       .map(giftName => gifts.find(g => g.giftName === giftName))
+       .filter(Boolean)
+       .map(gift => (
+         <div key={gift.giftId} className="w-6 h-6 rounded-md bg-white/[0.05] border border-white/10 flex items-center justify-center p-1" title={gift.giftName}>
+           {gift.image ? (
+             <img src={gift.image} alt={gift.giftName} className="w-full h-full object-contain" />
+           ) : (
+             <span className="text-[8px] text-[#d946ef] font-bold">🎁</span>
+           )}
+         </div>
+       ))
+     }
+   </div>
+ </div>
  </div>
 
  <div className="flex items-center justify-end gap-3 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-white/[0.08]">

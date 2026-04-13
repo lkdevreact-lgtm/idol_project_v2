@@ -22,6 +22,37 @@ export const connectToTikTok = (username, io, knownGifts, res) => {
   }
 
   console.log(`[tiktok] Attempting to connect to ${username}`);
+
+  if (username === "admin" || username === "test" || username === "mock") {
+    console.log(`[tiktok] 🛠️  Bypassing connection for user: "${username}"`);
+    try {
+      if (typeof clearLeaderboard === 'function') {
+        clearLeaderboard();
+      } else {
+        console.warn("[tiktok] clearLeaderboard is not a function");
+      }
+      
+      if (io && typeof io.emit === 'function') {
+        io.emit("tiktok_connected", username);
+      } else {
+        console.error("[tiktok] io or io.emit is not available");
+      }
+
+      if (res) {
+        return res.json({ 
+          success: true, 
+          message: `Bypassed connection for ${username}`,
+          data: { username, mode: 'mock' }
+        });
+      }
+      return;
+    } catch (err) {
+      console.error("[tiktok] Error in bypass logic:", err);
+      if (res) return res.status(500).json({ success: false, message: "Bypass failed: " + err.message });
+      return;
+    }
+  }
+
   tiktokLiveConnection = new WebcastPushConnection(username);
 
   tiktokLiveConnection

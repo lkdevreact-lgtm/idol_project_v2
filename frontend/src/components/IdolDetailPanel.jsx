@@ -261,7 +261,9 @@ const VideoCardMini = ({ video, allGifts, updateVideo, handleRemove }) => {
  return (
  <div className={`p-4 rounded-2xl border ${video.active ? 'bg-white/[0.03] border-white/10' : 'bg-black/20 border-white/5 grayscale opacity-60'} transition-all flex flex-col`}>
  <div className="flex justify-between items-start mb-3">
- <div className="text-xs font-mono text-gray-500 truncate max-w-[150px]">{video.video.split("/").pop()}</div>
+ <div className="text-xs font-bold text-gray-200 truncate max-w-[150px]" title={video.name || video.video.split("/").pop()}>
+ {video.name || video.video.split("/").pop()}
+ </div>
  <div className="flex gap-2">
  <button 
  onClick={() => updateVideo(video.id, { active: !video.active })} 
