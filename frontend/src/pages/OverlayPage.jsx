@@ -23,11 +23,34 @@ const PRESETS = [
     config: {
       particles: {
         number: { value: 30 },
-        shape: { type: "image", options: { image: { src: "/images/rose.png", width: 100, height: 100 } } },
-        opacity: { value: 0.9 },
-        size: { value: 25, random: true },
-        move: { enable: true, speed: 4, direction: "bottom", random: false, straight: false, outModes: { default: "out" } },
-        rotate: { value: 0, random: true, direction: "clockwise", animation: { enable: true, speed: 5 } }
+        shape: { type: "image" },
+        opacity: { 
+          value: { min: 0.6, max: 0.9 },
+          animation: { enable: true, speed: 1, minimumValue: 0.1, sync: false }
+        },
+        size: { 
+          value: { min: 15, max: 35 },
+          random: true 
+        },
+        move: { 
+          enable: true, 
+          speed: { min: 2, max: 5 }, 
+          direction: "bottom", 
+          random: true, 
+          straight: false, 
+          outModes: { default: "out" } 
+        },
+        rotate: { 
+          value: { min: 0, max: 360 }, 
+          random: true, 
+          direction: "random", 
+          animation: { enable: true, speed: 8 } 
+        },
+        tilt: {
+          enable: true,
+          value: { min: 0, max: 360 },
+          animation: { enable: true, speed: 5 }
+        }
       }
     }
   },
@@ -166,8 +189,8 @@ const OverlayModal = ({ initial, onSave, onClose }) => {
                   key={p.id}
                   onClick={() => setSelectedPreset(p.id)}
                   className={`px-4 py-3 rounded-xl border cursor-pointer flex items-center gap-3 transition-all ${selectedPreset === p.id
-                      ? "bg-white/[0.08] border-[#d946ef]/60"
-                      : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05]"
+                    ? "bg-white/[0.08] border-[#d946ef]/60"
+                    : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05]"
                     }`}
                 >
                   <div className="w-4 h-4 rounded-full" style={{ backgroundColor: p.color }}></div>
