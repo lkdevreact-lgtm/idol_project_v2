@@ -89,24 +89,13 @@ const TikTokListener = () => {
       const giftDiamonds = giftInfo?.diamonds || 1;
       const giftImage = giftInfo?.image || null;
 
-      // DEBUG: overlay trigger
-      console.log("[overlay-debug] giftName:", giftName);
-      console.log("[overlay-debug] giftInfo:", giftInfo);
-      console.log("[overlay-debug] giftInfo.overlayId:", giftInfo?.overlayId);
 
       if (giftInfo?.overlayId) {
         const overlays = useOverlayStore.getState().overlays;
-        console.log("[overlay-debug] overlays in store:", overlays.length, overlays.map(o => ({ id: o.id, name: o.name })));
         const overlay = overlays.find(o => String(o.id) === String(giftInfo.overlayId));
-        console.log("[overlay-debug] matched overlay:", overlay);
         if (overlay && overlay.active) {
-          console.log("[overlay-debug] >>> TRIGGERING overlay!", overlay.name);
           useVideoStore.getState().triggerOverlay(overlay);
-        } else {
-          console.log("[overlay-debug] overlay not found or inactive");
         }
-      } else {
-        console.log("[overlay-debug] no overlayId on this gift");
       }
 
       const state = useVideoStore.getState();

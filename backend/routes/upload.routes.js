@@ -37,7 +37,7 @@ const overlayStorage = multer.diskStorage({
 
 const VIDEO_EXTS = new Set([".mp4", ".webm", ".mov", ".avi", ".mkv", ".ogg"]);
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif"]);
-const OVERLAY_EXTS = new Set([".webm", ".gif", ".mp4", ".mov"]);
+const OVERLAY_EXTS = new Set([".webm", ".gif", ".mp4", ".mov", ".png", ".jpg", ".jpeg", ".webp"]);
 
 const uploadVideo = multer({
   storage: videoStorage,
@@ -68,10 +68,10 @@ const uploadOverlay = multer({
   limits: { fileSize: 100 * 1024 * 1024 }, // 100 MB
   fileFilter: (_req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
-    if (OVERLAY_EXTS.has(ext) || file.mimetype.startsWith("video/") || file.mimetype === "image/gif")
+    if (OVERLAY_EXTS.has(ext) || file.mimetype.startsWith("video/") || file.mimetype.startsWith("image/"))
       cb(null, true);
     else
-      cb(new Error("Only overlay files are allowed (.webm, .gif, .mp4, .mov)"));
+      cb(new Error("Only overlay files are allowed (.webm, .gif, .mp4, .mov, .png, .jpg, .webp)"));
   },
 });
 

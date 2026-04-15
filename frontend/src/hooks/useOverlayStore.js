@@ -20,6 +20,25 @@ export const useOverlayStore = create((set, get) => ({
     }
   },
 
+  uploadOverlayMedia: async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch(`${SOCKET_URL}/api/upload/overlay`, {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return { success: true, path: data.path };
+      }
+      return { success: false, error: "Failed to upload file" };
+    } catch (err) {
+      console.error("Error uploading overlay media:", err);
+      return { success: false, error: "Network error" };
+    }
+  },
+
   addOverlay: async (overlayData) => {
     try {
       const res = await fetch(`${SOCKET_URL}/api/overlays`, {
