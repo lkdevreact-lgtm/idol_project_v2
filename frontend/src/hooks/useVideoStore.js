@@ -107,8 +107,11 @@ export const useVideoStore = create((set, get) => ({
   // ---------- active videos (sorted) ----------
   getActiveVideos: () => {
     const { videos } = get();
+    const activeIdols = useIdolStore.getState().getActiveIdols();
+    const activeIdolIds = activeIdols.map((i) => i.id);
+
     return [...videos]
-      .filter((v) => v.active)
+      .filter((v) => v.active && (!v.idolId || activeIdolIds.includes(v.idolId)))
       .sort((a, b) => a.order - b.order);
   },
 
